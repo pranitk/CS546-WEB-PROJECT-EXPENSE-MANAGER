@@ -1,0 +1,39 @@
+#my-title-container{
+    background: #E53935;
+}
+.my-title{
+    color: white;
+    font-size: 18pt;
+    font-family: Calibri;
+    height: 120px;
+}
+
+.add-expense-form{
+    padding: 36px;
+    width: 80%;
+    margin: auto;
+}
+
+#field-container{
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+
+
+#expense-description{
+    float: left;
+    width: 60%;
+}
+
+.my-card-header-title{
+    font-style: bold;
+    padding: 6px;
+    color: white;
+    font-family: Calibri;
+}
+
+#primary-button{
+    float: right;
+}

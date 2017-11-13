@@ -1,0 +1,17 @@
+{
+  "name": "expense-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "material-design-icons": "^3.0.1",
+    "popper.js": "^1.12.7"
+  }
+}
