@@ -14,6 +14,10 @@ const constructorMethod = (app) => {
         res.sendFile(path.resolve("static/login.html"))
     })
 
+    app.get("/signup",(req,res) => {
+        res.sendFile(path.resolve("static/signup.html"))
+    })
+
 }
 
 module.exports = constructorMethod

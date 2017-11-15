@@ -1,0 +1,70 @@
+#my-title-container{
+    background: #283593;
+}
+.my-title{
+    color: white;
+    font-size: 18pt;
+    font-family: Calibri;
+    height: 120px;
+}
+
+.add-expense-form{
+    padding: 36px;
+    width: 50%;
+    margin: auto;
+}
+
+#field-container{
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    
+}
+
+
+
+#expense-description{
+    float: left;
+    width: 60%;
+}
+
+.my-card-header-title{
+    font-style: bold;
+    padding: 6px;
+    color: rgb(255, 255, 255);
+    font-family: Calibri;
+}
+.card{
+    align-content: center;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    
+    
+}
+
+#primary-button{
+    margin-left: 150px;
+    color: #F57C00;
+    margin-top: 15px;
+}
+#primary-button1{
+    float: left;
+    color: #F57C00;
+    
+    float: right;
+}
+.dropdown-divider{
+    width: 100;
+}
+
+#right-margin{
+    color: #616161
+}
+
+#text{
+    margin-top: 15px;
+}
+
+
