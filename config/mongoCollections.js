@@ -1,4 +1,4 @@
-const dbConnection = require("./mongoConnection")
+const dbConnection = require("./mongoConnections")
 
 const getCollectionFn = collection => {
     let _col = undefined;

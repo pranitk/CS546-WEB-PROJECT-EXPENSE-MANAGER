@@ -6,6 +6,7 @@ module.exports = {
 
     async addTransaction(transaction_type,amount,desc,category_id,account_id,date){
 
+        console.log("inserting into database")
         let transaction = {
             transaction_type: transaction_type, // 1 - Expense, 2 - Income
             _id: uuid.v4(),
@@ -22,6 +23,7 @@ module.exports = {
         if(insertedInfo.insertedCount == 0)
             throw 'Insertion failed'
             
+        console.log("inserted expense: "+insertedInfo)
     },
 
     async getTransactionById(id){

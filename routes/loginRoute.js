@@ -1,4 +1,4 @@
-var express = require("express");
+/*var express = require("express");
 var router = express.Router();
 var expressValidator = require("express-validator");
 router.use(expressValidator());
@@ -38,4 +38,4 @@ router.post("/login", (req, res) => {
     }
 })
 
-module.exports = router;
+module.exports = router;*/

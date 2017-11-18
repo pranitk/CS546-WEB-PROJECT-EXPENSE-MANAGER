@@ -1,4 +1,5 @@
 const path = require("path")
+const expenses = require("./expenseRoutes")
 
 const constructorMethod = (app) => {
 
@@ -7,11 +8,20 @@ const constructorMethod = (app) => {
     //     res.sendFile(path.resolve("static/add_expense.html"))
     // })
 
-    app.get("/",(req,res) => {
-        res.sendFile(path.resolve("static/header-material.html"))
-    })
+    //app.use("/expenses",expenses)
+    
+    /*app.use("/showAllExpenses",expenses)
+    app.use("/addExpense",expenses)*/
 
-    app.get("/add_expense",(req,res) => {
+    app.use("/expenses",expenses)
+
+    /*app.use("*",(req,res) => {
+        //res.sendFile(path.resolve("static/header-material.html"))
+        //res.render("/transactions/index")
+        res.redirect("/add_expense");
+    })*/
+
+    /*app.get("/add_expense",(req,res) => {
         res.sendFile(path.resolve("static/add_expense.html"))
     })
 
@@ -22,7 +32,7 @@ const constructorMethod = (app) => {
 
     app.get("/signup",(req,res) => {
         res.sendFile(path.resolve("static/signup.html"))
-    })
+    })*/
 
 }
 
