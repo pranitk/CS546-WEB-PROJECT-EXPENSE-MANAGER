@@ -10,7 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
     "express-validator": "^4.3.0",
     "material-design-icons": "^3.0.1",
     "mongoose": "^4.13.2",
