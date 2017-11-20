@@ -1,41 +1,93 @@
-/*var express = require("express");
+
+
+var express = require("express");
+
+//var express = require("express");
+
 var router = express.Router();
-var expressValidator = require("express-validator");
-router.use(expressValidator());
+// var expressValidator = require("express-validator");
+// router.use(expressValidator());
+var User = require("../data/register");
+// var expressValidator = require("express-validator");
+// router.use(expressValidator());
 
 
-//Get Home Page
-router.get("/",(req,res) => {
+
+
+router.get("/",async(req,res)=>{
     res.render("login");
-});
 
 
-router.post("/login", (req, res) => {
-    var username = req.body.unm;
-    var password = req.body.pswd;
-    req.checkBody("unm","username is required").notEmpty();
-    req.checkBody("pwd","Please enter password").notEmpty();
-
-    var errors = req.validationErrors()
-    if(errors){
-        res.render("register", {
-            errors: error
-        })
-    }else{
-        var newUser = new User({
-            username : username,
-            password : password,
-            
-        })
-
-        User.createUser(newUser,function(err,user){
-            if(err) throw err;
-            console.log(user);
-        })
-
-        req.flash("success_msg","You are registered and can now login");
-        res.redirect("/home");
-    }
 })
 
-module.exports = router;*/
+router.get("/signup",async(req,res)=>{
+    res.render("signup");
+})
+
+router.post("/createNewUser", async(req, res) => {
+
+    console.log("Mi aloy ikde chutiya")
+    var username = req.body.username;
+    var Fname = req.body.firstname;
+    var Lname = req.body.lastname;
+    var password = req.body.password;
+    var confirmPassword = req.body.confirmpassword;
+
+
+    try
+    {
+
+        
+        if(!username)
+        {
+            throw 'Username not specified'
+        }
+                    
+        
+        if(!Fname)
+        {
+            throw 'First Name not specified'
+        }
+
+        if(!Lname)
+        {
+            throw 'Last Name not specified'
+        }
+
+        if(!password)
+        {
+            throw 'Password not specified'
+        }
+
+        if(!confirmPassword)
+        {
+            throw 'Please Confirm Password'
+        }
+
+        // if(password != confirmPassword)
+        // {
+        //     throw 'Passwords do not match'
+        // }
+                    
+        console.log("Validations done")
+        const newUser = await User.addNewUser(username,Fname,Lname,password);
+        console.log("Save kelay mi..tumhalach kahi yet nahi")
+        
+        if(!newUser)
+        {
+            throw 'New User not added' 
+        }
+                    
+        res.render("transactions/all_expenses")
+        
+    }
+    catch(e)
+    {
+        console.log("Session failed..slapped "+e)
+        //res.sendStatus(500).json({ error: e})
+        res.render("signup",{error : e })
+    } 
+
+})
+
+module.exports = router;

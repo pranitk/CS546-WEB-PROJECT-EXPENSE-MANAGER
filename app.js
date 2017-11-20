@@ -1,7 +1,15 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const handlebars = require('express-handlebars')
 const configRoutes = require("./routes");
+const bodyParser = require("body-parser");
+const path = require("path");
+const bcryptjs = require("bcryptjs");
+var mongo = require("mongodb");
+//var mongoose = require("mongoose");
+//var passport = require("passport");
+//var LocalStrategy = require("passport-local").Strategy;
+// mongoose.connect("mongodb://localhost/expense-manager-project");
+// var db = mongoose.connection;
 
 
 //Init app
@@ -9,7 +17,7 @@ const app = express();
 
 //Body Parser Middleware
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.urlencoded({extended: true}))
 
 //View Engine
 app.engine('handlebars',handlebars({defaultLayout: 'main'}))
@@ -18,7 +26,6 @@ app.set('view engine','handlebars')
 //Set Static Folder
 const static = express.static(__dirname + "/public");
 app.use("/public",static)
-
 
 
 configRoutes(app);
