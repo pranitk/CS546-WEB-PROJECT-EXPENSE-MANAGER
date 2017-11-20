@@ -1,9 +1,12 @@
 
 
 var express = require("express");
+
+//var express = require("express");
+
 var router = express.Router();
-var expressValidator = require("express-validator");
-router.use(expressValidator());
+// var expressValidator = require("express-validator");
+// router.use(expressValidator());
 var User = require("../data/register");
 // var expressValidator = require("express-validator");
 // router.use(expressValidator());
@@ -11,47 +14,79 @@ var User = require("../data/register");
 
 
 
-router.get("/",function(req,res){
+router.get("/",async(req,res)=>{
     res.render("login");
 
 
 })
 
-router.get("/signup",function(req,res){
+router.get("/signup",async(req,res)=>{
     res.render("signup");
 })
 
-router.post("/login", (req, res) => {
-    var username = req.body.unm;
-    var Fname = req.body.fn;
-    var Lname = req.body.ln;
-    var password = req.body.pwd;
-    var confirmPassword = req.body.cpwd;
+router.post("/createNewUser", async(req, res) => {
+
+    console.log("Mi aloy ikde chutiya")
+    var username = req.body.username;
+    var Fname = req.body.firstname;
+    var Lname = req.body.lastname;
+    var password = req.body.password;
+    var confirmPassword = req.body.confirmpassword;
 
 
-    var errors = req.validationErrors();
-    if(errors){
-        res.render("signup",{
-            errors : errors
-        })
+    try
+    {
+
+        
+        if(!username)
+        {
+            throw 'Username not specified'
+        }
+                    
+        
+        if(!Fname)
+        {
+            throw 'First Name not specified'
+        }
+
+        if(!Lname)
+        {
+            throw 'Last Name not specified'
+        }
+
+        if(!password)
+        {
+            throw 'Password not specified'
+        }
+
+        if(!confirmPassword)
+        {
+            throw 'Please Confirm Password'
+        }
+
+        // if(password != confirmPassword)
+        // {
+        //     throw 'Passwords do not match'
+        // }
+                    
+        console.log("Validations done")
+        const newUser = await User.addNewUser(username,Fname,Lname,password);
+        console.log("Save kelay mi..tumhalach kahi yet nahi")
+        
+        if(!newUser)
+        {
+            throw 'New User not added' 
+        }
+                    
+        res.render("transactions/all_expenses")
+        
     }
-    else{
-        var newUser = new User({
-            username : username,
-            firstName: Fname,
-            lastName: Lname,
-            password : password,
-            
-        })
-        User.createUser(newUser, function(err, user){
-            if(err){
-                throw err;
-            }
-        })
-
-        req.flash("success_msg","You are registered and can now login");
-        res.redirect("/home");
-    }
+    catch(e)
+    {
+        console.log("Session failed..slapped "+e)
+        //res.sendStatus(500).json({ error: e})
+        res.render("signup",{error : e })
+    } 
 
 })
 

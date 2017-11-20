@@ -25,6 +25,9 @@
     </head>
 
     <body>
+
+              
+                
         <div class="login form">
             <div class="card">
                     <div id="my-title-container" class="card-header">
@@ -32,33 +35,38 @@
                     </div>
 
                     <div class="card-body">
-                        <form>
+                        <form method="post" action="/createNewUser">
                                 <div id="field-container" class="input-group">
                                         <span class="input-group-addon"><i id = "field-icon" class="material-icons">email</i></span>
-                                        <input name="unm" type="text" class="form-control" placeholder="E-mail"/>
+                                        <input name="username" type="text" class="form-control" placeholder="E-mail"/>
                                 </div>
                                 <div id="field-container" class="input-group">
                                         <span class="input-group-addon"><i class="material-icons">person</i></span>
-                                       <input name="fm" type="text" class="form-control" placeholder="First Name"/>
+                                       <input name="firstname" type="text" class="form-control" placeholder="First Name"/>
                                 </div>
 
                                 <div id="field-container" class="input-group">
                                         <span class="input-group-addon"><i class="material-icons">person</i></span>
-                                       <input name="ln" type="text" class="form-control" placeholder="Last Name"/>
+                                       <input name="lastname" type="text" class="form-control" placeholder="Last Name"/>
                                 </div>
                                 <div id="field-container" class="input-group">
                                         <span class="input-group-addon"><i class="material-icons">vpn_key</i></span>
-                                       <input name="pwd"type="text" class="form-control" placeholder="Password"/>
+                                       <input name="password"type="text" class="form-control" placeholder="Password"/>
                                 </div>
                                 <div id="field-container" class="input-group">
                                         <span class="input-group-addon"><i class="material-icons">vpn_key</i></span>
-                                       <input name="cpwd"type="text" class="form-control" placeholder="Confirm password"/>
+                                       <input name="confirmpassword"type="text" class="form-control" placeholder="Confirm password"/>
                                 </div>
                                 <div>
-                                        <button id="primary-button"  type="button" class="btn btn-primary ">Submit</button>
+                                        <button id="primary-button"  type="submit" class="btn btn-primary ">Submit</button>
                                         
                                         
                                 </div>
+                        {{#if error}}
+                                <div class="alert alert-danger">
+                                        <b>{{error}}</b> 
+                                </div>
+                        {{/if}}
 
                                 
                                

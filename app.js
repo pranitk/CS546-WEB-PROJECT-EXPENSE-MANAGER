@@ -1,36 +1,34 @@
 const express = require("express");
+const handlebars = require('express-handlebars')
 const configRoutes = require("./routes");
 const bodyParser = require("body-parser");
-const exhbs = require("express-handlebars");
 const path = require("path");
 const bcryptjs = require("bcryptjs");
 var mongo = require("mongodb");
-var mongoose = require("mongoose");
-var passport = require("passport");
-var LocalStrategy = require("passport-local").Strategy;
+//var mongoose = require("mongoose");
+//var passport = require("passport");
+//var LocalStrategy = require("passport-local").Strategy;
+// mongoose.connect("mongodb://localhost/expense-manager-project");
+// var db = mongoose.connection;
 
 
 //Init app
 const app = express();
 
 //Body Parser Middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended : true}));
-
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
 
 //View Engine
-app.set("views",path.join(__dirname,"views"));
-app.engine("handlebars",exhbs({defaultLayout : "main"}));
-app.set("view engine","handlebars");
+app.engine('handlebars',handlebars({defaultLayout: 'main'}))
+app.set('view engine','handlebars')
 
-//Set Static Folders
+//Set Static Folder
 const static = express.static(__dirname + "/public");
-app.use("/public",static);
+app.use("/public",static)
 
 
 configRoutes(app);
-
-app.use("/public",static);
 
 app.listen(3000, () => {
     console.log("We've now got a server!");

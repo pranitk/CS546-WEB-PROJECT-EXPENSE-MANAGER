@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/public/css/add_expense.css">
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+        
+
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+        
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.0.0-beta.4/dist/css/bootstrap-material-design.min.css" integrity="sha384-R80DC0KVBO4GSTw+wZ5x2zn2pu4POSErBkf8/fSFhPXHxvHJydT0CSgAP2Yo2r4I" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet">
+
+        <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> -->
+        
+        <title>Add New Expense</title>
+    </head>
+
+    <body>
+        <div class="add-expense-form">
+                <div class="card">
+
+                        <div id="my-title-container" class="card-header">
+                          <h5 class="my-card-header-title">ADD YOUR EXPENSE DETAILS</h5>
+                        </div>
+
+                        <div class="card-body">
+                            <!--
+                          <h4 class="card-title">Special title treatment</h4>
+                          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            -->
+
+                          <form action="/expenses/saveNewExpense" method="POST"> 
+                                <!-- <div class="form-group">
+                                        <span class="input-group-addon">$</span>
+                                        <input type="text" class="form-control" id="expense-amount" placeholder="Enter Amount">
+                                </div> -->
+                                <div id="field-container" class="input-group">
+                                        <span class="input-group-addon"><i id = "field-icon" class="material-icons">monetization_on</i></span>
+                                        <input type="text" name="amount" class="form-control" placeholder="Enter amount"/>
+                                </div>
+
+                                <div id="field-container" class="input-group">
+                                        <span class="input-group-addon"><i class="material-icons">description</i></span>
+                                       <input type="text" name="description" class="form-control" placeholder="Description"/>
+                                </div>
+
+                                <div id="field-container" class="input-group">
+                                        <span class="input-group-addon"><i class="material-icons">loyalty</i></span>
+                                    
+                                        
+                                        <div class="btn-group">
+                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                  Choose Your Category
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                  <a class="dropdown-item" href="#">Travel</a>
+                                                  <a class="dropdown-item" href="#">Groceries</a>
+                                                  <a class="dropdown-item" href="#">Education</a>
+                                                  <div class="dropdown-divider"></div>
+                                                  <a class="dropdown-item" href="#">Add category</a>
+                                                </div>
+                                        </div>
+                                    
+                                </div>
+
+
+                                <div id="field-container" class="input-group">
+                                        <span class="input-group-addon"><i class="material-icons">account_balance</i></span>
+                                    
+                                        
+                                        <div class="btn-group">
+                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                  Choose Your bank account
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                  <a class="dropdown-item" href="#">Chase</a>
+                                                  <a class="dropdown-item" href="#">Cash</a>
+                                                  <a class="dropdown-item" href="#">Forex card</a>
+                                                  <div class="dropdown-divider"></div>
+                                                  <a class="dropdown-item" href="#">Add bank account</a>
+                                                </div>
+                                        </div>
+                                    
+                                      
+                                </div>
+                                
+                                <button id="primary-button"  type="submit" class="btn btn-primary btn-lg">Save</button>
+                                
+                            </form>
+
+                        </div>
+
+                       
+                        </div>
+                </div>
+
+
+        </div>
+        
+        
+
+       
+    </body>
+
+</html>
