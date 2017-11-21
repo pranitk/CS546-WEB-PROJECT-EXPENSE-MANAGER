@@ -1,29 +1,18 @@
-
-
 var express = require("express");
-
-//var express = require("express");
-
 var router = express.Router();
-// var expressValidator = require("express-validator");
-// router.use(expressValidator());
 var User = require("../data/register");
-// var expressValidator = require("express-validator");
-// router.use(expressValidator());
 
-
-
-
+//Get Login Page
 router.get("/",async(req,res)=>{
     res.render("login");
-
-
 })
 
+//Get Signup Page
 router.get("/signup",async(req,res)=>{
     res.render("signup");
 })
 
+//Create New User
 router.post("/createNewUser", async(req, res) => {
 
     console.log("Mi aloy ikde chutiya")
@@ -37,7 +26,7 @@ router.post("/createNewUser", async(req, res) => {
     try
     {
 
-        
+        //Validations
         if(!username)
         {
             throw 'Username not specified'
@@ -70,7 +59,7 @@ router.post("/createNewUser", async(req, res) => {
         // }
                     
         console.log("Validations done")
-        const newUser = await User.addNewUser(username,Fname,Lname,password);
+        const newUser = await User.addNewUser(username,Fname,Lname,password);//Insert into database
         console.log("Save kelay mi..tumhalach kahi yet nahi")
         
         if(!newUser)
@@ -84,8 +73,8 @@ router.post("/createNewUser", async(req, res) => {
     catch(e)
     {
         console.log("Session failed..slapped "+e)
-        //res.sendStatus(500).json({ error: e})
-        res.render("signup",{error : e })
+        
+        res.render("signup",{error : e })//If any errors, render the same page with all errors.
     } 
 
 })

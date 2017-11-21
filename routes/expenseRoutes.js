@@ -1,8 +1,7 @@
 const express = require("express")
 const router = express.Router()
-//const data = require("../data")
-
 const transactionData = require("../data/transactions")
+
 
 router.get("/showAllExpenses",async(req,res)=>{
     res.render("transactions/all_expenses")
@@ -35,6 +34,7 @@ router.post("/saveNewExpense",async(req,res)=>{
 })
 
 
+//Show the add expense page.
 router.get("/addExpense",async(req,res)=>{
     console.log("Add expense get page route called")
     res.render('transactions/add_expense')  // handlebar
