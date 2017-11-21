@@ -1,12 +1,18 @@
 const express = require("express")
 const router = express.Router()
 //const data = require("../data")
-
+var User = require("../data/register");
 const transactionData = require("../data/transactions")
 
 router.get("/showAllExpenses",async(req,res)=>{
     res.render("transactions/all_expenses")
 })
+
+
+
+
+
+
 
 router.post("/saveNewExpense",async(req,res)=>{
 
