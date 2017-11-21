@@ -46,7 +46,7 @@ module.exports = {
     },
 
     async getUserByIdforLogin(id, password){
-        let validUser;
+        let validUser = false;
         if(!id) 
             throw "You must provide an username"
         
@@ -57,6 +57,7 @@ module.exports = {
         if(!userByUsername) {
             
             validUser = false;
+            return validUser;
         }else{
             //console.log("Already exists")
             
@@ -64,14 +65,30 @@ module.exports = {
             //console.log(userPassword)
             var hashPassword = userPassword.password
             console.log(hashPassword)
-            bcrypt.compare(password, userPassword, function(err, res) {
-                return true
-            });
+            console.log(password)
+
+            if(bcrypt.compareSync(password, hashPassword)) {
+                console.log("match")
+                return true;
+               } else {
+                console.log("mis- match")
+                return false
+               }
+            // //bcrypt.compare(password, userPassword, function(err, res) {
+            //     console.log("I am in here")
+            //     if(res){
+            //         console.log("match")
+            //     }else{
+            //         console.log("mis - match")
+            //     }
+            //     return res;
+            // });
+
             
         }
 
 
-        return validUser;
+        
        
         
      
@@ -138,5 +155,8 @@ module.exports = {
 }
 
 
+
+
+//   https://www.abeautifulsite.net/hashing-passwords-with-nodejs-and-bcrypt
 
     

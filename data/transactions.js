@@ -4,6 +4,7 @@ const uuid = require("node-uuid")
 
 module.exports = {
 
+    //Add New Transactions
     async addTransaction(transaction_type,amount,desc,category_id,account_id,date){
 
         console.log("inserting into database")

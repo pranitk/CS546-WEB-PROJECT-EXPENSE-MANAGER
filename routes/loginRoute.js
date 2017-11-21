@@ -1,23 +1,10 @@
-
-
 var express = require("express");
-
-//var express = require("express");
-
 var router = express.Router();
-// var expressValidator = require("express-validator");
-// router.use(expressValidator());
 var User = require("../data/register");
-// var expressValidator = require("express-validator");
-// router.use(expressValidator());
 
-
-
-
+//Get Login Page
 router.get("/",async(req,res)=>{
     res.render("login");
-
-
 })
 
 
@@ -43,8 +30,8 @@ router.post("/", async(req, res) => {
             throw "Password not specified"
         }
         console.log("Chutiya tulach kahi yet nahi")
-        const existingUser = await User.getUserByIdforLogin(username)
-        
+        const existingUser = await User.getUserByIdforLogin(username, password)
+        console.log(existingUser)
        // console.log(existingUser)
         //console.log(existingUserPassword)
         if(existingUser){
@@ -75,7 +62,7 @@ router.post("/createNewUser", async(req, res) => {
     try
     {
 
-        
+        //Validations
         if(!username)
         {
             throw 'Username not specified'
@@ -122,8 +109,8 @@ router.post("/createNewUser", async(req, res) => {
     catch(e)
     {
         console.log("Session failed..slapped "+e)
-        //res.sendStatus(500).json({ error: e})
-        res.render("signup",{error : e })
+        
+        res.render("signup",{error : e })//If any errors, render the same page with all errors.
     } 
 
 })
