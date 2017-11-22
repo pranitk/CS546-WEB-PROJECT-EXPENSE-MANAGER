@@ -45,6 +45,20 @@ module.exports = {
      
     },
 
+    async getUserByName(id){
+        if(!id) 
+        throw "You must provide an username"
+        const userCollection = await users();
+        
+         const userByName = await userCollection.findOne({_id : id });
+         var firstname = userByName.firstname
+
+         return firstname;
+    },
+
+
+
+
     async getUserByIdforLogin(id, password){
         let validUser = false;
         if(!id) 
@@ -64,6 +78,7 @@ module.exports = {
             const userPassword = await userCollection.findOne({_id: id})
             //console.log(userPassword)
             var hashPassword = userPassword.password
+            
             console.log(hashPassword)
             console.log(password)
 

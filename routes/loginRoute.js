@@ -36,7 +36,8 @@ router.post("/", async(req, res) => {
         //console.log(existingUserPassword)
         if(existingUser){
             console.log("login Successful")
-            res.render("transactions/all_expenses")
+            const firstName = await User.getUserByName(username)
+            res.render("transactions/all_expenses", {firstname: firstName })
         }else{
             throw "Invalid UserID or password"
 
