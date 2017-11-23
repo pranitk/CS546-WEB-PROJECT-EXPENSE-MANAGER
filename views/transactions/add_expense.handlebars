@@ -70,7 +70,7 @@
                                                   <a class="dropdown-item" href="#">Groceries</a>
                                                   <a class="dropdown-item" href="#">Education</a>
                                                   <div class="dropdown-divider"></div>
-                                                  <a class="dropdown-item" href="#">Add category</a>
+                                                  <a class="dropdown-item" data-toggle="modal" data-target="#myModal">Add category</a>
                                                 </div>
                                         </div>
                                     
@@ -90,7 +90,7 @@
                                                   <a class="dropdown-item" href="#">Cash</a>
                                                   <a class="dropdown-item" href="#">Forex card</a>
                                                   <div class="dropdown-divider"></div>
-                                                  <a class="dropdown-item" href="#">Add bank account</a>
+                                                  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Category</button>
                                                 </div>
                                         </div>
                                     
@@ -101,14 +101,59 @@
                                 
                             </form>
 
-                        </div>
+
+
+
+
+                          
+
+                        </div> <!-- End of card body-->
+                        
 
                        
+                </div><!--End of card-->
+        </div><!--End of Add Expense Form-->
+
+
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+    <!-- Modal content-->
+    {{!-- <div class="modal-cont">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Category</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div> --}}
+                        <div class="card">
+                                <div id="my-title-container" class="card-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h5 class="my-card-header-title">Add Category</h5>
+                                </div>
+                                        
+                                 
+                                <div class="card-body">
+                                        <form action = "/addExpense" method = "post">
+                                              <div id="field-container" class="input-group">
+                                                        <span class="input-group-addon"><i class="material-icons">loyalty</i></span>
+                                                        <input type="text" name="amount" class="form-control" placeholder="Enter Your Category"/>
+                                                </div>
+
+                                                <button id="primary-button"  type="submit" class="btn btn-primary btn-lg btn-raised">Save</button>  
+                                        </form>
+                                </div>
                         </div>
+
                 </div>
-
-
-        </div>
+</div>
         
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
