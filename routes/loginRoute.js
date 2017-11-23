@@ -90,10 +90,10 @@ router.post("/createNewUser", async(req, res) => {
             throw 'Please Confirm Password'
         }
 
-        // if(password != confirmPassword)
-        // {
-        //     throw 'Passwords do not match'
-        // }
+        if(password != confirmPassword)
+        {
+            throw 'Passwords do not match'
+        }
                     
         //console.log("Validations done")
         const newUser = await User.addNewUser(username,Fname,Lname,password);

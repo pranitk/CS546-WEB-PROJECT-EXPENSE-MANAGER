@@ -1,0 +1,234 @@
+@width: 250px; // Regular: 250px
+@border-width: 1px;
+@radius: @width * .016891; // 296px / 5px ratio.
+@transition: .3s;
+@font-size: @width * .056;
+
+.qs-datepicker {
+  color: black;
+  position: absolute;
+  width: @width;
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+  font-size: @font-size;
+  z-index: 9001;
+  user-select: none;
+  border: @border-width solid gray;
+  border-radius: @radius;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 (@width * .08) (@width * .08) -(@width * .06) rgba(0,0,0,.3);
+
+  * {
+    box-sizing: border-box;
+  }
+
+  &.qs-hidden {
+    display: none;
+  }
+
+  .qs-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,.75);
+    color: white;
+    width: 100%;
+    height: 100%;
+    padding: .5em;
+    z-index: 1;
+    opacity: 1;
+    transition: opacity @transition;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &.qs-hidden {
+      opacity: 0;
+      z-index: -1;
+    }
+
+    .qs-close {
+      align-self: flex-end;
+      display: inline-table;
+      padding: .5em;
+      line-height: .77;
+      cursor: pointer;
+      position: absolute;
+    }
+
+    .qs-overlay-year {
+      display: block;
+      border: none;
+      background: transparent;
+      border-bottom: 1px solid white;
+      border-radius: 0;
+      color: white;
+      font-size: @font-size;
+      padding: .25em 0;
+      margin: auto 0 .5em;
+      width: calc(~'100% - 1em');
+
+      // https://goo.gl/oUuGkG
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
+    }
+
+    .qs-submit {
+      border: 1px solid white;
+      border-radius: @radius;
+      padding: .5em;
+      margin: 0 auto auto;
+      cursor: pointer;
+      background: rgba(128,128,128,.4);
+
+      &.qs-disabled {
+        color: gray;
+        border-color: gray;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .qs-controls {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 1;
+    flex-shrink: 0;
+    background: lightgray;
+    filter: blur(0px);
+    transition: filter @transition;
+
+    &.qs-blur {
+      filter: blur(5px);
+    }
+  }
+
+  .qs-arrow {
+    @arrow: @width / 10;
+    @offset: (@arrow / 4) - ((@arrow / 4) / 4);
+    height: @arrow;
+    width: @arrow;
+    position: relative;
+    cursor: pointer;
+    border-radius: @arrow / 5;
+    transition: background .15s;
+
+    &:hover {
+      &.qs-left:after {
+        border-right-color: black;
+      }
+
+      &.qs-right:after {
+        border-left-color: black;
+      }
+
+      background: rgba(0,0,0,.1);
+    }
+
+    &:after {
+      content: '';
+      border: (@arrow / 4) solid transparent;
+      position: absolute;
+      top: 50%;
+      transition: border .2s;
+    }
+
+    &.qs-left:after {
+      border-right-color: gray;
+      right: 50%;
+      transform: translate(25%, -50%);
+    }
+
+    &.qs-right:after {
+      border-left-color: gray;
+      left: 50%;
+      transform: translate(-25%, -50%);
+    }
+  }
+
+  .qs-month-year {
+    font-weight: bold;
+    transition: border .2s;
+    border-bottom: 1px solid transparent;
+    cursor: pointer;
+
+    &:hover {
+      border-bottom: 1px solid gray;
+    }
+
+    &:focus,
+    &:active:focus {
+      outline: none;
+    }
+  }
+
+  .qs-month {
+    padding-right: .5ex;
+  }
+
+  .qs-year {
+    padding-left: .5ex;
+  }
+
+  .qs-squares {
+    display: flex;
+    flex-wrap: wrap;
+    padding: @width * .02;
+    filter: blur(0px);
+    transition: filter @transition;
+
+    &.qs-blur {
+      filter: blur(5px);
+    }
+  }
+
+  .qs-square {
+    width: 100% / 7;
+    height: @width / 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background .1s;
+    border-radius: @radius;
+
+    &.qs-current {
+      font-weight: bold;
+    }
+
+    &.qs-active {
+      background: lightblue;
+    }
+
+    &.qs-disabled {
+      span {
+        opacity: .2;
+      }
+    }
+
+    &.qs-empty {
+      cursor: default;
+    }
+
+    &.qs-disabled {
+      cursor: not-allowed;
+    }
+
+    &.qs-day {
+      cursor: default;
+      font-weight: bold;
+      color: gray;
+    }
+
+    &:not(.qs-empty):not(.qs-disabled):not(.qs-day) {
+      &:hover {
+        background: orange;
+      }
+    }
+  }
+}
