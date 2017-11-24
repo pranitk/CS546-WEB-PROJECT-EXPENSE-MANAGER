@@ -1,6 +1,31 @@
 <!DOCTYPE html>
 <html>
     <body>
+        <a href="/expenses/addExpense">Click Here To Add Expense</a>
+
+        <div class="card">
+
+                        <div id="my-title-container" class="card-header">
+                          <h5 class="my-card-header-title">ALL EXPENSES</h5>
+                        </div>
+
+                        <div class="card-body">
+                            <div>
+                                {{#each expenses}}
+                                    <a class="list-group-item"> 
+                                        <i class="material-icons">directions_bus</i>
+                                        <div class="bmd-list-group-col">
+                                        <p class="list-group-item-heading">{{desc}}</p>
+                                        <p class="list-group-item-text">Travel</p>
+                                        </div>
+                                        <span class="label label-default label-pill pull-xs-right"><b>${{amount}}</b></span>
+                                    </a>
+                                {{/each}}
+                            </div>
+
+                        </div>
+        </div>
+        {{!-- <div>
         <div>
             <a href="/expenses/addExpense">Click Here To Add Expense</a>
             <a>or</a>
@@ -29,7 +54,7 @@
 
             </ul>
 
-        </div>
+        </div> --}}
         
     </body>
     
