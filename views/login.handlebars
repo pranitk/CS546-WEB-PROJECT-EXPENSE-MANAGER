@@ -34,17 +34,17 @@
                     </div>
 
                     <div class="card-body">
-                        <form>
+                        <form method="post" >
                                 <div id="field-container" class="input-group">
                                         <span class="input-group-addon"><i id = "field-icon" class="material-icons">person</i></span>
-                                        <input id ="unm" type="text" class="form-control" placeholder="Username"/>
+                                        <input name="username"id ="username" type="text" class="form-control" placeholder="Username"/>
                                 </div>
                                 <div id="field-container" class="input-group">
                                         <span class="input-group-addon"><i class="material-icons">vpn_key</i></span>
-                                       <input id = "pswd" type="text" class="form-control" placeholder="Password"/>
+                                       <input name = "password" id = "password" type="password" class="form-control" placeholder="Password"/>
                                 </div>
                                 <div>
-                                        <button id="primary-button"  type="button" class="btn btn-primary ">Submit</button>
+                                        <button id="primary-button"  type="submit" class="btn btn-primary ">Submit</button>
                                         
                                         
                                 </div>
@@ -57,6 +57,11 @@
                 
                                         
                                 </div>
+                                {{#if error}}
+                                        <div class="alert alert-danger">
+                                                <b>{{error}}</b> 
+                                        </div>
+                                {{/if}}
 
                                 <div >
                                         <a id = "text"> New user?</a>
@@ -64,6 +69,7 @@
                                         <a class = "button" href="/signup">Signup</a>                                        
                                 
                                 </div>
+
                                 
                                
 

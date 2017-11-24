@@ -7,12 +7,49 @@ router.get("/",async(req,res)=>{
     res.render("login");
 })
 
-//Get Signup Page
+
+
 router.get("/signup",async(req,res)=>{
     res.render("signup");
 })
 
-//Create New User
+
+router.post("/", async(req, res) => {
+    //console.log("aalas ka parat")
+
+    var username = req.body.username;
+    var password = req.body.password;
+
+    try{
+
+        if(!username){
+            throw "Username not specified"
+        }
+
+        if(!password){
+            throw "Password not specified"
+        }
+        //console.log("Chutiya tulach kahi yet nahi")
+        const existingUser = await User.getUserByIdforLogin(username, password)
+        console.log(existingUser)
+       // console.log(existingUser)
+        //console.log(existingUserPassword)
+        if(existingUser){
+            console.log("login Successful")
+            const firstName = await User.getUserByName(username)
+            res.render("transactions/all_expenses", {firstname: firstName })
+        }else{
+            throw "Invalid UserID or password"
+
+        }
+    }catch(e){
+        console.log("Session failed..slapped "+e)
+        //res.sendStatus(500).json({ error: e})
+        res.render("login",{error : e })
+    }
+
+})
+
 router.post("/createNewUser", async(req, res) => {
 
     console.log("Mi aloy ikde chutiya")
@@ -53,19 +90,19 @@ router.post("/createNewUser", async(req, res) => {
             throw 'Please Confirm Password'
         }
 
-        // if(password != confirmPassword)
-        // {
-        //     throw 'Passwords do not match'
-        // }
+        if(password != confirmPassword)
+        {
+            throw 'Passwords do not match'
+        }
                     
-        console.log("Validations done")
-        const newUser = await User.addNewUser(username,Fname,Lname,password);//Insert into database
-        console.log("Save kelay mi..tumhalach kahi yet nahi")
+        //console.log("Validations done")
+        const newUser = await User.addNewUser(username,Fname,Lname,password);
+        //console.log("Save kelay mi..tumhalach kahi yet nahi")
         
-        if(!newUser)
+        /*if(!newUser)
         {
             throw 'New User not added' 
-        }
+        }*/
                     
         res.render("transactions/all_expenses")
         

@@ -5,11 +5,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const bcryptjs = require("bcryptjs");
 var mongo = require("mongodb");
-//var mongoose = require("mongoose");
-//var passport = require("passport");
-//var LocalStrategy = require("passport-local").Strategy;
-// mongoose.connect("mongodb://localhost/expense-manager-project");
-// var db = mongoose.connection;
+
 
 
 //Init app
