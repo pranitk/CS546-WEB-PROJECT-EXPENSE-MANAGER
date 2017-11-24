@@ -40,6 +40,13 @@ module.exports = {
 
         return transaction
 
+    },
+
+    async getAllExpenses(){
+
+        const transactionCollection = await transactions()
+        return transactionCollection.find({}).toArray()
+
     }
 
 

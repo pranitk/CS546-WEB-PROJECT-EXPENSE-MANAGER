@@ -17,6 +17,7 @@
     "express-session": "^1.15.6",
     "express-validator": "^4.3.0",
     "handlebars": "^4.0.11",
+    "material-datetime-picker": "^2.4.0",
     "material-design-icons": "^3.0.1",
     "mongoose": "^4.13.2",
     "node-uuid": "^1.4.8",
