@@ -36,14 +36,9 @@ router.get("/showAllExpenses",async(req,res)=>{
 //                 throw 'New Transaction not added' 
             
     
-<<<<<<< HEAD
             //res.send("Hello from Shreyas 2")
             
             res.render("transactions/all_expenses")
-=======
-//             //res.send("Hello from Shreyas 2")
-//             res.render("transactions/all_expenses")
->>>>>>> 11762b6dce75a74f6535d9ba458757df022893ca
     
 //         }catch(e){
 //             res.sendStatus(500).json({ error: e})
