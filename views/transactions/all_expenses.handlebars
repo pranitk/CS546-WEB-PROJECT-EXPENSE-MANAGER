@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="utf-8">
+         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="/public/css/add_expense.css">
+
+        <title>All Expenses</title>
+
+    </head>
+    
     <body>
       
         <div>
@@ -11,17 +20,17 @@
         <div class="card">
 
                         <div id="my-title-container" class="card-header">
-                          <h5 class="my-card-header-title">ALL TRANSACTIONS</h5>
+                          <h5 class="my-card-header-title">ALL EXPENSES</h5>
                         </div>
 
                         <div class="card-body">
                             <div>
                                 {{#each expenses}}
                                     <a class="list-group-item"> 
-                                        <i class="material-icons">directions_bus</i>
+                                        <i class="material-icons">{{category.icon_name}}</i>
                                         <div class="bmd-list-group-col">
                                             <p class="list-group-item-heading">{{desc}}</p>
-                                            <p class="list-group-item-text">Travel</p>
+                                            <p class="list-group-item-text">{{ category.category_name}}</p>
                                         </div>
                                         <span class="label label-default label-pill pull-xs-right"><b>${{amount}}</b></span>
                                     </a>
