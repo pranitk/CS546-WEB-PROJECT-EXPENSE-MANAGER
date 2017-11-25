@@ -15,7 +15,15 @@ module.exports = {
             amount: amount,
             desc: desc,
             category_id: category_id,
+            category:{
+                category_name: "Wifi Bill",
+                icon_name: "wifi"
+            },
             account_id: account_id,
+            account:{
+                account_name:"Chase",
+                
+            },
             date: date
         }
 
@@ -48,6 +56,14 @@ module.exports = {
         const transactionCollection = await transactions()
         return transactionCollection.find({ transaction_type: 1 ,user_id : user_id}).toArray()
 
+        // //let category = {}
+        // allExpenses[0].push({
+        //     category_id: 10001,
+        //     category_name: "Shreyas",
+        //     icon_name: "wifi"
+        // })
+
+        // return allExpenses;
     }
 
 

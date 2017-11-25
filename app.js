@@ -12,6 +12,7 @@ var mongo = require("mongodb");
 //Init app
 const app = express();
 
+
 //Body Parser Middleware
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
