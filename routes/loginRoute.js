@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var User = require("../data/register");
+var UserCategory = require("../data/categories");
 
 //Get Login Page
 router.get("/",async(req,res)=>{
@@ -90,20 +91,9 @@ router.post("/createNewUser", async(req, res) => {
             throw 'Please Confirm Password'
         }
 
-        if(password != confirmPassword)
-        {
-            throw 'Passwords do not match'
-        }
-                    
-        //console.log("Validations done")
-        const newUser = await User.addNewUser(username,Fname,Lname,password);
-        //console.log("Save kelay mi..tumhalach kahi yet nahi")
         
-        /*if(!newUser)
-        {
-            throw 'New User not added' 
-        }*/
-                    
+        const newUser = await User.addNewUser(username,Fname,Lname,password);
+        const newUserCategory = await UserCategory.addCategoryForNewUser(username); 
         res.render("transactions/all_expenses")
         
     }

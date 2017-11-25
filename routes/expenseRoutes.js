@@ -3,6 +3,7 @@ const router = express.Router()
 //const data = require("../data")
 var User = require("../data/register");
 const transactionData = require("../data/transactions")
+const categoryData = require("../data/categories");
 
 
 router.get("/showAllExpenses",async(req,res)=>{
@@ -90,6 +91,11 @@ router.post("/saveNewExpense",async(req,res)=>{
 router.get("/addExpense",async(req,res)=>{
     console.log("Add expense get page route called")
     res.render('transactions/add_expense')  // handlebar
+})
+
+router.post("/addNewCategory",async(req,res) => {
+
+    const newCategory = categoryData.addNewCategory()
 })
 
 module.exports = router
