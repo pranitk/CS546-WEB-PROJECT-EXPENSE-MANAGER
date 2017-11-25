@@ -4,6 +4,7 @@ const loginRoute = require("./loginRoute")
 //const singupRoute = require("./signupRoute")
 
 const expenses = require("./expenseRoutes")
+const income = require("./incomeRoute")
 
 
 const constructorMethod = (app) => {
@@ -40,6 +41,7 @@ const constructorMethod = (app) => {
     app.use("/addExpense",expenses)*/
 
     app.use("/expenses",expenses)
+    app.use("/income", income)
 
     /*app.use("*",(req,res) => {
         //res.sendFile(path.resolve("static/header-material.html"))

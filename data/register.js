@@ -10,8 +10,8 @@ var mongodb= mongo.MongoClient;
 const mongoCollections = require("../config/mongoCollections")
 const users = mongoCollections.users
 const uuid = require("node-uuid")
-var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/";
+// var MongoClient = require('mongodb').MongoClient;
+// var url = "mongodb://localhost:27017/";
 
 
 module.exports = {
