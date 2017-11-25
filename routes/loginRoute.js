@@ -16,7 +16,7 @@ router.get("/signup",async(req,res)=>{
 
 
 router.post("/", async(req, res) => {
-    console.log("aalas ka parat")
+    //console.log("aalas ka parat")
 
     var username = req.body.username;
     var password = req.body.password;
@@ -30,7 +30,7 @@ router.post("/", async(req, res) => {
         if(!password){
             throw "Password not specified"
         }
-        console.log("Chutiya tulach kahi yet nahi")
+        //console.log("Chutiya tulach kahi yet nahi")
         const existingUser = await User.getUserByIdforLogin(username, password)
         console.log(existingUser)
        // console.log(existingUser)
