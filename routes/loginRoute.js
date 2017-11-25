@@ -17,7 +17,7 @@ router.get("/signup",async(req,res)=>{
 
 router.post("/", async(req, res) => {
     //console.log("aalas ka parat")
-
+    var loggedUser = req.session;
     var username = req.body.username;
     var password = req.body.password;
 
@@ -38,6 +38,7 @@ router.post("/", async(req, res) => {
         if(existingUser){
             console.log("login Successful")
             const firstName = await User.getUserByName(username)
+            loggedUser.user = username;
             res.render("transactions/all_expenses", {firstname: firstName })
         }else{
             throw "Invalid UserID or password"
@@ -53,6 +54,7 @@ router.post("/", async(req, res) => {
 
 router.post("/createNewUser", async(req, res) => {
 
+    var userSession = req.session;
     console.log("Mi aloy ikde chutiya")
     var username = req.body.username;
     var Fname = req.body.firstname;
@@ -93,8 +95,11 @@ router.post("/createNewUser", async(req, res) => {
 
         
         const newUser = await User.addNewUser(username,Fname,Lname,password);
-        const newUserCategory = await UserCategory.addCategoryForNewUser(username); 
-        res.render("transactions/all_expenses")
+        
+        console.log(newUser);
+        userSession.user = username;
+        //const newUserCategory = await UserCategory.addCategoryForNewUser(username); 
+        res.render("transactions/all_expenses");
         
     }
     catch(e)
