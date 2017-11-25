@@ -38,7 +38,7 @@ router.get("/showAllExpenses",async(req,res)=>{
     
             //res.send("Hello from Shreyas 2")
             
-            res.render("transactions/all_expenses")
+           // res.render("transactions/all_expenses")
     
 //         }catch(e){
 //             res.sendStatus(500).json({ error: e})
