@@ -1,5 +1,6 @@
 const express = require("express");
 const handlebars = require('express-handlebars')
+const session = require("express-session");
 const configRoutes = require("./routes");
 const bodyParser = require("body-parser");
 const path = require("path");
@@ -23,6 +24,12 @@ app.set('view engine','handlebars')
 //Set Static Folder
 const static = express.static(__dirname + "/public");
 app.use("/public",static)
+
+app.use(session({
+    secret : "secret",
+    saveUninitialized : true,
+    resave : true
+}));
 
 
 configRoutes(app);

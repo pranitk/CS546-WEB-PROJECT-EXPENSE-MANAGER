@@ -7,7 +7,10 @@ const categoryData = require("../data/categories");
 
 
 router.get("/showAllExpenses",async(req,res)=>{
-    const allExpenses = await transactionData.getAllExpenses()
+    const userData = req.session.user;
+    const allExpenses = await transactionData.getAllExpenses(userData);
+    
+    //res.send(`username ${userData}`);
     res.render("transactions/all_expenses",{ expenses: allExpenses })
 })
 
@@ -33,8 +36,9 @@ router.get("/showAllExpenses",async(req,res)=>{
 //                 throw 'New Transaction not added' 
             
     
-//             //res.send("Hello from Shreyas 2")
-//             res.render("transactions/all_expenses")
+            //res.send("Hello from Shreyas 2")
+            
+           // res.render("transactions/all_expenses")
     
 //         }catch(e){
 //             res.sendStatus(500).json({ error: e})
@@ -65,8 +69,9 @@ router.post("/saveNewExpense",async(req,res)=>{
 
         if(!expenseInfo.description)
             throw 'Description not specified'
-            
-        const newTransaction = transactionData.addTransaction(1,expenseInfo.amount,expenseInfo.description,0,100,"")
+        
+        var loggedUser = req.session.user;
+        const newTransaction = transactionData.addTransaction(loggedUser,1,expenseInfo.amount,expenseInfo.description,0,100,"")
 
         if(!newTransaction)
             throw 'New Transaction not added' 

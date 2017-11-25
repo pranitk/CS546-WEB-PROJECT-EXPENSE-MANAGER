@@ -5,10 +5,11 @@ const uuid = require("node-uuid")
 module.exports = {
 
     //Add New Transactions
-    async addTransaction(transaction_type,amount,desc,category_id,account_id,date){
+    async addTransaction(user_id,transaction_type,amount,desc,category_id,account_id,date){
 
         console.log("inserting into database")
         let transaction = {
+            user_id : user_id, 
             transaction_type: transaction_type, // 1 - Expense, 2 - Income
             _id: uuid.v4(),
             amount: amount,
@@ -50,11 +51,10 @@ module.exports = {
 
     },
 
-    async getAllExpenses(){
+    async getAllExpenses(user_id){
 
         const transactionCollection = await transactions()
-        return transactionCollection.find({ transaction_type: 1 }).toArray()
-        // let allExpenses = await transactionCollection.find({ transaction_type: 1 }).toArray()
+        return transactionCollection.find({ transaction_type: 1 ,user_id : user_id}).toArray()
 
         // //let category = {}
         // allExpenses[0].push({

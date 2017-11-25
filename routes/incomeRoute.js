@@ -4,10 +4,10 @@ const router = express.Router()
 var User = require("../data/register");
 const transactionData = require("../data/transactions")
 
-// router.get("/showAllExpenses",async(req,res)=>{
-//     const allExpenses = await transactionData.getAllExpenses()
-//     res.render("transactions/all_expenses",{ expenses: allExpenses })
-// })
+router.get("/showAllExpenses",async(req,res)=>{
+    const allExpenses = await transactionData.getAllExpenses()
+    res.render("transactions/all_expenses",{ expenses: allExpenses })
+})
 
 router.post("/saveNewIncome",async(req,res)=>{
     
