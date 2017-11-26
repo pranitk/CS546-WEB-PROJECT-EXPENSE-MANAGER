@@ -10,6 +10,7 @@
     </head>
     
     <body>
+        
       
         <div>
             <a href="/expenses/addExpense">Click Here To Add Expense</a>
@@ -35,6 +36,24 @@
                                         <span class="label label-default label-pill pull-xs-right"><b>${{amount}}</b></span>
                                     </a>
                                 {{/each}}
+
+                            
+                            </div>
+
+
+                             <div>
+                                {{#each income}}
+                                    <a class="list-group-item"> 
+                                        <i class="material-icons">{{category.icon_name}}</i>
+                                        <div class="bmd-list-group-col">
+                                            <p class="list-group-item-heading">{{desc}}</p>
+                                            <p class="list-group-item-text">{{ category.category_name}}</p>
+                                        </div>
+                                        <span class="label label-default label-pill pull-xs-right"><b>${{amount}}</b></span>
+                                    </a>
+                                {{/each}}
+
+                            
                             </div>
 
                         </div>
