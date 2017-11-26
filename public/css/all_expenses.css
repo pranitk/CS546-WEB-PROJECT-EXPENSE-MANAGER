@@ -1,0 +1,35 @@
+#my-title-container{
+    background: #E53935;
+}
+
+#amount{
+    font-size: 14pt;
+}
+
+#expense-desc{
+    font-size: 12pt;
+}
+
+.my-card-header-title{
+    font-style: bold;
+    padding: 6px;
+    color: white;
+}
+
+#expenses-card{
+    width: 80%;
+    margin: auto;
+}
+
+tr{
+    padding: 16px;
+}
+
+
+td{
+    padding: 12px;
+}
+
+#edit{
+    float: right;
+}

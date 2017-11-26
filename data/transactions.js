@@ -7,6 +7,9 @@ module.exports = {
     //Add New Transactions
     async addTransaction(user_id,transaction_type,amount,desc,category_id,account_id,date){
 
+        // GET CATEGORY BY ID or NAME
+        // GET BANK ACCOUNT BY ID
+
         console.log("inserting into database")
         let transaction = {
             user_id : user_id, 
@@ -16,12 +19,12 @@ module.exports = {
             desc: desc,
             category_id: category_id,
             category:{
-                category_name: "Wifi Bill",
-                icon_name: "wifi"
+                category_name: "Wifi Bill", // Update this..
+                icon_name: "wifi"   // Update this..
             },
             account_id: account_id,
             account:{
-                account_name:"Chase",
+                account_name:"Chase", // Update this..
                 
             },
             date: date
