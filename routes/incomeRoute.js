@@ -4,9 +4,9 @@ const router = express.Router()
 var User = require("../data/register");
 const transactionData = require("../data/transactions")
 
-router.get("/showAllExpenses",async(req,res)=>{
-    const allExpenses = await transactionData.getAllExpenses()
-    res.render("transactions/all_expenses",{ expenses: allExpenses })
+router.get("/showAllIncome",async(req,res)=>{
+    const allIncome = await transactionData.getAllExpenses()
+    res.render("transactions/all_income",{ income: allIncome })
 })
 
 router.post("/saveNewIncome",async(req,res)=>{
@@ -33,7 +33,7 @@ router.post("/saveNewIncome",async(req,res)=>{
             
     
             //res.send("Hello from Shreyas 2")
-            res.redirect("/expenses/showAllExpenses")
+            res.redirect("/expenses/showAllIncome")
     
         }catch(e){
             res.sendStatus(500).json({ error: e})
