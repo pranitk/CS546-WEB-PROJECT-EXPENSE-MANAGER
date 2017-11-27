@@ -14,6 +14,15 @@ router.get("/showAllExpenses",async(req,res)=>{
     res.render("transactions/all_expenses",{ expenses: allExpenses })
 })
 
+router.get("/viewExpense/:id",async(req,res)=>{
+    const expense = await transactionData.getTransactionById(id)
+
+    if(!expense)
+        throw 'Expense not found'
+
+    return expense
+})
+
 // router.post("/saveNewIncome",async(req,res)=>{
     
 //         console.log("Add income route method called")
