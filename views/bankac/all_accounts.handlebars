@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        {{!-- <link rel="stylesheet" href="/public/css/all_expenses.css"> --}}
+
+        <title>All Bank A/cs</title>
+
+    </head>
+    
+    <body>
+        
+        <div id="bank-card" class="card">
+            <div id="my-title-container" class="card-header">
+                <h5 class="my-card-header-title">BANK ACCOUNTS</h5>
+            </div>
+
+            <div class="card-body">
+                <div>
+                    {{#each accounts}}
+                    <div class = "card">
+                        <div class = "container">
+                            <h4><b> {{this.ac_name}} </b></h4>
+                            <p> BAL: {{this.ac_bal}} <p>
+                            <a href="/expenses/all_expenses"> VIEW </a>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+
+            </div>
+        </div>
+
+        <div>
+            <a href="/bankac/addBankAC">Click Here To Add Bank Account</a>
+        </div>
+        
+    </body>
+    
+</html>
