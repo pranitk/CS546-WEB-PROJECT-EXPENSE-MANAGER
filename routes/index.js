@@ -5,7 +5,7 @@ const loginRoute = require("./loginRoute")
 
 const expenses = require("./expenseRoutes")
 const income = require("./incomeRoute")
-
+const bankacRoute = require("./bankac")
 
 const constructorMethod = (app) => {
 
@@ -16,6 +16,7 @@ const constructorMethod = (app) => {
 
     app.use("/expenses",expenses)
     app.use("/income", income)
+    app.use("/bankac",bankacRoute)
 
    
 
