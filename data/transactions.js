@@ -57,7 +57,7 @@ module.exports = {
     async getAllExpenses(user_id){
 
         const transactionCollection = await transactions()
-        return transactionCollection.find({ transaction_type: 1 ,user_id : user_id}).toArray()
+        return await transactionCollection.find({ transaction_type: 1 ,user_id : user_id}).toArray()
 
         // //let category = {}
         // allExpenses[0].push({

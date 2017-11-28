@@ -1,6 +1,6 @@
 const mongoCollections = require("../config/mongoCollections")
 const bankac = mongoCollections.bankac
-const uuid = require("uuid")
+const uuid = require("node-uuid")
 module.exports = {
     //Add new Bank Account
     async addBankAC(user_id,ac_name,ac_number,ac_bal) {
