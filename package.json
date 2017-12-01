@@ -10,11 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
+    "bcrypt": "^1.0.3",
     "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
     "date-selector": "^2.0.1",
     "express": "^4.16.2",
     "express-handlebars": "^3.0.0",
+    "express-messages": "^1.0.1",
     "express-session": "^1.15.6",
     "express-validator": "^4.3.0",
     "handlebars": "^4.0.11",
@@ -22,6 +24,9 @@
     "material-design-icons": "^3.0.1",
     "mongoose": "^4.13.2",
     "node-uuid": "^1.4.8",
+    "passport": "^0.4.0",
+    "passport-http": "^0.3.0",
+    "passport-local": "^1.0.0",
     "popper.js": "^1.12.7",
     "save": "^2.3.1"
   }
