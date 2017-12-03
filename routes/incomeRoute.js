@@ -5,7 +5,7 @@ var User = require("../data/register");
 const transactionData = require("../data/transactions")
 
 router.get("/showAllIncome",async(req,res)=>{
-    const allIncome = await transactionData.getAllExpenses()
+    const allIncome = await transactionData.getAllIncome()
     res.render("transactions/all_income",{ income: allIncome })
 })
 
@@ -33,7 +33,7 @@ router.post("/saveNewIncome",async(req,res)=>{
             
     
             //res.send("Hello from Shreyas 2")
-            res.redirect("/expenses/showAllIncome")
+            res.redirect("showAllIncome")
     
         }catch(e){
             res.sendStatus(500).json({ error: e})
