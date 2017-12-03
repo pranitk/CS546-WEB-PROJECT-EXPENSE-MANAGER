@@ -94,13 +94,7 @@ router.post("/saveNewExpense",async(req,res)=>{
     }
 })
 
-// router.get("/allExpenses",async(req,res)=>{
 
-//     const allExpenses = await transactionData.getAllExpenses()
-//     res.render("transactions/all_expenses")
-
-
-// })
 
 //Show the add expense page.
 router.get("/addExpense",async(req,res)=>{
