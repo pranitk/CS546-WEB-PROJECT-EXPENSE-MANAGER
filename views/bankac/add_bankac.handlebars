@@ -26,23 +26,71 @@
 
                 <div class="card-body">
                     <form action="/bankac/saveNewAccount" method="POST"> 
-                        <div id="field-container" class="input-group">
-                            <label for="name" id="l1">Bank Name:</label>
-                            <input type="text" name="name" class="form-control" placeholder="Bank Name"/>
+                        <div class="input-group">
+                            <label for="name" id="lab">Bank Name:&nbsp;&nbsp;</label>
+                            <input type="text" id="name" class="form-control" name="name" placeholder="Bank Name"/>
                         </div>
-
-                        <div id="field-container" class="input-group">
-                            <label for="number" id="l1">Account Number:</label>
+                        <br>
+                        <div class="input-group">
+                            <label for="number" id="lab">Account Number:&nbsp;&nbsp;</label>
                             <input type="text" name="number" class="form-control" placeholder="Account Number"/>
                         </div>
-
-                        <div id="field-container" class="input-group">
-                            <label for="balance" id="l1">Current Balance:</label>
+                        <br>
+                        <div class="input-group">
+                            <label for="balance" id="lab">Current Balance:&nbsp;&nbsp;</label>
                             <input type="text" name="balance" class="form-control" placeholder="Account Balance"/>
                         </div>
                                 
-                        <button id="primary-button"  type="submit" class="btn btn-primary btn-lg btn-raised">ADD</button>
-                                
+                        <button id="primary-buttonA"  type="button" class="btn btn-primary btn-lg btn-raised" data-toggle="modal" data-target=".bs-example-pop">ADD</button>
+
+                        <div class="modal fade bs-example-pop">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">CONFIRMATION</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Do you want to add another account?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="submit" value="No" name="nob"></input>
+                                        <input type="submit" value="Yes" name="yesb"></input>
+                                        {{!-- data-dismiss="modal" --}}
+                                    </div>
+                                </div>
+                            </div>
+                        <div>
+
+                        {{!-- <div id="myModal" class="modal">
+                            <div class="modal-content">
+                                <span class="close">&times;</span>
+                                <p>Do you want to add another account?</p>
+                                <button id="primary-button" type="submit" class="btn btn-primary btn-lg btn-raised">YES</button>
+                                <button id="primary-button" type="submit" class="btn btn-primary btn-lg btn-raised">NO</button>
+                            </div>
+                        </div> --}}
+
+                        <script>
+                            var modal = document.getElementById("myModal");
+                            var btn = document.getElementById("primary-buttonA");
+                            var span = document.getElementsByClassName("close")[0];
+                            btn.onclick = function() {
+                                modal.style.display = "block";
+                            }
+
+                            // When the user clicks on <span> (x), close the modal
+                            span.onclick = function() {
+                                modal.style.display = "none";
+                            }
+
+                            // When the user clicks anywhere outside of the modal, close it
+                            window.onclick = function(event) {
+                                if (event.target == modal) {
+                                    modal.style.display = "none";
+                                }
+                            }
+                        </script>
                     </form>
                 </div> <!-- End of card body-->
             </div><!--End of card-->
@@ -51,7 +99,6 @@
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
         <script src="https://unpkg.com/bootstrap-material-design@4.0.0-beta.4/dist/js/bootstrap-material-design.js" integrity="sha384-3xciOSDAlaXneEmyOo0ME/2grfpqzhhTcM4cE32Ce9+8DW/04AGoTACzQpphYGYe" crossorigin="anonymous"></script>
-        {{!-- <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script> --}}
 
     </body>
 
