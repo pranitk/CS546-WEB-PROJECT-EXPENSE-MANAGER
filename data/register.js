@@ -17,7 +17,7 @@ module.exports = {
     },
 
      async getUserByUserId(id,callback){
-         console.log("called from passport");
+         
         if(!id) 
             throw "You must provide an username"
         
@@ -83,25 +83,6 @@ module.exports = {
 
      async verifyPassword(password,hashedpassword)
     {
-        
-        //     var user = this.getUserByUserId(username);
-        //     console.log("User ID = "+user);
-        //     if(user._id == username)
-        //     {
-        
-        //         let hashedPassword = user.password;
-        //         console.log("User "+user.firstName+" hashed password is "+hashedPassword)
-        //         if(bcrypt.compareSync(password,hashedPassword))
-        //         {
-        //           return true;
-        //         }
-        //         else
-        //         {
-        //           return false;
-        //         }
-                
-        //     }
-        //  return false
 
         if(bcrypt.compareSync(password,hashedpassword))
                 {

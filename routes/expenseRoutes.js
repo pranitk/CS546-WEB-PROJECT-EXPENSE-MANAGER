@@ -7,7 +7,8 @@ const categoryData = require("../data/categories");
 
 
 router.get("/showAllExpenses",async(req,res)=>{
-    const userData = req.session.user;
+    let userData = req.session.user;
+    console.log(userData);
     const allExpenses = await transactionData.getAllExpenses(userData);
     
     //res.send(`username ${userData}`);
@@ -70,6 +71,7 @@ router.post("/saveNewExpense",async(req,res)=>{
 
     console.log("Add expense route method called")
     const expenseInfo = req.body
+    
 
     try{
 
@@ -104,7 +106,10 @@ router.get("/addExpense",async(req,res)=>{
 
 router.post("/addNewCategory",async(req,res) => {
 
-    const newCategory = categoryData.addNewCategory()
+    let userData = req.session.user;
+    let category = req.body.category;
+    let newCategory = await categoryData.addNewCategory(userData,category,"");
+    console.log(newCategory);
 })
 
 module.exports = router

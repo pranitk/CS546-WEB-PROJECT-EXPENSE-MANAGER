@@ -37,6 +37,7 @@ passport.deserializeUser( async function(username, done) {
 //Get Login Page
 router.get("/",async(req,res)=>{
     if(req.isAuthenticated()) {
+        console.log("Hello");
         res.redirect('/expenses/showAllExpenses');
     }
     else {
@@ -52,8 +53,20 @@ router.get("/signup",async(req,res)=>{
 
 
 //
-router.post("/",passport.authenticate("local",{successRedirect : "/expenses/showAllExpenses",failureRedirect:"/",failureFlash:true}),
+router.post("/",passport.authenticate("local"),
 async (req,res) => {
+    let userSession = req.session;
+    userSession.user = req.body.username;
+    console.log(req.body.username);
+
+    if(req.isAuthenticated())
+    {
+        res.redirect("/expenses/showAllExpenses");
+    }
+    else
+    {
+        res.redirect("/");
+    }
     req.flash("success_msg","Welcome");
     //res.redirect("/private");
 })
@@ -87,6 +100,7 @@ router.post("/createNewUser", async(req, res) => {
     else
     {
         var newUser = await User.addNewUser(username,Fname,Lname,password);
+        var categoriesForNewUser = await UserCategory.addCategoryForNewUser(username);
         res.render("login");
     }
 })
