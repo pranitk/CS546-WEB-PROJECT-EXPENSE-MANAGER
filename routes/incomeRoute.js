@@ -4,9 +4,9 @@ const router = express.Router()
 var User = require("../data/register");
 const transactionData = require("../data/transactions")
 
-router.get("/showAllExpenses",async(req,res)=>{
-    const allExpenses = await transactionData.getAllExpenses()
-    res.render("transactions/all_expenses",{ expenses: allExpenses })
+router.get("/showAllIncome",async(req,res)=>{
+    const allIncome = await transactionData.getAllIncome()
+    res.render("transactions/all_income",{ income: allIncome })
 })
 
 router.post("/saveNewIncome",async(req,res)=>{
@@ -25,14 +25,15 @@ router.post("/saveNewIncome",async(req,res)=>{
             if(!incomeInfo.dt)
                 throw 'Date not specified'
                 
-            const newTransaction = transactionData.addTransaction(2,incomeInfo.amount,incomeInfo.description,0,100,incomeInfo.dt)
+                var loggedUser = req.session.user;
+            const newTransaction = transactionData.addTransaction(loggedUser,2,incomeInfo.amount,incomeInfo.description,0,100,incomeInfo.dt)
     
             if(!newTransaction)
                 throw 'New Transaction not added' 
             
     
             //res.send("Hello from Shreyas 2")
-            res.render("transactions/all_expenses")
+            res.redirect("showAllIncome")
     
         }catch(e){
             res.sendStatus(500).json({ error: e})

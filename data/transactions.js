@@ -67,6 +67,15 @@ module.exports = {
         // })
 
         // return allExpenses;
+    },
+
+    async getAllIncome(user_id){
+        const transactionCollection = await transactions()
+        return await transactionCollection.find({
+            transaction_type: 2,
+            user_id: user_id,
+
+        }).toArray();
     }
 
 
