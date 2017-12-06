@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="/public/css/add_expense.css">
+
+        
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+        
+
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+        
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.0.0-beta.4/dist/css/bootstrap-material-design.min.css" integrity="sha384-R80DC0KVBO4GSTw+wZ5x2zn2pu4POSErBkf8/fSFhPXHxvHJydT0CSgAP2Yo2r4I" crossorigin="anonymous">
+
+        <!--
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet">
+        -->
+
+        <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> -->
+        
+        <title>View expense</title>
+    </head>
+
+    <body>
+        <main>
+
+            <div class="view-expense-details">
+                <div class="card">
+
+                        <div id="my-title-container" class="card-header">
+                          <h5 class="my-card-header-title">$ {{amount}}</h5>
+                        </div>
+
+                        <div class="card-body">
+                            <span>
+                                <button id="edit" type="button" class="btn btn-danger bmd-btn-icon">
+                                    <i class="material-icons">delete</i>
+                                </button>
+
+                                <button id="edit" type="button" class="btn bmd-btn-icon">
+                                    <i class="material-icons">mode_edit</i>
+                                </button>
+                            </span>                    
+
+                        <table>
+                            <tr>
+                               <td><i class="material-icons">description</i></td>
+                                    <td>Comcast bill for the month of december</td>
+                                </tr>                         
+
+                                <tr>
+                                    <td><i class="material-icons">loyalty</i></td>
+                                    <td>Wifi bill</td>
+                                </tr>
+
+                                <tr>
+                                    <td><i class="material-icons">account_balance_wallet</i></td>
+                                    <td>Chase</td>
+                                </tr>
+
+                                <tr>
+                                    <td><i class="material-icons">today</i></td>
+                                    <td>24 NOV, 2017</td>
+                                </tr>
+
+                        </table>                                                 
+
+                                                
+                        </div>
+                </div>
+
+        </main>
+
+    </body>
+
+</html>

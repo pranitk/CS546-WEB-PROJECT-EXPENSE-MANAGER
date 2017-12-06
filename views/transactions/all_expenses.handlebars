@@ -26,7 +26,7 @@
                         <div class="card-body">
                             <div>
                                 {{#each expenses}}
-                                    <a data-toggle="modal" data-target="#myModal" class="list-group-item"> 
+                                    <a id="expense-item" data-toggle="modal" data-target="#myModal" class="list-group-item"> 
                                         <i class="material-icons">{{category.icon_name}}</i>
                                         <div class="bmd-list-group-col">
                                             <p id="expense-desc" class="list-group-item-heading">{{desc}}</p>
@@ -113,7 +113,11 @@
                         
 
                 </div>
-        </div> <!--End of Modal-->
+        </div> 
+
+        <script src="/public/js/view_expense_ajax.js"></script>
+        
+        <!--End of Modal-->
         {{!-- <div>
         <div>
             <a href="/expenses/addExpense">Click Here To Add Expense</a>
