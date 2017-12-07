@@ -19,7 +19,6 @@ router.get("/showAllExpenses",async(req,res)=>{
 router.get("/viewExpense/:id",async(req,res)=>{
 
     let id = req.params.id
-    // TODO
     console.log("Fetching expense details for "+id)
 
     const expense = await transactionData.getTransactionById(id)
@@ -80,23 +79,25 @@ router.post("/saveNewExpense",async(req,res)=>{
 
     console.log("Add expense route method called")
     const expenseInfo = req.body
+    const amount = expenseInfo.amount
+    const desc = expenseInfo.description
+    
 
     try{
 
-        if(!expenseInfo.amount)
+        if(!amount)
             throw 'Amount not specified'
 
-        if(!expenseInfo.description)
+        if(!desc)
             throw 'Description not specified'
         
         var loggedUser = req.session.user;
-        const newTransaction = await transactionData.addTransaction(loggedUser,1,expenseInfo.amount,expenseInfo.description,0,100,"")
+        const newTransaction = await transactionData.addTransaction(loggedUser,1,amount,desc,0,100,"")
 
         if(!newTransaction)
             throw 'New Transaction not added' 
 
-        //res.send("Hello from Shreyas 2")
-        //res.render("transactions/all_expenses")
+        let updateResult = await bankData.updateAccount(loggedUser,account_number,1,amount)
         res.redirect('showAllExpenses')
 
     }catch(e){
