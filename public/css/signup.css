@@ -69,5 +69,8 @@
 #text{
     margin-top: 15px;
 }
+#header{
+    display: none;
+ }
 
 
