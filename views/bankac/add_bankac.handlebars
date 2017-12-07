@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="/public/css/add_bank.css">
+        
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.0.0-beta.4/dist/css/bootstrap-material-design.min.css" integrity="sha384-R80DC0KVBO4GSTw+wZ5x2zn2pu4POSErBkf8/fSFhPXHxvHJydT0CSgAP2Yo2r4I" crossorigin="anonymous">
+
+        <title>Add New Bank A/C</title>
+    </head>
+
+    <body>
+        
+        <div class="add-bankac-form">
+            <div class="card">
+                <div id="my-title-container" class="card-header">
+                    <h5 class="my-card-header-title">ADD YOUR BANK ACCOUNT DETAILS</h5>
+                </div>
+
+                <div class="card-body">
+                    <form action="/bankac/saveNewAccount" method="POST"> 
+                        <div id="field-container" class="input-group">
+                            <label for="name" id="l1">Bank Name:</label>
+                            <input type="text" name="name" class="form-control" placeholder="Bank Name"/>
+                        </div>
+
+                        <div id="field-container" class="input-group">
+                            <label for="number" id="l1">Account Number:</label>
+                            <input type="text" name="number" class="form-control" placeholder="Account Number"/>
+                        </div>
+
+                        <div id="field-container" class="input-group">
+                            <label for="balance" id="l1">Current Balance:</label>
+                            <input type="text" name="balance" class="form-control" placeholder="Account Balance"/>
+                        </div>
+                                
+                        <button id="primary-button"  type="submit" class="btn btn-primary btn-lg btn-raised">ADD</button>
+                                
+                    </form>
+                </div> <!-- End of card body-->
+            </div><!--End of card-->
+        </div><!--End of Add Bank Account Form-->
+        
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/bootstrap-material-design@4.0.0-beta.4/dist/js/bootstrap-material-design.js" integrity="sha384-3xciOSDAlaXneEmyOo0ME/2grfpqzhhTcM4cE32Ce9+8DW/04AGoTACzQpphYGYe" crossorigin="anonymous"></script>
+        {{!-- <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script> --}}
+
+    </body>
+
+</html>

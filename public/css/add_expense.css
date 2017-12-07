@@ -1,0 +1,46 @@
+#my-title-container{
+    background: #E53935;
+}
+.my-title{
+    color: white;
+    font-size: 18pt;
+    height: 120px;
+}
+
+.add-expense-form{
+    padding: 36px;
+    width: 80%;
+    margin: auto;
+}
+
+#field-container{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+
+#expense-description{
+    float: left;
+    width: 60%;
+}
+
+.my-card-header-title{
+    font-style: bold;
+    padding: 6px;
+    color: white;
+}
+
+#primary-button{
+    float: right;
+}
+#close-button{
+    float: right;
+    margin-right: 5px;
+}
+
+table{
+    margin: auto;
+    float: right;
+}
+

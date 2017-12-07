@@ -1,0 +1,35 @@
+.my-header{
+    height: 120px;
+    width: 100%;
+    background: black;
+}
+
+.header-title{
+    color: white;
+    float: left;
+    height: 100%;
+    margin-top: 40px;
+    margin-left: 40px;
+    font-family: Calibri;
+}
+
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+
+.material-icons.md-36 { font-size: 36px; }
+
+.account{
+   float: right;
+   padding: 40px;
+   margin: auto;
+}
+
+.welcome{
+    align-content: right;
+    color: white;
+    float: right;
+    padding: 10px
+}
+
+#account-icon{
+    margin-right: 100px;
+}
