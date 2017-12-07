@@ -16,15 +16,18 @@ router.get("/showAllExpenses",async(req,res)=>{
 
 router.get("/viewExpense/:id",async(req,res)=>{
 
+    let id = req.params.id
     // TODO
-    console.log("Fetching expense details")
+    console.log("Fetching expense details for "+id)
 
     const expense = await transactionData.getTransactionById(id)
 
     if(!expense)
         throw 'Expense not found'
 
-    return expense
+    res.render("transactions/view_expense",{ expense: expense})
+
+    //return expense
 })
 
 

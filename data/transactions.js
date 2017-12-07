@@ -44,6 +44,8 @@ module.exports = {
         if(!id)
             throw 'Transaction ID not provided'
             
+        console.log("Get transaction for "+id)
+        
         const transactionCollection = await transactions()
         const transaction = await transactionCollection.findOne({ _id: id})
 

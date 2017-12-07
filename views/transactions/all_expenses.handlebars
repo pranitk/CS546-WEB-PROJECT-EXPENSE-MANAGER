@@ -29,7 +29,7 @@
                         <div class="card-body">
                             <div>
                                 {{#each expenses}}
-                                    <a id="expense-item" data-toggle="modal" data-target="#myModal" class="list-group-item"> 
+                                    <a href="/expenses/viewExpense/{{ _id }}" id="expense-item" class="list-group-item"> 
                                         <i class="material-icons">{{category.icon_name}}</i>
                                         <div class="bmd-list-group-col">
                                             <p id="expense-desc" class="list-group-item-heading">{{desc}}</p>
