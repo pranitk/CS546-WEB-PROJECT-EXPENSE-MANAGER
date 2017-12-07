@@ -7,31 +7,29 @@
     height: 120px;
 }
 
-.add-expense-form{
+.view-expense-details{
     padding: 36px;
     width: 80%;
     margin: auto;
 }
 
-#field-container{
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-
-
-#expense-description{
-    float: left;
-    width: 60%;
-}
-
 .my-card-header-title{
     font-style: bold;
     padding: 6px;
+    font-size: 20pt;
     color: white;
+}
+
+.row-title{
+    font-style: bold;
 }
 
 #primary-button{
     float: right;
 }
+
+td{
+    padding: 6pt;
+}
+
 

@@ -3,9 +3,14 @@
     <head>
         <meta charset="utf-8">
          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="/public/css/all_expenses.css">
+        <link rel="stylesheet" href="/public/css/all_income.css">
 
-        <title>All Expenses</title>
+        <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/smoothness/jquery-ui.css" media="all">
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+
+        <title>All Income</title>
 
     </head>
     
@@ -16,20 +21,18 @@
             <a href="/expenses/addExpense">Click Here To Add Expense</a>
             <a>or</a>
             <a href="/income/addIncome">Click Here To Add Income</a>
-            <a>or</a>
-            <a href="/income/showAllIncome">Click Here To View Income</a>
         </div>
         
         <div id="expenses-card" class="card">
 
                         <div id="my-title-container" class="card-header">
-                          <h5 class="my-card-header-title">ALL EXPENSES</h5>
+                          <h5 class="my-card-header-title">ALL INCOME</h5>
                         </div>
 
                         <div class="card-body">
                             <div>
-                                {{#each expenses}}
-                                    <a href="/expenses/viewExpense/{{ _id }}" id="expense-item" class="list-group-item"> 
+                                {{#each income}}
+                                    <a data-toggle="modal" data-target="#myModal" class="list-group-item"> 
                                         <i class="material-icons">{{category.icon_name}}</i>
                                         <div class="bmd-list-group-col">
                                             <p id="expense-desc" class="list-group-item-heading">{{desc}}</p>
@@ -105,11 +108,7 @@
                         
 
                 </div>
-        </div> 
-
-        <script src="/public/js/view_expense_ajax.js"></script>
-        
-        <!--End of Modal-->
+        </div> <!--End of Modal-->
         {{!-- <div>
         <div>
             <a href="/expenses/addExpense">Click Here To Add Expense</a>

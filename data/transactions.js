@@ -48,6 +48,8 @@ module.exports = {
         if(!id)
             throw 'Transaction ID not provided'
             
+        console.log("Get transaction for "+id)
+        
         const transactionCollection = await transactions()
         const transaction = await transactionCollection.findOne({ _id: id})
 
@@ -71,6 +73,15 @@ module.exports = {
         // })
 
         // return allExpenses;
+    },
+
+    async getAllIncome(user_id){
+        const transactionCollection = await transactions()
+        return await transactionCollection.find({
+            transaction_type: 2,
+            user_id: user_id,
+
+        }).toArray();
     }
 
 

@@ -4,11 +4,12 @@ const router = express.Router()
 var User = require("../data/register");
 const transactionData = require("../data/transactions")
 const categoryData = require("../data/categories");
-
+const bankData = require("../data/bank")
+//const xss = require('xss');
 
 router.get("/showAllExpenses",async(req,res)=>{
-    let userData = req.session.user;
-    console.log(userData);
+    const userData = req.session.user;
+    console.log("Username logged is "+userData)
     const allExpenses = await transactionData.getAllExpenses(userData);
     
     //res.send(`username ${userData}`);
@@ -16,13 +17,20 @@ router.get("/showAllExpenses",async(req,res)=>{
 })
 
 router.get("/viewExpense/:id",async(req,res)=>{
+
+    let id = req.params.id
+    console.log("Fetching expense details for "+id)
+
     const expense = await transactionData.getTransactionById(id)
 
     if(!expense)
         throw 'Expense not found'
 
-    return expense
+    res.render("transactions/view_expense",{ expense: expense})
+
+    //return expense
 })
+
 
 // router.post("/saveNewIncome",async(req,res)=>{
     
@@ -71,24 +79,25 @@ router.post("/saveNewExpense",async(req,res)=>{
 
     console.log("Add expense route method called")
     const expenseInfo = req.body
+    const amount = expenseInfo.amount
+    const desc = expenseInfo.description
     
 
     try{
 
-        if(!expenseInfo.amount)
+        if(!amount)
             throw 'Amount not specified'
 
-        if(!expenseInfo.description)
+        if(!desc)
             throw 'Description not specified'
         
         var loggedUser = req.session.user;
-        const newTransaction = transactionData.addTransaction(loggedUser,1,expenseInfo.amount,expenseInfo.description,0,100,"")
+        const newTransaction = await transactionData.addTransaction(loggedUser,1,amount,desc,0,100,"")
 
         if(!newTransaction)
             throw 'New Transaction not added' 
 
-        //res.send("Hello from Shreyas 2")
-        //res.render("transactions/all_expenses")
+        let updateResult = await bankData.updateAccount(loggedUser,account_number,1,amount)
         res.redirect('showAllExpenses')
 
     }catch(e){
@@ -101,7 +110,9 @@ router.post("/saveNewExpense",async(req,res)=>{
 //Show the add expense page.
 router.get("/addExpense",async(req,res)=>{
     console.log("Add expense get page route called")
-    res.render('transactions/add_expense')  // handlebar
+    let bank_accounts = await bankData.getAllAccounts(req.session.user._id)
+
+    res.render('transactions/add_expense',{ bank_accounts: bank_accounts })  // handlebar
 })
 
 router.post("/addNewCategory",async(req,res) => {
