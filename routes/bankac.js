@@ -23,21 +23,43 @@ router.post("/saveNewAccount",async(req,res)=>{
             if(!accountInfo.balance)
                 throw 'Bank Balance not specified'
                 
-            const newAccount = bankData.addBankAC(07,accountInfo.name,accountInfo.number,accountInfo.balance) //update with user_id
+            const newAccount = bankData.addBankAC(07,accountInfo.name,accountInfo.number,accountInfo.balance)
     
             if(!newAccount)
                 throw 'New Bank Account not added' 
             
-            const allAccounts = await bankData.getAllAccounts(07) //update with user_id
+            const allAccounts = await bankData.getAllAccounts(07) // update with user_id
             console.log(allAccounts)
-            res.render("bankac/all_accounts",{accounts : allAccounts})
+            // res.render("bankac/all_accounts",{accounts : allAccounts})
+            let response1 = req.body.nob
+            let response2 = req.body.yesb
+            //modal handling
+            if(response1) {
+                res.redirect("/bankac/showAllAccounts")
+            }
+            else {
+                res.redirect("/bankac/addBankAC")
+            }
     
         }catch(e){
             res.sendStatus(500).json({ error: e})
         }
     })
     
-    
+    router.post("/deleteAccount", async(req,res) => {
+        let response1 = req.body.nob
+        let response2 = req.body.yesb
+        //modal handling
+        if(response1) {
+            res.redirect("/bankac/showAllAccounts")
+        }
+        else if(response2) {
+            let accno = response2.substr(4,)
+            console.log("Deleting account with account number-",accno)
+            const delAccount = bankData.deleteAccountByNumber(accno)
+            res.redirect("/bankac/showAllAccounts")
+        }
+    })
     //Show the add bank account page.
     router.get("/addBankAC",async(req,res)=>{
         console.log("Add Bank account get page route called")

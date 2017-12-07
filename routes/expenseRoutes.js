@@ -4,11 +4,10 @@ const router = express.Router()
 var User = require("../data/register");
 const transactionData = require("../data/transactions")
 const categoryData = require("../data/categories");
-
+//const xss = require('xss');
 
 router.get("/showAllExpenses",async(req,res)=>{
-    let userData = req.session.user;
-    console.log(userData);
+    const userData = req.session.user;
     const allExpenses = await transactionData.getAllExpenses(userData);
     
     //res.send(`username ${userData}`);
@@ -16,13 +15,21 @@ router.get("/showAllExpenses",async(req,res)=>{
 })
 
 router.get("/viewExpense/:id",async(req,res)=>{
+
+    let id = req.params.id
+    // TODO
+    console.log("Fetching expense details for "+id)
+
     const expense = await transactionData.getTransactionById(id)
 
     if(!expense)
         throw 'Expense not found'
 
-    return expense
+    res.render("transactions/view_expense",{ expense: expense})
+
+    //return expense
 })
+
 
 // router.post("/saveNewIncome",async(req,res)=>{
     
@@ -71,7 +78,6 @@ router.post("/saveNewExpense",async(req,res)=>{
 
     console.log("Add expense route method called")
     const expenseInfo = req.body
-    
 
     try{
 
@@ -82,7 +88,7 @@ router.post("/saveNewExpense",async(req,res)=>{
             throw 'Description not specified'
         
         var loggedUser = req.session.user;
-        const newTransaction = transactionData.addTransaction(loggedUser,1,expenseInfo.amount,expenseInfo.description,0,100,"")
+        const newTransaction = await transactionData.addTransaction(loggedUser,1,expenseInfo.amount,expenseInfo.description,0,100,"")
 
         if(!newTransaction)
             throw 'New Transaction not added' 
@@ -106,10 +112,7 @@ router.get("/addExpense",async(req,res)=>{
 
 router.post("/addNewCategory",async(req,res) => {
 
-    let userData = req.session.user;
-    let category = req.body.category;
-    let newCategory = await categoryData.addNewCategory(userData,category,"");
-    console.log(newCategory);
+    const newCategory = categoryData.addNewCategory()
 })
 
 module.exports = router

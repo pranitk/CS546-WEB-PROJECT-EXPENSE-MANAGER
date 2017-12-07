@@ -1,21 +1,24 @@
 #my-title-container{
-    background: #E53935;
-}
-.my-title{
-    color: white;
-    font-size: 18pt;
-    height: 120px;
+    background: purple;
 }
 
-.add-bank-form{
+.add-bankac-form{
     padding: 36px;
     width: 80%;
     margin: auto;
 }
 
-#field-container{
-    margin-top: 20px;
-    margin-bottom: 20px;
+#lab {
+    margin-top: 10px;
+}
+
+.form-control {
+    margin-left: 20px;
+}
+
+.input-group {
+    display: flex;
+    vertical-align: middle;
 }
 
 .my-card-header-title{
@@ -24,6 +27,8 @@
     color: white;
 }
 
-#primary-button{
+#primary-buttonA{
+    margin-top: 20px;
     float: right;
+    background-color: green;
 }

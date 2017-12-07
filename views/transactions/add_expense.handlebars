@@ -104,8 +104,6 @@
                                         {{!-- <button id="select_date">Select Date</button> --}}
                                        <a id="select_date" class="c-btn c-datepicker-btn">Select Date</a>
                                 </div>
-
-                                
                                 
                                 <button id="primary-button"  type="submit" class="btn btn-primary btn-raised">Save</button>
                                 
@@ -137,42 +135,14 @@
                                                 
                                         
                                         <div class="card-body">
-
-                                                {{!-- <div id = "error-msg" class="alert alert-danger"></div>
-                                                <div id="success-msg" class="alert alert-success"></div> --}}
-                                                
-
-                                                </div>
-                                                <form action id = "add-category">
+                                                <form action = "/addExpense" method = "post">
                                                         <div id="field-container" class="input-group">
                                                                 <span class="input-group-addon"><i class="material-icons">loyalty</i></span>
-                                                                <input type="text" name="new-category" id = "new-category" class="form-control" placeholder="Enter Your Category"/>
+                                                                <input type="text" name="amount" class="form-control" placeholder="Enter Your Category"/>
                                                         </div>
 
-                                                        <table>
-                                                                <tr>
-                                                                        <td>
-                                                                                <button id="primary-button" type="submit" class="btn btn-primary btn-raised">Save</button>
-                                                                        </td>
-                                                                        <td>
-                                                                                <button id="close-button" data-dismiss="modal" class="btn btn-danger btn-raised">Close</button>
-                                                                        </td>
-                                                                </tr>
-                                                        </table>
-                                                        
-                                                        
-                                                            
+                                                        <button id="primary-button"  type="submit" class="btn btn-primary btn-raised">Save</button>  
                                                 </form>
-                                                <div id = "error-msg" class="alert alert-danger"></div>
-                                                <div id = "success-msg" class="alert alert-success"></div>
-                                                
-                                                
-                                                        
-
-                                                
-                                                                                                
-                                                
-                                                
                                         </div>
                                 </div>
                         </div>

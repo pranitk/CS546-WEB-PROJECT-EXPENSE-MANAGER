@@ -10,11 +10,14 @@
     </head>
     
     <body>
+        
       
         <div>
             <a href="/expenses/addExpense">Click Here To Add Expense</a>
             <a>or</a>
             <a href="/income/addIncome">Click Here To Add Income</a>
+            <a>or</a>
+            <a href="/income/showAllIncome">Click Here To View Income</a>
         </div>
         
         <div id="expenses-card" class="card">
@@ -26,7 +29,7 @@
                         <div class="card-body">
                             <div>
                                 {{#each expenses}}
-                                    <a data-toggle="modal" data-target="#myModal" class="list-group-item"> 
+                                    <a href="/expenses/viewExpense/{{ _id }}" id="expense-item" class="list-group-item"> 
                                         <i class="material-icons">{{category.icon_name}}</i>
                                         <div class="bmd-list-group-col">
                                             <p id="expense-desc" class="list-group-item-heading">{{desc}}</p>
@@ -35,27 +38,16 @@
                                         <span id="amount" class="label label-default label-pill pull-xs-right"><b>${{amount}}</b></span>
                                     </a>
                                 {{/each}}
+
+                            
                             </div>
+
+
+
 
                         </div>
 
-                         {{!-- <div class="card-body">
-                            <div>
-                                {{#each expenses}}
-                                    <a class="list-group-item"> 
-                                        <span id="amount" class="label label-default label-pill pull-xs-right"><b>${{amount}}</b></span>
-                                        
-                                        <div class="bmd-list-group-col">
-                                            <p id="expense-desc" class="list-group-item-heading">{{desc}}</p>
-                                            <span><i class="material-icons">{{category.icon_name}}</i></span>
-                                            <p class="list-group-item-text">{{ category.category_name}}</p>
-                                        </div>
-                                        <span class="label label-default label-pill pull-xs-right"><b>{{account.account_name}}</b></span>
-                                    </a>
-                                {{/each}}
-                            </div>
 
-                        </div> --}}
         </div>
 
         <!-- Modal -->
@@ -113,7 +105,11 @@
                         
 
                 </div>
-        </div> <!--End of Modal-->
+        </div> 
+
+        <script src="/public/js/view_expense_ajax.js"></script>
+        
+        <!--End of Modal-->
         {{!-- <div>
         <div>
             <a href="/expenses/addExpense">Click Here To Add Expense</a>

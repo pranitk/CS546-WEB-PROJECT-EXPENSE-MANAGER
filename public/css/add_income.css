@@ -35,4 +35,22 @@
     float: right;
 }
 
+.date{
+    padding-left: 20px;
+    border-collapse: collapse;
+    font-size: .9em;
+    margin: 0 0 .4em;
+    width: 100%;
+   
+    font-weight: bold;
+  
+}
+
+
+#label{
+   padding-right: 25px;
+   border-collapse: collapse; 
+   font-style: bold;
+   
+}
 
