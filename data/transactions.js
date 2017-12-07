@@ -10,7 +10,7 @@ module.exports = {
         // GET CATEGORY BY ID or NAME
         // GET BANK ACCOUNT BY ID
 
-        console.log("inserting into database")
+        console.log(date)
         let transaction = {
             user_id : user_id, 
             transaction_type: transaction_type, // 1 - Expense, 2 - Income
