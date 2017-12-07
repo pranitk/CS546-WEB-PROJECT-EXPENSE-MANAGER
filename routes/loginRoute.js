@@ -106,3 +106,5 @@ router.post("/createNewUser", async(req, res) => {
 })
 
 module.exports = router;
+
+//Old COde
