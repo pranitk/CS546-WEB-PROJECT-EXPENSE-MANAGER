@@ -22,12 +22,12 @@
     "handlebars": "^4.0.11",
     "material-datetime-picker": "^2.4.0",
     "material-design-icons": "^3.0.1",
-    "mongoose": "^4.13.2",
+    "mongoose": "^4.13.6",
     "node-uuid": "^1.4.8",
     "passport": "^0.4.0",
     "passport-http": "^0.3.0",
     "passport-local": "^1.0.0",
-    "popper.js": "^1.12.7",
+    "popper.js": "^1.13.0",
     "save": "^2.3.1",
     "uuid": "^3.1.0"
   }

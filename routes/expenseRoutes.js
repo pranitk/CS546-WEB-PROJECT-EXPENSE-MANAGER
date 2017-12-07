@@ -4,7 +4,7 @@ const router = express.Router()
 var User = require("../data/register");
 const transactionData = require("../data/transactions")
 const categoryData = require("../data/categories");
-
+//const xss = require('xss');
 
 router.get("/showAllExpenses",async(req,res)=>{
     const userData = req.session.user;
@@ -15,13 +15,21 @@ router.get("/showAllExpenses",async(req,res)=>{
 })
 
 router.get("/viewExpense/:id",async(req,res)=>{
+
+    let id = req.params.id
+    // TODO
+    console.log("Fetching expense details for "+id)
+
     const expense = await transactionData.getTransactionById(id)
 
     if(!expense)
         throw 'Expense not found'
 
-    return expense
+    res.render("transactions/view_expense",{ expense: expense})
+
+    //return expense
 })
+
 
 // router.post("/saveNewIncome",async(req,res)=>{
     
@@ -80,7 +88,7 @@ router.post("/saveNewExpense",async(req,res)=>{
             throw 'Description not specified'
         
         var loggedUser = req.session.user;
-        const newTransaction = transactionData.addTransaction(loggedUser,1,expenseInfo.amount,expenseInfo.description,0,100,"")
+        const newTransaction = await transactionData.addTransaction(loggedUser,1,expenseInfo.amount,expenseInfo.description,0,100,"")
 
         if(!newTransaction)
             throw 'New Transaction not added' 
