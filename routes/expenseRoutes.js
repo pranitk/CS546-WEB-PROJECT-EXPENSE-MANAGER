@@ -17,7 +17,8 @@ router.get("/showAllExpenses",async(req,res)=>{
 })
 
 router.get("/viewExpense/:id",async(req,res)=>{
-
+    const userData = req.session.user;
+    console.log("Username logged is "+userData)
     let id = req.params.id
     console.log("Fetching expense details for "+id)
 
@@ -110,7 +111,9 @@ router.post("/saveNewExpense",async(req,res)=>{
 //Show the add expense page.
 router.get("/addExpense",async(req,res)=>{
     console.log("Add expense get page route called")
-    let bank_accounts = await bankData.getAllAccounts(loggedUser);
+    const userData = req.session.user;
+    console.log("user logged in as "+ userData)
+    let bank_accounts = await bankData.getAllAccounts(req.session.user)
 
     res.render('transactions/add_expense',{ bank_accounts: bank_accounts })  // handlebar
 })
