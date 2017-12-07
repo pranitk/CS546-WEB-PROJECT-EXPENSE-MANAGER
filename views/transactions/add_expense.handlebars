@@ -83,7 +83,7 @@
                                         <span class="input-group-addon"><i class="material-icons">account_balance</i></span>
                                     
                                         
-                                        <div class="btn-group">
+                                        {{!-- <div class="btn-group">
                                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                   Choose Your bank account
                                                 </button>
@@ -91,6 +91,19 @@
                                                   <a class="dropdown-item" href="#">Chase</a>
                                                   <a class="dropdown-item" href="#">Cash</a>
                                                   <a class="dropdown-item" href="#">Forex card</a>
+                                                  <div class="dropdown-divider"></div>
+                                                  <a class="dropdown-item" href="#">Add New Account</a>
+                                                </div>
+                                        </div> --}}
+
+                                         <div class="btn-group">
+                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                  Choose Your bank account
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                {{ #each bank_accounts }}
+                                                  <a class="dropdown-item" href="#">{{ac_name}}</a>
+                                                {{ /each }}
                                                   <div class="dropdown-divider"></div>
                                                   <a class="dropdown-item" href="#">Add New Account</a>
                                                 </div>
@@ -104,6 +117,8 @@
                                         {{!-- <button id="select_date">Select Date</button> --}}
                                        <a id="select_date" class="c-btn c-datepicker-btn">Select Date</a>
                                 </div>
+
+                                
                                 
                                 <button id="primary-button"  type="submit" class="btn btn-primary btn-raised">Save</button>
                                 
@@ -135,14 +150,16 @@
                                                 
                                         
                                         <div class="card-body">
-                                                <form action = "/addExpense" method = "post">
+                                                <form action id = "add-category">
                                                         <div id="field-container" class="input-group">
                                                                 <span class="input-group-addon"><i class="material-icons">loyalty</i></span>
-                                                                <input type="text" name="amount" class="form-control" placeholder="Enter Your Category"/>
+                                                                <input type="text" name="new-category" id = "new-category" class="form-control" placeholder="Enter Your Category"/>
                                                         </div>
-
-                                                        <button id="primary-button"  type="submit" class="btn btn-primary btn-raised">Save</button>  
+                                                        <button id="primary-button" class="btn btn-primary btn-raised">Save</button>
+                                                            
                                                 </form>
+                                                
+                                                
                                         </div>
                                 </div>
                         </div>
