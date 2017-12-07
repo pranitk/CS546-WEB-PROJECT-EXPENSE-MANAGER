@@ -4,10 +4,12 @@ const router = express.Router()
 var User = require("../data/register");
 const transactionData = require("../data/transactions")
 const categoryData = require("../data/categories");
+const bankData = require("../data/bank")
 //const xss = require('xss');
 
 router.get("/showAllExpenses",async(req,res)=>{
     const userData = req.session.user;
+    console.log("Username logged is "+userData)
     const allExpenses = await transactionData.getAllExpenses(userData);
     
     //res.send(`username ${userData}`);
@@ -107,7 +109,9 @@ router.post("/saveNewExpense",async(req,res)=>{
 //Show the add expense page.
 router.get("/addExpense",async(req,res)=>{
     console.log("Add expense get page route called")
-    res.render('transactions/add_expense')  // handlebar
+    let bank_accounts = await bankData.getAllAccounts(req.session.user._id)
+
+    res.render('transactions/add_expense',{ bank_accounts: bank_accounts })  // handlebar
 })
 
 router.post("/addNewCategory",async(req,res) => {

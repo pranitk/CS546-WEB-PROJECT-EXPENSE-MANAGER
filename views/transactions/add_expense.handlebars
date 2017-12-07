@@ -82,7 +82,7 @@
                                         <span class="input-group-addon"><i class="material-icons">account_balance</i></span>
                                     
                                         
-                                        <div class="btn-group">
+                                        {{!-- <div class="btn-group">
                                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                   Choose Your bank account
                                                 </button>
@@ -90,6 +90,19 @@
                                                   <a class="dropdown-item" href="#">Chase</a>
                                                   <a class="dropdown-item" href="#">Cash</a>
                                                   <a class="dropdown-item" href="#">Forex card</a>
+                                                  <div class="dropdown-divider"></div>
+                                                  <a class="dropdown-item" href="#">Add New Account</a>
+                                                </div>
+                                        </div> --}}
+
+                                         <div class="btn-group">
+                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                  Choose Your bank account
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                {{ #each bank_accounts }}
+                                                  <a class="dropdown-item" href="#">{{ac_name}}</a>
+                                                {{ /each }}
                                                   <div class="dropdown-divider"></div>
                                                   <a class="dropdown-item" href="#">Add New Account</a>
                                                 </div>
