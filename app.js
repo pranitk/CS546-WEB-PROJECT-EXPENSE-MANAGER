@@ -29,8 +29,8 @@ app.set('view engine','handlebars');
 //Initialize session
 app.use(session({
   secret : "secret",
-  saveUninitialized : false,
-  resave : false
+  saveUninitialized : true,
+  resave : true
 }));
 
 //Configure For using Flash Messages
