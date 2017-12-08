@@ -34,4 +34,8 @@
 #primary-button{
     float: right;
 }
+#close-button{
+    float: right;
+    margin-right: 8px;
+}
 

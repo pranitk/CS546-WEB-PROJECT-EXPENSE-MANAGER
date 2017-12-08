@@ -5,6 +5,7 @@ var User = require("../data/register");
 const transactionData = require("../data/transactions")
 const categoryData = require("../data/categories");
 const bankData = require("../data/bank")
+var expressValidator = require("express-validator");
 //const xss = require('xss');
 
 router.get("/showAllExpenses",async(req,res)=>{
@@ -32,56 +33,14 @@ router.get("/viewExpense/:id",async(req,res)=>{
     //return expense
 })
 
-
-// router.post("/saveNewIncome",async(req,res)=>{
-    
-//         console.log("Add income route method called")
-//         const expenseInfo = req.body
-    
-//         try{
-    
-//             if(!expenseInfo.amount)
-//                 throw 'Amount not specified'
-    
-//             if(!expenseInfo.description)
-//                 throw 'Description not specified'
-
-//             if(!expenseInfo.dt)
-//                 throw 'Date not specified'
-                
-//             const newTransaction = transactionData.addTransaction(2,expenseInfo.amount,expenseInfo.description,0,100,expenseInfo.dt)
-    
-//             if(!newTransaction)
-//                 throw 'New Transaction not added' 
-            
-    
-            //res.send("Hello from Shreyas 2")
-            
-           // res.render("transactions/all_expenses")
-    
-//         }catch(e){
-//             res.sendStatus(500).json({ error: e})
-//         }
-//     })
-    
-    
-//     //Show the add expense page.
-//     router.get("/addIncome",async(req,res)=>{
-//         console.log("Add Income get page route called")
-//         res.render('transactions/add_income')  // handlebar
-//     })
-    
-
-
-
-
-
 router.post("/saveNewExpense",async(req,res)=>{
 
     console.log("Add expense route method called")
     const expenseInfo = req.body
     const amount = expenseInfo.amount
     const desc = expenseInfo.description
+    console.log("Date is "+expenseInfo.dt)
+    console.log("Selected bank account is "+expenseInfo.selected_account)
     
 
     try{
@@ -92,15 +51,15 @@ router.post("/saveNewExpense",async(req,res)=>{
         if(!desc)
             throw 'Description not specified'
         
-        var loggedUser = req.session.user;
-        const newTransaction = await transactionData.addTransaction(loggedUser,1,amount,desc,0,100,"")
+        var username = req.session.user;
+        const newTransaction = await transactionData.addTransaction(username,1,amount,desc,0,100,"")
 
         if(!newTransaction)
             throw 'New Transaction not added' 
 
-            res.redirect("/expenses/showAllExpenses");
-       // let updateResult = await bankData.updateAccount(loggedUser,account_number,1,amount)
-        
+        console.log("Expense save to db..redirect to all expenses")
+        //let updateResult = await bankData.updateAccount(loggedUser,account_number,1,amount)
+        res.redirect('showAllExpenses')
 
     }catch(e){
         res.sendStatus(500).json({ error: e})
@@ -112,9 +71,13 @@ router.post("/saveNewExpense",async(req,res)=>{
 //Show the add expense page.
 router.get("/addExpense",async(req,res)=>{
     console.log("Add expense get page route called")
-    const userData = req.session.user;
-    console.log("user logged in as "+ userData)
+    //let bank_accounts = await bankData.getAllAccounts(req.session.user._id)
+    //res.render('transactions/add_expense')
+    //res.render('transactions/add_expense',{ bank_accounts: bank_accounts })  // handlebar
+    
     let bank_accounts = await bankData.getAllAccounts(req.session.user)
+
+    console.log("Bank accounts size "+bank_accounts.length)
 
     res.render('transactions/add_expense',{ bank_accounts: bank_accounts })  // handlebar
 })
@@ -123,8 +86,13 @@ router.post("/addNewCategory",async(req,res) => {
 
     let userData = req.session.user;
     let category = req.body.category;
-    let newCategory = await categoryData.addNewCategory(userData,category,"");
-    console.log(newCategory);
+
+    
+        let newCategory = await categoryData.addNewCategory(userData,category,"");
+        res.json({success : true, message : req.body.category});
+    
+    
+    //console.log("New Category = "+newCategory.insertedId);
 })
 
 module.exports = router

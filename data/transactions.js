@@ -41,6 +41,8 @@ module.exports = {
             throw 'Insertion failed'
             
         console.log("inserted expense: "+insertedInfo)
+
+        return transaction
     },
 
     async getTransactionById(id){
