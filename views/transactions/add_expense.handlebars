@@ -66,11 +66,11 @@
                                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                   Choose Your Category
                                                 </button>
-                                                <div class="dropdown-menu">
+                                                <div class="dropdown-menu" id = "category">
                                                   <a class="dropdown-item" href="#">Travel</a>
                                                   <a class="dropdown-item" href="#">Groceries</a>
                                                   <a class="dropdown-item" href="#">Education</a>
-                                                  <div class="dropdown-divider"></div>
+                                                  <div class="dropdown-divider" id="divider"></div>
                                                   <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Add Category</button>
                                                   
                                                 </div>
@@ -100,34 +100,23 @@
                                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                   Choose Your bank account
                                                 </button>
-                                                <div class="dropdown-menu">
-                                                {{!-- {{ #each bank_accounts }}
-                                                  <a class="dropdown-item" href="#">{{ac_name}}</a>
-                                                {{ /each }} --}}
-                                                  <div class="dropdown-divider"></div>
-                                                  <a class="dropdown-item" href="#">Add New Account</a>
+                                                <div id="bank-dropdown" class="dropdown-menu">
+                                                        {{#each bank_accounts }}
+                                                        <a value='{{selected_account}}' class="dropdown-item" href="#">{{ac_name}}</a>
+                                                        {{/each }}
                                                 </div>
                                         </div>
                                     
                                       
                                 </div>
 
-                                <div class="date">
-                                        <label id = "label"for="dt" <i class="material-icons">date_range</i></label>
-	                                <input name="dt" type="date"/>
-                                </div>
-
-                                {{!-- <div id="field-container">
+                                <div id="field-container">
                                         <input class="c-datepicker-input" />
                                         {{!-- <button id="select_date">Select Date</button> --}}
                                        <a id="select_date" class="c-btn c-datepicker-btn">Select Date</a>
-<<<<<<< HEAD
-                                </div> --}}
-=======
                                 </div>
 
                                 
->>>>>>> faf918bd2e69a29f0f0b6e2926aaaaec5ee8700d
                                 
                                 <button id="primary-button"  type="submit" class="btn btn-primary btn-raised">Save</button>
                                 
@@ -165,8 +154,10 @@
                                                                 <input type="text" name="new-category" id = "new-category" class="form-control" placeholder="Enter Your Category"/>
                                                         </div>
                                                         <button id="primary-button" class="btn btn-primary btn-raised">Save</button>
-                                                            
+                                                        <button id="close-button" data-dismiss = "modal" class="btn btn-danger btn-raised">Close</button>            
                                                 </form>
+                                                
+                                                
                                                 
                                                 
                                         </div>

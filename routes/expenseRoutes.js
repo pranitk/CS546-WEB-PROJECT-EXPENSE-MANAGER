@@ -83,6 +83,7 @@ router.post("/saveNewExpense",async(req,res)=>{
     const amount = expenseInfo.amount
     const desc = expenseInfo.description
     console.log("Date is "+expenseInfo.dt)
+    console.log("Selected bank account is "+expenseInfo.selected_account)
     
 
     try{
@@ -93,13 +94,14 @@ router.post("/saveNewExpense",async(req,res)=>{
         if(!desc)
             throw 'Description not specified'
         
-        var loggedUser = req.session.user;
-        const newTransaction = await transactionData.addTransaction(loggedUser,1,amount,desc,0,100,"")
+        var username = req.session.user;
+        const newTransaction = await transactionData.addTransaction(username,1,amount,desc,0,100,"")
 
         if(!newTransaction)
             throw 'New Transaction not added' 
 
-        let updateResult = await bankData.updateAccount(loggedUser,account_number,1,amount)
+        console.log("Expense save to db..redirect to all expenses")
+        //let updateResult = await bankData.updateAccount(loggedUser,account_number,1,amount)
         res.redirect('showAllExpenses')
 
     }catch(e){
@@ -112,17 +114,15 @@ router.post("/saveNewExpense",async(req,res)=>{
 //Show the add expense page.
 router.get("/addExpense",async(req,res)=>{
     console.log("Add expense get page route called")
-<<<<<<< HEAD
     //let bank_accounts = await bankData.getAllAccounts(req.session.user._id)
-    res.render('transactions/add_expense')
+    //res.render('transactions/add_expense')
     //res.render('transactions/add_expense',{ bank_accounts: bank_accounts })  // handlebar
-=======
-    const userData = req.session.user;
-    console.log("user logged in as "+ userData)
+    
     let bank_accounts = await bankData.getAllAccounts(req.session.user)
 
+    console.log("Bank accounts size "+bank_accounts.length)
+
     res.render('transactions/add_expense',{ bank_accounts: bank_accounts })  // handlebar
->>>>>>> faf918bd2e69a29f0f0b6e2926aaaaec5ee8700d
 })
 
 router.post("/addNewCategory",async(req,res) => {
