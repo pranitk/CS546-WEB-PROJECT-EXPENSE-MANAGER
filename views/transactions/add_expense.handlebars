@@ -101,9 +101,9 @@
                                                   Choose Your bank account
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                {{ #each bank_accounts }}
+                                                {{!-- {{ #each bank_accounts }}
                                                   <a class="dropdown-item" href="#">{{ac_name}}</a>
-                                                {{ /each }}
+                                                {{ /each }} --}}
                                                   <div class="dropdown-divider"></div>
                                                   <a class="dropdown-item" href="#">Add New Account</a>
                                                 </div>
@@ -121,7 +121,13 @@
                                         <input class="c-datepicker-input" />
                                         {{!-- <button id="select_date">Select Date</button> --}}
                                        <a id="select_date" class="c-btn c-datepicker-btn">Select Date</a>
+<<<<<<< HEAD
                                 </div> --}}
+=======
+                                </div>
+
+                                
+>>>>>>> faf918bd2e69a29f0f0b6e2926aaaaec5ee8700d
                                 
                                 <button id="primary-button"  type="submit" class="btn btn-primary btn-raised">Save</button>
                                 
@@ -153,14 +159,16 @@
                                                 
                                         
                                         <div class="card-body">
-                                                <form action = "/addExpense" method = "post">
+                                                <form action id = "add-category">
                                                         <div id="field-container" class="input-group">
                                                                 <span class="input-group-addon"><i class="material-icons">loyalty</i></span>
-                                                                <input type="text" name="amount" class="form-control" placeholder="Enter Your Category"/>
+                                                                <input type="text" name="new-category" id = "new-category" class="form-control" placeholder="Enter Your Category"/>
                                                         </div>
-
-                                                        <button id="primary-button"  type="submit" class="btn btn-primary btn-raised">Save</button>  
+                                                        <button id="primary-button" class="btn btn-primary btn-raised">Save</button>
+                                                            
                                                 </form>
+                                                
+                                                
                                         </div>
                                 </div>
                         </div>
