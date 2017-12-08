@@ -51,14 +51,8 @@ router.post("/saveNewExpense",async(req,res)=>{
         if(!desc)
             throw 'Description not specified'
         
-<<<<<<< HEAD
         var username = req.session.user;
         const newTransaction = await transactionData.addTransaction(username,1,amount,desc,0,100,"")
-=======
-        var loggedUser = req.session.user;
-        const newTransaction = await transactionData.addTransaction(loggedUser,1,amount,desc,0,100,"")
-        //console.log("New Transaction = "+newTransaction);
->>>>>>> 752fffa2fc29ca7d69326dc0a5ca0f455070f02c
 
         if(!newTransaction)
             throw 'New Transaction not added' 
