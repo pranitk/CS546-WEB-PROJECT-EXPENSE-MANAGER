@@ -8,9 +8,9 @@ const bankData = require("../data/bank")
 //const xss = require('xss');
 
 router.get("/showAllExpenses",async(req,res)=>{
-    const userData = req.session.user;
-    console.log("Username logged is "+userData)
-    const allExpenses = await transactionData.getAllExpenses(userData);
+    const userName = req.session.user;
+    //console.log("Username logged is "+userData)
+    const allExpenses = await transactionData.getAllExpenses(userName);
     
     //res.send(`username ${userData}`);
     res.render("transactions/all_expenses",{ expenses: allExpenses })
@@ -18,9 +18,9 @@ router.get("/showAllExpenses",async(req,res)=>{
 
 router.get("/viewExpense/:id",async(req,res)=>{
     const userData = req.session.user;
-    console.log("Username logged is "+userData)
+    //console.log("Username logged is "+userData)
     let id = req.params.id
-    console.log("Fetching expense details for "+id)
+    //console.log("Fetching expense details for "+id)
 
     const expense = await transactionData.getTransactionById(id)
 
@@ -98,8 +98,9 @@ router.post("/saveNewExpense",async(req,res)=>{
         if(!newTransaction)
             throw 'New Transaction not added' 
 
-        let updateResult = await bankData.updateAccount(loggedUser,account_number,1,amount)
-        res.redirect('showAllExpenses')
+            res.redirect("/expenses/showAllExpenses");
+       // let updateResult = await bankData.updateAccount(loggedUser,account_number,1,amount)
+        
 
     }catch(e){
         res.sendStatus(500).json({ error: e})
