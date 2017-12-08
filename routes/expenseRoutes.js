@@ -5,6 +5,7 @@ var User = require("../data/register");
 const transactionData = require("../data/transactions")
 const categoryData = require("../data/categories");
 const bankData = require("../data/bank")
+var expressValidator = require("express-validator");
 //const xss = require('xss');
 
 router.get("/showAllExpenses",async(req,res)=>{
@@ -32,50 +33,6 @@ router.get("/viewExpense/:id",async(req,res)=>{
     //return expense
 })
 
-
-// router.post("/saveNewIncome",async(req,res)=>{
-    
-//         console.log("Add income route method called")
-//         const expenseInfo = req.body
-    
-//         try{
-    
-//             if(!expenseInfo.amount)
-//                 throw 'Amount not specified'
-    
-//             if(!expenseInfo.description)
-//                 throw 'Description not specified'
-
-//             if(!expenseInfo.dt)
-//                 throw 'Date not specified'
-                
-//             const newTransaction = transactionData.addTransaction(2,expenseInfo.amount,expenseInfo.description,0,100,expenseInfo.dt)
-    
-//             if(!newTransaction)
-//                 throw 'New Transaction not added' 
-            
-    
-            //res.send("Hello from Shreyas 2")
-            
-           // res.render("transactions/all_expenses")
-    
-//         }catch(e){
-//             res.sendStatus(500).json({ error: e})
-//         }
-//     })
-    
-    
-//     //Show the add expense page.
-//     router.get("/addIncome",async(req,res)=>{
-//         console.log("Add Income get page route called")
-//         res.render('transactions/add_income')  // handlebar
-//     })
-    
-
-
-
-
-
 router.post("/saveNewExpense",async(req,res)=>{
 
     console.log("Add expense route method called")
@@ -94,8 +51,14 @@ router.post("/saveNewExpense",async(req,res)=>{
         if(!desc)
             throw 'Description not specified'
         
+<<<<<<< HEAD
         var username = req.session.user;
         const newTransaction = await transactionData.addTransaction(username,1,amount,desc,0,100,"")
+=======
+        var loggedUser = req.session.user;
+        const newTransaction = await transactionData.addTransaction(loggedUser,1,amount,desc,0,100,"")
+        //console.log("New Transaction = "+newTransaction);
+>>>>>>> 752fffa2fc29ca7d69326dc0a5ca0f455070f02c
 
         if(!newTransaction)
             throw 'New Transaction not added' 
@@ -129,8 +92,13 @@ router.post("/addNewCategory",async(req,res) => {
 
     let userData = req.session.user;
     let category = req.body.category;
-    let newCategory = await categoryData.addNewCategory(userData,category,"");
-    console.log(newCategory);
+
+    
+        let newCategory = await categoryData.addNewCategory(userData,category,"");
+        res.json({success : true, message : req.body.category});
+    
+    
+    //console.log("New Category = "+newCategory.insertedId);
 })
 
 module.exports = router

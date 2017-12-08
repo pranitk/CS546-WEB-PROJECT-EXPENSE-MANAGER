@@ -35,5 +35,11 @@ module.exports = {
         if(insertedInfo.insertedCount == 0)
             throw "Insertion Failed"
         console.log("inserted category : "+insertedInfo);
+        //return insertedInfo;
+    },
+
+    async getCategory(username)
+    {
+
     }
 }
