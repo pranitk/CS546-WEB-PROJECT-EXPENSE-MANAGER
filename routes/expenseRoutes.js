@@ -81,6 +81,7 @@ router.post("/saveNewExpense",async(req,res)=>{
     const expenseInfo = req.body
     const amount = expenseInfo.amount
     const desc = expenseInfo.description
+    console.log("Date is "+expenseInfo.dt)
     
 
     try{
@@ -110,9 +111,9 @@ router.post("/saveNewExpense",async(req,res)=>{
 //Show the add expense page.
 router.get("/addExpense",async(req,res)=>{
     console.log("Add expense get page route called")
-    let bank_accounts = await bankData.getAllAccounts(req.session.user._id)
-
-    res.render('transactions/add_expense',{ bank_accounts: bank_accounts })  // handlebar
+    //let bank_accounts = await bankData.getAllAccounts(req.session.user._id)
+    res.render('transactions/add_expense')
+    //res.render('transactions/add_expense',{ bank_accounts: bank_accounts })  // handlebar
 })
 
 router.post("/addNewCategory",async(req,res) => {
