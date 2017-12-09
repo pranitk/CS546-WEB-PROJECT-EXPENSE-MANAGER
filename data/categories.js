@@ -41,5 +41,12 @@ module.exports = {
     async getCategory(username)
     {
 
+    },
+
+    async getAllCategories(username){
+
+        const categoriesCollection = await categories()
+        return await categoriesCollection.find({ user: username }).toArray();
+
     }
 }

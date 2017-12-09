@@ -1,16 +1,23 @@
 const mongoCollections = require("../config/mongoCollections")
 const transactions = mongoCollections.transactions
 const categories = mongoCollections.categories
+const bankData = require("./bank")
 const uuid = require("node-uuid")
 
 module.exports = {
 
     //Add New Transactions
-    async addTransaction(user_id,transaction_type,amount,desc,category_name,account_id,date){
+    async addTransaction(user_id,transaction_type,amount,desc,category_details,account_number,date){
 
         // GET CATEGORY BY ID or NAME
-        const categoriesCollection = await categories();
-        const newCategory = categoriesCollection.findOne({user:user_id,category_name:category_name})
+        //const categoriesCollection = await categories();
+        //const newCategory = categoriesCollection.findOne({user:user_id,category_name:category_name})
+        const temp = category_details.split("  ")
+        const category_icon = temp[0]
+        const category_name = temp[1]
+
+        console.log("Getting bank account for "+account_number)
+        const bank_account = await bankData.getAccountByNumber(account_number)
         // GET BANK ACCOUNT BY ID
 
 
@@ -23,14 +30,10 @@ module.exports = {
             desc: desc,
             //category_name: category_id,
             category:{
-                category_name: newCategory.category_name, // Update this..
-                icon_name: newCategory.icon_name   // Update this..
+                category_name: category_name, // Update this..
+                icon_name: category_icon  // Update this..
             },
-            account_id: account_id,
-            account:{
-                account_name:"Chase", // Update this..
-                
-            },
+            bank_account:bank_account,
             date: date
         }
 

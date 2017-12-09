@@ -59,10 +59,24 @@
                                 </div>
 
                                 <div id="field-container" class="input-group">
-                                        <span class="input-group-addon"><i class="material-icons">loyalty</i></span>
+                                        <span class="input-group-addon"><i id="icon-category" class="material-icons">loyalty</i></span>
                                     
-                                        
+                                        <input id="selected_category" name = "selected_category" type="text" class="form-control" hidden="true">
+
                                         <div class="btn-group">
+                                                <button id="btn-category"  type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                  Choose Your Category
+                                                </button>
+                                                <div class="dropdown-menu" id = "category">
+                                                  {{#each categories}}
+                                                        <a class="dropdown-item"> <span><i id="dropdown-category-icon" class="material-icons">{{icon_name}}</i></span>   {{category_name}} </a>
+                                                  {{/each}}
+                                                  <div class="dropdown-divider" id="divider"></div>
+                                                  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Add Category</button>
+                                                  
+                                                </div>
+                                        </div>
+                                        {{!-- <div class="btn-group">
                                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                   Choose Your Category
                                                 </button>
@@ -74,7 +88,7 @@
                                                   <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Add Category</button>
                                                   
                                                 </div>
-                                        </div>
+                                        </div> --}}
                                     
                                 </div>
 
@@ -82,7 +96,8 @@
                                 <div id="field-container" class="input-group">
                                         <span class="input-group-addon"><i class="material-icons">account_balance</i></span>
                                     
-                                        
+                                        <input id="selected_bank_account" name = "selected_bank_account" type="text" class="form-control" hidden="true">
+
                                         {{!-- <div class="btn-group">
                                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                   Choose Your bank account
@@ -97,12 +112,12 @@
                                         </div> --}}
 
                                          <div class="btn-group">
-                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <button id="btn-bank-account" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                   Choose Your bank account
                                                 </button>
                                                 <div id="bank-dropdown" class="dropdown-menu">
                                                         {{#each bank_accounts }}
-                                                        <a value='{{selected_account}}' class="dropdown-item" href="#">{{ac_name}}</a>
+                                                                <button type="button" value={{ac_number}} class="dropdown-item">{{ac_name}} <br>Ending in {{ac_ending}}</br> </button>
                                                         {{/each }}
                                                 </div>
                                         </div>
@@ -110,10 +125,9 @@
                                       
                                 </div>
 
-                                <div id="field-container">
-                                        <input class="c-datepicker-input" />
-                                        {{!-- <button id="select_date">Select Date</button> --}}
-                                       <a id="select_date" class="c-btn c-datepicker-btn">Select Date</a>
+                               <div class="date">
+                                        <label id = "label"for="dt" <i class="material-icons">date_range</i></label>
+	                                <input name="dt" type="date"/>
                                 </div>
 
                                 

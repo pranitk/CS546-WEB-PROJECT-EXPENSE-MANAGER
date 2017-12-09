@@ -33,7 +33,7 @@
                                         <i class="material-icons">{{category.icon_name}}</i>
                                         <div class="bmd-list-group-col">
                                             <p id="expense-desc" class="list-group-item-heading">{{desc}}</p>
-                                            <p class="list-group-item-text">{{ category.category_name}}  |  {{ account.account_name }}</p>
+                                            <p class="list-group-item-text">{{ category.category_name}}  |  {{ bank_account.ac_name }}</p>
                                         </div>
                                         <span id="amount" class="label label-default label-pill pull-xs-right"><b>${{amount}}</b></span>
                                     </a>
@@ -107,7 +107,7 @@
                 </div>
         </div> 
 
-        <script src="/public/js/view_expense_ajax.js"></script>
+        {{!-- <script src="/public/js/view_expense_ajax.js"></script> --}}
         
         <!--End of Modal-->
         {{!-- <div>

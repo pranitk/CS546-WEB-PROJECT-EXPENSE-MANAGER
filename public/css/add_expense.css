@@ -18,7 +18,9 @@
     margin-bottom: 20px;
 }
 
-
+#dropdown-category-icon{
+    margin-right: 10px;
+}
 
 #expense-description{
     float: left;
