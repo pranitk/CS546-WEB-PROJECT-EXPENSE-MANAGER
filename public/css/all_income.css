@@ -33,3 +33,16 @@ td{
 #edit{
     float: right;
 }
+
+.material-icons{
+    padding-right: 25px;
+    border-collapse: collapse; 
+    font-style: bold;
+    
+ }
+
+ .delete_income_button{
+    height:30px;
+    width:30px;
+    border: none
+ }

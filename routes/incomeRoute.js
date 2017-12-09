@@ -36,36 +36,63 @@ router.post("/saveNewIncome",async(req,res)=>{
         console.log("Add income route method called")
         const incomeInfo = req.body
 
+        const amount = incomeInfo.amount
+        const desc = incomeInfo.description
+       // const categoryDetails = expenseInfo.selected_category
+        const bankAccountNumber = incomeInfo.selected_bank_account
+        const date = incomeInfo.dt
         console.log(incomeInfo)
-        console.log("Selected bank account is "+incomeInfo.selected_account)
+        //console.log("Selected bank account is "+incomeInfo.selected_account)
     
-        try{
+        
     
-            if(!incomeInfo.amount)
-                throw 'Amount not specified'
+            // if(!amount)
+            //     throw 'Amount not specified'
     
-            if(!incomeInfo.description)
-                throw 'Description not specified'
+            // if(!desc)
+            //     throw 'Description not specified'
 
-            if(!incomeInfo.dt)
-                throw 'Date not specified'
+            // if(!bankAccountNumber)
+            //     throw 'Bank account not selected'
 
-            bank_account_name = "BoFa" 
+            // if(!date)
+            //     throw 'Date not specified'
+            req.checkBody("amount","Username Is Required!").notEmpty();
+            req.checkBody("description","Description Is Required!").notEmpty();
+            req.checkBody("dt","Date Is Required!").notEmpty();
+
+            var errors = req.validationErrors();
+            if(errors)
+            {
+                res.render("transactions/add_income",{errors : errors});
+                return;
+            }
+            else{
+
+                    
+                var loggedUser = req.session.user;
+                const newTransaction = transactionData.addTransactionForIncome(loggedUser,2,amount,desc,bankAccountNumber,date)
+
+                if(!newTransaction)
+                    throw 'New Transaction not added' 
                 
-            var loggedUser = req.session.user;
-            const newTransaction = transactionData.addTransaction(loggedUser,2,incomeInfo.amount,incomeInfo.description,0,100,bank_account_name,incomeInfo.dt)
-    
-            if(!newTransaction)
-                throw 'New Transaction not added' 
+                    res.redirect("showAllIncome")
+            }
             
-                res.redirect("showAllIncome")
+       
             //let updateResult = await bankData.updateAccount(loggedUser,account_number,2,amount)
             //res.send("Hello from Shreyas 2")
             
     
-        }catch(e){
-            res.sendStatus(500).json({ error: e})
-        }
+        // }catch(e){
+        //     //res.sendStatus(500).json({ error: e})
+        //     console.log("I am here")
+        //     res.render("transactions/add_income",{
+        //         error: e
+                
+        //     })
+        //     return;
+        // }
     })
     
     
@@ -81,4 +108,14 @@ router.post("/saveNewIncome",async(req,res)=>{
             res.render('transactions/add_income',{ bank_accounts: bank_accounts })
     })
 
+    router.get("/delete", async(req, res) =>{
+        console.log("Delete Income get page route called")
+        const incomeInfo = req.body
+
+        console.log(incomeInfo)
+        res.redirect("showAllIncome")
+
+
+
+    })
     module.exports = router

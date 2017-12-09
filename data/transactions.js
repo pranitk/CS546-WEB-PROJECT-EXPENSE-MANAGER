@@ -48,6 +48,42 @@ module.exports = {
         return transaction
     },
 
+    async addTransactionForIncome(user_id,transaction_type,amount,desc,account_number,date){
+        
+                // GET CATEGORY BY ID or NAME
+                //const categoriesCollection = await categories();
+                //const newCategory = categoriesCollection.findOne({user:user_id,category_name:category_name})
+               
+        
+                console.log("Getting bank account for "+account_number)
+                const bank_account = await bankData.getAccountByNumber(account_number)
+                // GET BANK ACCOUNT BY ID
+        
+        
+                console.log("inserting into database")
+                let transaction = {
+                    user_id : user_id, 
+                    transaction_type: transaction_type, // 1 - Expense, 2 - Income
+                    _id: uuid.v4(),
+                    amount: amount,
+                    desc: desc,
+                    //category_name: category_id,
+                
+                    bank_account:bank_account,
+                    date: date
+                }
+        
+                const transactionCollection = await transactions()
+                const insertedInfo = await transactionCollection.insertOne(transaction)
+        
+                if(insertedInfo.insertedCount == 0)
+                    throw 'Insertion failed'
+                    
+                console.log("inserted expense: "+insertedInfo)
+        
+                return transaction
+            },
+
     async getTransactionById(id){
 
         if(!id)
