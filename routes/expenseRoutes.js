@@ -44,7 +44,8 @@ router.post("/saveNewExpense",async(req,res)=>{
         const desc = expenseInfo.description
         const categoryDetails = expenseInfo.selected_category
         const bankAccountNumber = expenseInfo.selected_bank_account
-        console.log("Date is "+expenseInfo.dt)
+        const date = expenseInfo.dt
+        console.log("Date is "+date)
         console.log("Selected category is "+expenseInfo.selected_category)
         console.log("Selected bank account is "+bankAccountNumber)
 
@@ -61,9 +62,11 @@ router.post("/saveNewExpense",async(req,res)=>{
         if(!bankAccountNumber)
             throw 'Bank account not selected' 
 
+        if(!date)
+            throw 'Date not selected'
 
         var username = req.session.user;
-        const newTransaction = await transactionData.addTransaction(username,1,amount,desc,categoryDetails,bankAccountNumber,"")
+        const newTransaction = await transactionData.addTransaction(username,1,amount,desc,categoryDetails,bankAccountNumber,date)
 
         if(!newTransaction)
             throw 'New Transaction not added' 
