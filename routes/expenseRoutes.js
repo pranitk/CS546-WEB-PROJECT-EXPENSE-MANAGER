@@ -34,16 +34,19 @@ router.get("/viewExpense/:id",async(req,res)=>{
 })
 
 router.post("/saveNewExpense",async(req,res)=>{
-
-    console.log("Add expense route method called")
-    const expenseInfo = req.body
-    const amount = expenseInfo.amount
-    const desc = expenseInfo.description
-    console.log("Date is "+expenseInfo.dt)
-    console.log("Selected bank account is "+expenseInfo.selected_account)
     
 
     try{
+
+        console.log("Add expense route method called")
+        const expenseInfo = req.body
+        const amount = expenseInfo.amount
+        const desc = expenseInfo.description
+        const categoryDetails = expenseInfo.selected_category
+        const bankAccountNumber = expenseInfo.selected_bank_account
+        console.log("Date is "+expenseInfo.dt)
+        console.log("Selected category is "+expenseInfo.selected_category)
+        console.log("Selected bank account is "+bankAccountNumber)
 
         if(!amount)
             throw 'Amount not specified'
@@ -51,8 +54,16 @@ router.post("/saveNewExpense",async(req,res)=>{
         if(!desc)
             throw 'Description not specified'
         
+
+        if(!categoryDetails)
+            throw 'Category not specified'
+
+        if(!bankAccountNumber)
+            throw 'Bank account not selected' 
+
+
         var username = req.session.user;
-        const newTransaction = await transactionData.addTransaction(username,1,amount,desc,0,100,"")
+        const newTransaction = await transactionData.addTransaction(username,1,amount,desc,categoryDetails,bankAccountNumber,"")
 
         if(!newTransaction)
             throw 'New Transaction not added' 
@@ -74,12 +85,14 @@ router.get("/addExpense",async(req,res)=>{
     //let bank_accounts = await bankData.getAllAccounts(req.session.user._id)
     //res.render('transactions/add_expense')
     //res.render('transactions/add_expense',{ bank_accounts: bank_accounts })  // handlebar
-    
-    let bank_accounts = await bankData.getAllAccounts(req.session.user)
+    const username = req.session.user
+    let bank_accounts = await bankData.getAllAccounts(username)
+    const categories = await categoryData.getAllCategories(username)
 
     console.log("Bank accounts size "+bank_accounts.length)
+    console.log("Categories size "+categories.length)
 
-    res.render('transactions/add_expense',{ bank_accounts: bank_accounts })  // handlebar
+    res.render('transactions/add_expense',{ bank_accounts: bank_accounts , categories: categories })  // handlebar
 })
 
 router.post("/addNewCategory",async(req,res) => {
