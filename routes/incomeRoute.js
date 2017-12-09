@@ -3,6 +3,9 @@ const router = express.Router()
 //const data = require("../data")
 var User = require("../data/register");
 const transactionData = require("../data/transactions")
+const categoryData = require("../data/categories");
+const bankData = require("../data/bank")
+var expressValidator = require("express-validator");
 
 router.get("/showAllIncome",async(req,res)=>{
     const userName = req.session.user;
@@ -32,6 +35,9 @@ router.post("/saveNewIncome",async(req,res)=>{
     
         console.log("Add income route method called")
         const incomeInfo = req.body
+        let bank = req.body.Selected_bank
+        console.log(bank)
+        console.log("Selected bank account is "+incomeInfo.selected_account)
     
         try{
     
@@ -43,9 +49,11 @@ router.post("/saveNewIncome",async(req,res)=>{
 
             if(!incomeInfo.dt)
                 throw 'Date not specified'
+
+            bank_account_name = "BoFa" 
                 
             var loggedUser = req.session.user;
-            const newTransaction = transactionData.addTransaction(loggedUser,2,incomeInfo.amount,incomeInfo.description,0,100,incomeInfo.dt)
+            const newTransaction = transactionData.addTransaction(loggedUser,2,incomeInfo.amount,incomeInfo.description,0,100,bank_account_name,incomeInfo.dt)
     
             if(!newTransaction)
                 throw 'New Transaction not added' 
@@ -64,7 +72,13 @@ router.post("/saveNewIncome",async(req,res)=>{
     //Show the add expense page.
     router.get("/addIncome",async(req,res)=>{
         console.log("Add Income get page route called")
-        res.render('transactions/add_income')  // handlebar
+        // res.render('transactions/add_income')  // handlebar
+
+        let bank_accounts = await bankData.getAllAccounts(req.session.user)
+        
+            console.log("Bank accounts size "+bank_accounts.length)
+        
+            res.render('transactions/add_income',{ bank_accounts: bank_accounts })
     })
 
     module.exports = router

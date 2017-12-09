@@ -6,7 +6,7 @@ const uuid = require("node-uuid")
 module.exports = {
 
     //Add New Transactions
-    async addTransaction(user_id,transaction_type,amount,desc,category_name,account_id,date){
+    async addTransaction(user_id,transaction_type,amount,desc,category_name,account_id,account_name, date){
 
         // GET CATEGORY BY ID or NAME
         const categoriesCollection = await categories();
@@ -28,7 +28,7 @@ module.exports = {
             },
             account_id: account_id,
             account:{
-                account_name:"Chase", // Update this..
+                account_name: account_name, // Update this..
                 
             },
             date: date
