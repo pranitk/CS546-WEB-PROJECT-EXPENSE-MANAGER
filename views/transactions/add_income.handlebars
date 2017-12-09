@@ -88,9 +88,9 @@
                                                   <a class="dropdown-item" href="#">Cash</a>
                                                   <a class="dropdown-item" href="#">Forex card</a> --}}
 
-                                                      {{#each bank_accounts }}
-                                                        <a id= "select_bank" value='{{selected_account}}' class="dropdown-item" href="#">{{ac_name}}</a>
-                                                      {{/each }}
+                                                    {{#each bank_accounts }}
+                                                                <button type="button" value={{ac_number}} class="dropdown-item">{{ac_name}} <br>Ending in {{ac_ending}}</br> </button>
+                                                        {{/each }}
             
                                                 </div>
                                               

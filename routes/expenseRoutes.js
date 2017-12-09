@@ -44,6 +44,8 @@ router.post("/saveNewExpense",async(req,res)=>{
         const desc = expenseInfo.description
         const categoryDetails = expenseInfo.selected_category
         const bankAccountNumber = expenseInfo.selected_bank_account
+
+       // console.log(expenseInfo)
         console.log("Date is "+expenseInfo.dt)
         console.log("Selected category is "+expenseInfo.selected_category)
         console.log("Selected bank account is "+bankAccountNumber)

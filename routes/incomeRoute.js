@@ -35,8 +35,8 @@ router.post("/saveNewIncome",async(req,res)=>{
     
         console.log("Add income route method called")
         const incomeInfo = req.body
-        let bank = req.body.Selected_bank
-        console.log(bank)
+
+        console.log(incomeInfo)
         console.log("Selected bank account is "+incomeInfo.selected_account)
     
         try{
