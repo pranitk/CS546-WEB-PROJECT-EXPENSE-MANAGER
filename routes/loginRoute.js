@@ -65,7 +65,7 @@ async (req,res) => {
     }
     else
     {
-        res.redirect("/");
+        res.redirect("/login");
     }
     req.flash("success_msg","Welcome");
     //res.redirect("/private");
