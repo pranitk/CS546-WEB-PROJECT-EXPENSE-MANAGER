@@ -62,7 +62,8 @@
 
 .all_buttons{
  
-    margin: auto
+    margin: auto;
+    padding-top: 15px;
 }
 #primary-button1{
     float: right;

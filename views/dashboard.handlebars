@@ -28,7 +28,7 @@
 
     <body>
         {{body}}
-         <div>
+         {{!-- <div>
             <a href="/expenses/addExpense">Click Here To Add Expense</a>
             <a>or</a>
             <a href="/income/addIncome">Click Here To Add Income</a>
@@ -36,12 +36,13 @@
             <a href="/income/showAllIncome">Click Here To View Income</a>
             <a>or</a>
             <a href="/bankac/addBankAC">Click Here To Add Accounts</a>
+
            
-        </div>
+        </div> --}}
     <div class= "all_buttons" align="center">
-        <button id="add_expense" class="btn btn-primary btn-raised" >ADD EXPENSE</button>
-        <button id="add_income" class="btn btn-primary btn-raised" > ADD INCOME</button>
-        <button id="transfer" class="btn btn-primary btn-raised" > TRANSFER</button>
+      <a href="/expenses/addExpense">  <button id="add_expense" class="btn btn-primary btn-raised" >ADD EXPENSE</button></a> 
+      <a href="/income/addIncome"> <button id="add_income" class="btn btn-primary btn-raised" > ADD INCOME</button></a>
+      <a href="#"> <button id="transfer" class="btn btn-primary btn-raised" > TRANSFER</button></a>
     </div>
                                 
  <div class="dashboard">
@@ -60,8 +61,9 @@
                         </div>
 
                         <div>
+                            <form action="/expenses/showAllExpenses">
                             <button id="primary-button1"  type="submit" class="btn btn-primary ">View</button>
-                                                       
+                            </form>                        
                          </div>
 
 
@@ -137,8 +139,9 @@
                         </div>
 
                           <div>
+                              <form action="/bankac/showAllAccounts">
                             <button id="primary-button4"  type="submit" class="btn btn-primary ">View</button>
-                                                       
+                                   </form>                    
                          </div>
 
 

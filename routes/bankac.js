@@ -3,7 +3,7 @@ const router = express.Router()
 const bankData = require("../data/bank")
 
 router.get("/showAllAccounts", async(req,res)=> {
-    const allAccounts = await bankData.getAllAccounts(req.session.user) // update with user_id
+    const allAccounts = await bankData.getAllAccounts(req.session.passport.user) // update with user_id
     res.render("bankac/all_accounts",{accounts : allAccounts})
 })
 
@@ -23,19 +23,19 @@ router.post("/saveNewAccount",async(req,res)=>{
             if(!accountInfo.balance)
                 throw 'Bank Balance not specified'
                 
-            const newAccount = bankData.addBankAC(req.session.user,accountInfo.name,accountInfo.number,accountInfo.balance)
+            const newAccount = bankData.addBankAC(req.session.passport.user,accountInfo.name,accountInfo.number,accountInfo.balance)
     
             if(!newAccount)
                 throw 'New Bank Account not added' 
             
-            const allAccounts = await bankData.getAllAccounts(req.session.user) // update with user_id
+            const allAccounts = await bankData.getAllAccounts(req.session.passport.user) // update with user_id
             console.log(allAccounts)
             // res.render("bankac/all_accounts",{accounts : allAccounts})
             let response1 = req.body.nob
             let response2 = req.body.yesb
             //modal handling
             if(response1) {
-                res.redirect("/bankac/showAllAccounts")
+                res.redirect("/dashboard")
             }
             else {
                 res.redirect("/bankac/addBankAC")
