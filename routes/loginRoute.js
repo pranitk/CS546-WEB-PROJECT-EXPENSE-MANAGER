@@ -53,22 +53,23 @@ router.get("/signup",async(req,res)=>{
 
 
 //
-router.post("/",passport.authenticate("local"),
+router.post("/",passport.authenticate("local",{successRedirect : "/expenses/showAllExpenses",failureRedirect : "/",failureFlash : true}),
 async (req,res) => {
     let userSession = req.session;
     userSession.user = req.body.username;
     console.log(req.body.username);
 
-    if(req.isAuthenticated())
+    /*if(req.isAuthenticated())
     {
-        res.redirect("/expenses/showAllExpenses");
+        res.render("transactions/all_expenses");
     }
-    else
+    /*else
     {
         res.redirect("/");
     }
-    req.flash("success_msg","Welcome");
-    //res.redirect("/private");
+    res.render("login",{message : req.flash('error')})
+    req.flash("success_msg","Welcome");*/
+    res.redirect("/");
 })
 
 //Create New User

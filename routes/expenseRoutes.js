@@ -10,7 +10,7 @@ var expressValidator = require("express-validator");
 
 router.get("/showAllExpenses",async(req,res)=>{
     const userData = req.session.user;
-    console.log("Username logged is "+userData)
+    console.log("Username logged is "+req.session.passport.user)
     const allExpenses = await transactionData.getAllExpenses(userData);
     
     //res.send(`username ${userData}`);
