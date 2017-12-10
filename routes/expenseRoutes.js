@@ -1,3 +1,4 @@
+
 const express = require("express")
 const router = express.Router()
 //const data = require("../data")
@@ -99,6 +100,18 @@ router.get("/addExpense",async(req,res)=>{
     console.log("Categories size "+categories.length)
 
     res.render('transactions/add_expense',{ bank_accounts: bank_accounts , categories: categories })  // handlebar
+})
+
+
+router.get("/editExpense/:id",async(req,res)=>{
+    const username = req.session.user
+    let bank_accounts = await bankData.getAllAccounts(username)
+    const categories = await categoryData.getAllCategories(username)
+
+    const expense = await transactionData.getTransactionById(req.params.id)
+    console.log("Expense to be updated "+expense)
+
+    res.render('transactions/edit_expense',{ expense: expense,  bank_accounts: bank_accounts , categories: categories })
 })
 
 router.post("/addNewCategory",async(req,res) => {

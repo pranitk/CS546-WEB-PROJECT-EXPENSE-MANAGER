@@ -28,6 +28,17 @@
     float: right;
 }
 
+button{
+    margin: 20px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0px;
+}
+
+.edit-buttons{
+    float: right;
+}
+
 td{
     padding: 6pt;
 }
