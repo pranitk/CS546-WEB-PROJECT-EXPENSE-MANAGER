@@ -17,7 +17,7 @@ module.exports = {
         const category_name = temp[1]
 
         console.log("Getting bank account for "+account_number)
-        const bank_account = await bankData.getAccountByNumber(account_number)
+        const bank_account = await bankData.getAccountByNumber(account_number,user_id)
         // GET BANK ACCOUNT BY ID
 
 
@@ -60,7 +60,7 @@ module.exports = {
                
         
                 console.log("Getting bank account for "+account_number)
-                const bank_account = await bankData.getAccountByNumber(account_number)
+                const bank_account = await bankData.getAccountByNumber(account_number,user_id)
                 // GET BANK ACCOUNT BY ID
         
         
@@ -91,8 +91,8 @@ module.exports = {
 
     async saveTransfer(user_id,amount,sender_account_number,receiver_account_number,desc,date){
 
-        const sender_bank_account = await bankData.getAccountByNumber(sender_account_number)
-        const receiver_bank_account = await bankData.getAccountByNumber(receiver_account_number)
+        const sender_bank_account = await bankData.getAccountByNumber(sender_account_number,user_id)
+        const receiver_bank_account = await bankData.getAccountByNumber(receiver_account_number,user_id)
 
         const transaction = {
             user_id: user_id,
@@ -113,6 +113,10 @@ module.exports = {
         
         console.log("inserted transfer result: "+insertedInfo)
         console.log("Inserted transfer obj: "+transaction)
+
+        const result = await bankData.transferAmount(user_id,sender_account_number,receiver_account_number,amount)
+
+        console.log("Transfer amount updated in bank")
 
         return transaction
 
