@@ -19,9 +19,9 @@ router.get("/showAllExpenses",async(req,res)=>{
 
 router.get("/viewExpense/:id",async(req,res)=>{
     const userData = req.session.user;
-    console.log("Username logged is "+userData)
+    //console.log("Username logged is "+userData)
     let id = req.params.id
-    console.log("Fetching expense details for "+id)
+    //console.log("Fetching expense details for "+id)
 
     const expense = await transactionData.getTransactionById(id)
 
@@ -34,14 +34,20 @@ router.get("/viewExpense/:id",async(req,res)=>{
 })
 
 router.post("/saveNewExpense",async(req,res)=>{
-
-    console.log("Add expense route method called")
-    const expenseInfo = req.body
-    const amount = expenseInfo.amount
-    const desc = expenseInfo.description
     
 
     try{
+
+        console.log("Add expense route method called")
+        const expenseInfo = req.body
+        const amount = expenseInfo.amount
+        const desc = expenseInfo.description
+        const categoryDetails = expenseInfo.selected_category
+        const bankAccountNumber = expenseInfo.selected_bank_account
+        const date = expenseInfo.dt
+        console.log("Date is "+date)
+        console.log("Selected category is "+expenseInfo.selected_category)
+        console.log("Selected bank account is "+bankAccountNumber)
 
         if(!amount)
             throw 'Amount not specified'
@@ -49,18 +55,31 @@ router.post("/saveNewExpense",async(req,res)=>{
         if(!desc)
             throw 'Description not specified'
         
-        var loggedUser = req.session.user;
-        const newTransaction = await transactionData.addTransaction(loggedUser,1,amount,desc,0,100,"")
-        //console.log("New Transaction = "+newTransaction);
+
+        if(!categoryDetails)
+            throw 'Category not specified'
+
+        if(!bankAccountNumber)
+            throw 'Bank account not selected' 
+
+        if(!date)
+            throw 'Date not selected'
+
+     
+
+        var username = req.session.user;
+        const newTransaction = await transactionData.addTransaction(username,1,amount,desc,categoryDetails,bankAccountNumber,date)
 
         if(!newTransaction)
             throw 'New Transaction not added' 
 
-        let updateResult = await bankData.updateAccount(loggedUser,account_number,1,amount)
+        console.log("Expense save to db..redirect to all expenses")
+        //let updateResult = await bankData.updateAccount(loggedUser,account_number,1,amount)
         res.redirect('showAllExpenses')
 
     }catch(e){
         res.sendStatus(500).json({ error: e})
+        
     }
 })
 
@@ -69,11 +88,17 @@ router.post("/saveNewExpense",async(req,res)=>{
 //Show the add expense page.
 router.get("/addExpense",async(req,res)=>{
     console.log("Add expense get page route called")
-    const userData = req.session.user;
-    console.log("user logged in as "+ userData)
-    let bank_accounts = await bankData.getAllAccounts(req.session.user)
+    //let bank_accounts = await bankData.getAllAccounts(req.session.user._id)
+    //res.render('transactions/add_expense')
+    //res.render('transactions/add_expense',{ bank_accounts: bank_accounts })  // handlebar
+    const username = req.session.user
+    let bank_accounts = await bankData.getAllAccounts(username)
+    const categories = await categoryData.getAllCategories(username)
 
-    res.render('transactions/add_expense',{ bank_accounts: bank_accounts })  // handlebar
+    console.log("Bank accounts size "+bank_accounts.length)
+    console.log("Categories size "+categories.length)
+
+    res.render('transactions/add_expense',{ bank_accounts: bank_accounts , categories: categories })  // handlebar
 })
 
 router.post("/addNewCategory",async(req,res) => {

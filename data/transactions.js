@@ -1,16 +1,23 @@
 const mongoCollections = require("../config/mongoCollections")
 const transactions = mongoCollections.transactions
 const categories = mongoCollections.categories
+const bankData = require("./bank")
 const uuid = require("node-uuid")
 
 module.exports = {
 
     //Add New Transactions
-    async addTransaction(user_id,transaction_type,amount,desc,category_name,account_id,date){
+    async addTransaction(user_id,transaction_type,amount,desc,category_details,account_number,date){
 
         // GET CATEGORY BY ID or NAME
-        const categoriesCollection = await categories();
-        const newCategory = categoriesCollection.findOne({user:user_id,category_name:category_name})
+        //const categoriesCollection = await categories();
+        //const newCategory = categoriesCollection.findOne({user:user_id,category_name:category_name})
+        const temp = category_details.split("  ")
+        const category_icon = temp[0]
+        const category_name = temp[1]
+
+        console.log("Getting bank account for "+account_number)
+        const bank_account = await bankData.getAccountByNumber(account_number)
         // GET BANK ACCOUNT BY ID
 
 
@@ -23,14 +30,10 @@ module.exports = {
             desc: desc,
             //category_name: category_id,
             category:{
-                category_name: newCategory.category_name, // Update this..
-                icon_name: newCategory.icon_name   // Update this..
+                category_name: category_name, // Update this..
+                icon_name: category_icon  // Update this..
             },
-            account_id: account_id,
-            account:{
-                account_name:"Chase", // Update this..
-                
-            },
+            bank_account:bank_account,
             date: date
         }
 
@@ -41,6 +44,78 @@ module.exports = {
             throw 'Insertion failed'
             
         console.log("inserted expense: "+insertedInfo)
+
+       // const result = await bankData.updateAccount(user_id,account_number,1,amount)
+
+        console.log("Updated bank balance")
+
+        return transaction
+    },
+
+    async addTransactionForIncome(user_id,transaction_type,amount,desc,account_number,date){
+        
+                // GET CATEGORY BY ID or NAME
+                //const categoriesCollection = await categories();
+                //const newCategory = categoriesCollection.findOne({user:user_id,category_name:category_name})
+               
+        
+                console.log("Getting bank account for "+account_number)
+                const bank_account = await bankData.getAccountByNumber(account_number)
+                // GET BANK ACCOUNT BY ID
+        
+        
+                console.log("inserting into database")
+                let transaction = {
+                    user_id : user_id, 
+                    transaction_type: transaction_type, // 1 - Expense, 2 - Income
+                    _id: uuid.v4(),
+                    amount: amount,
+                    desc: desc,
+                    //category_name: category_id,
+                
+                    bank_account:bank_account,
+                    date: date
+                }
+        
+                const transactionCollection = await transactions()
+                const insertedInfo = await transactionCollection.insertOne(transaction)
+        
+                if(insertedInfo.insertedCount == 0)
+                    throw 'Insertion failed'
+                    
+                console.log("inserted expense: "+insertedInfo)
+        
+                return transaction
+            },
+
+
+    async saveTransfer(user_id,amount,sender_account_number,receiver_account_number,desc,date){
+
+        const sender_bank_account = await bankData.getAccountByNumber(sender_account_number)
+        const receiver_bank_account = await bankData.getAccountByNumber(receiver_account_number)
+
+        const transaction = {
+            user_id: user_id,
+            transaction_type: 3,    // transfer
+            _id: uuid.v4(),
+            amount: amount,
+            desc: desc,
+            sender_bank_account: sender_bank_account,
+            receiver_bank_account: receiver_bank_account,
+            date: date
+        }
+
+        const transactionCollection = await transactions()
+        const insertedInfo = await transactionCollection.insertOne(transaction)
+
+        if(insertedInfo.insertedCount == 0)
+            throw 'Insertion failed'
+        
+        console.log("inserted expense: "+insertedInfo)
+
+        return transaction
+
+
     },
 
     async getTransactionById(id){
@@ -64,15 +139,11 @@ module.exports = {
 
         const transactionCollection = await transactions()
         return await transactionCollection.find({ transaction_type: 1 ,user_id : user_id}).toArray()
+    },
 
-        // //let category = {}
-        // allExpenses[0].push({
-        //     category_id: 10001,
-        //     category_name: "Shreyas",
-        //     icon_name: "wifi"
-        // })
-
-        // return allExpenses;
+    async getAllTransactions(user_id,transaction_type){
+        const transactionCollection = await transactions()
+        return await transactionCollection.find({ transaction_type: transaction_type ,user_id : user_id}).toArray()
     },
 
     async getAllIncome(user_id){
@@ -82,6 +153,23 @@ module.exports = {
             user_id: user_id,
 
         }).toArray();
+    },
+
+    async deleteIncomeById(transactionId){
+        if(!transactionId)
+            throw "Transaction not found"
+
+        const transactionCollection = await transactions()
+
+        const thatTransaction = await this.getAllIncome()
+        console.log("I got all Incomes")
+
+        const delTransaction = await transactionCollection.removeOne({_id: transactionId})
+
+        return delTransaction
+
+        
+
     }
 
 

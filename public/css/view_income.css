@@ -1,0 +1,35 @@
+#my-title-container{
+    background: #4CAF50;
+}
+.my-title{
+    color: white;
+    font-size: 18pt;
+    height: 120px;
+}
+
+.view-income-details{
+    padding: 36px;
+    width: 80%;
+    margin: auto;
+}
+
+.my-card-header-title{
+    font-style: bold;
+    padding: 6px;
+    font-size: 20pt;
+    color: white;
+}
+
+.row-title{
+    font-style: bold;
+}
+
+#primary-button{
+    float: right;
+}
+
+td{
+    padding: 6pt;
+}
+
+

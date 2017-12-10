@@ -84,8 +84,8 @@ module.exports = {
     },
 
     async getAccountByNumber(ac_no) {
-        
-        if(!id)
+        console.log("Finding account by "+ac_no)
+        if(!ac_no)
             throw "Account number not provided"
         
         const bankCollection = await bankac()

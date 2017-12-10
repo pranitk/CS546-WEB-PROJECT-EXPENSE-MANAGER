@@ -1,0 +1,138 @@
+#my-title-container1{
+    background: #E53935;
+}
+
+#my-title-container2{
+    background: #FFA000;
+}
+
+#my-title-container3{
+    background: #00796B;
+}
+
+#my-title-container4{
+    background: purple;
+}
+
+.my-title{
+    color: white;
+    font-size: 18pt;
+    font-family: Calibri;
+    height: 120px;
+}
+
+.add-expense-form{
+    padding: 36px;
+    width: 50%;
+    margin: auto;
+}
+
+#field-container{
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    
+}
+
+
+
+#expense-description{
+    float: left;
+    width: 60%;
+}
+
+
+
+.my-card-header-title{
+    font-style: bold;
+    padding: 6px;
+    color: rgb(255, 255, 255);
+   
+}
+.card{
+    align-content: center;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    
+    
+}
+
+
+.all_buttons{
+ 
+    margin: auto
+}
+#primary-button1{
+    float: right;
+    color: red
+}
+#primary-button2{
+    float: right;
+    color: #FFA000
+}
+#primary-button3{
+    float: right;
+    color: #00796B
+}
+#primary-button4{
+    float: right;
+    color: purple
+}
+
+#add_income{
+    background: #4CAF50;
+    text-align: center
+    
+
+
+}
+#add_expense{
+    background: #E53935;
+    text-align: center;
+}
+
+#transfer{
+    background: teal;
+    text-align: center;
+    
+}
+
+#primary-button{
+    float: center;
+    color: #F57C00;
+    margin-top: 15px;
+}
+#primary-button1{
+    float: left;
+    color: #F57C00;
+    
+    float: right;
+}
+.dropdown-divider{
+    width: 100;
+}
+
+#right-margin{
+    color: #616161
+}
+
+#text{
+    margin-top: 15px;
+}
+.button {
+    display: block;
+    width: 115px;
+    height: 25px;
+   
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color:#4E9CAF;
+    font-weight: bold;
+    float: right
+}
+
+
+

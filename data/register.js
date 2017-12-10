@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const mongoCollections = require("../config/mongoCollections")
 const users = mongoCollections.users
 const uuid = require("node-uuid")
+const categories = require("./categories")
 
 module.exports = {
 
@@ -79,6 +80,9 @@ module.exports = {
         //let userCollection = await users()
         let insertedInfo = await userCollection.insertOne(newUser)
         console.log("Insertion done");
+
+        const categoriesResult = await categories.addCategoryForNewUser(username)
+
      },//End of addNewUser
 
      async verifyPassword(password,hashedpassword)

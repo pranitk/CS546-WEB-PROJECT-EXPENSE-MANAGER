@@ -32,7 +32,7 @@
         rel="stylesheet">
         -->
 
-        <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> -->
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> 
         
         <title>Add New Income</title>
     </head>
@@ -41,40 +41,65 @@
         
         <div class="add-income-form">
                 <div class="card">
+                              
 
                         <div id="my-title-container" class="card-header">
                           <h5 class="my-card-header-title">ADD YOUR INCOME DETAILS</h5>
                         </div>
+    
 
                         <div class="card-body">
                             <!--
                           <h4 class="card-title">Special title treatment</h4>
                           <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
                             -->
+                        {{!-- {{#if errors}}
+                                {{#each errors}}
+                                        <div class = "alert alert-danger">
+                                        <strong>{{msg}}</strong>
+                                        </div>
+                                {{/each}}
+                          {{/if}} --}}
 
-                          <form action="/income/saveNewIncome" method="POST"> 
+                          <form action="/income/saveNewIncome"  id="needs-validation" method="POST" novalidate> 
                                 <!-- <div class="form-group">
                                         <span class="input-group-addon">$</span>
                                         <input type="text" class="form-control" id="expense-amount" placeholder="Enter Amount">
                                 </div> -->
+
+                                   {{!-- {{#if error}}
+                                        <div class="alert alert-danger">
+                                                <b>{{error}}</b> 
+                                        </div>
+                                {{/if}} --}}
                                 <div id="field-container" class="input-group">
                                         <span class="input-group-addon"><i id = "field-icon" class="material-icons">monetization_on</i></span>
-                                        <input type="text" name="amount" class="form-control" placeholder="Enter amount"/>
+                                        <input type="text" name="amount" class="form-control" placeholder="Enter amount" required/>
+                                        <div class="invalid-feedback">
+                                                Please provide a valid amount
+                                        </div>
                                 </div>
 
                                 <div id="field-container" class="input-group">
                                         <span class="input-group-addon"><i class="material-icons">description</i></span>
-                                       <input type="text" name="description" class="form-control" placeholder="Description"/>
+                                       <input type="text" name="description" class="form-control" placeholder="Description" required/>
+                                       <div class="invalid-feedback">
+                                                Please provide a valid Description
+                                        </div>
                                 </div>
 
-       
+                                 {{!-- <div id="field-container" class="input-group">
+                                        <span class="input-group-addon"><i class="material-icons">description</i></span>
+                                       <input type="hidden" value = "chase" name="Selected_bank" class="form-control" placeholder="Description"/>
+                                </div> --}}
 
 
                                 <div id="field-container" class="input-group">
                                         <span class="input-group-addon"><i class="material-icons">account_balance</i></span>
                                     
-                                        
-                                        <div class="btn-group">
+                                        <input id="selected_bank_account" name = "selected_bank_account" type="text" class="form-control" hidden="true">
+
+                                        {{!-- <div class="btn-group">
                                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                   Choose Your bank account
                                                 </button>
@@ -83,17 +108,35 @@
                                                   <a class="dropdown-item" href="#">Cash</a>
                                                   <a class="dropdown-item" href="#">Forex card</a>
                                                   <div class="dropdown-divider"></div>
-                                                   <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Category</button>
+                                                  <a class="dropdown-item" href="#">Add New Account</a>
+                                                </div>
+                                        </div> --}}
+
+                                         <div class="btn-group">
+                                                <button id="btn-bank-account" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                  Choose Your bank account
+                                                </button>
+                                                <div id="bank-dropdown" class="dropdown-menu">
+                                                        {{#each bank_accounts }}
+                                                                <button type="button" value={{ac_number}} class="dropdown-item">{{ac_name}} <br>Ending in {{ac_ending}}</br> </button>
+                                                        {{/each }}
                                                 </div>
                                         </div>
-                                   
+                                    
+                                      
                                 </div>
+
+       
+                           
+
                                  <div class="date">
                                         <label id = "label"for="dt" <i class="material-icons">date_range</i></label>
 	                                <input name="dt" type="date"/>
                                 
 
                                 </div>
+                                  
+                        
  
                                 
                                 <button id="primary-button"  type="submit" class="btn btn-primary btn-lg btn-raised">Save</button>
@@ -147,9 +190,26 @@
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
         <script src="https://unpkg.com/bootstrap-material-design@4.0.0-beta.4/dist/js/bootstrap-material-design.js" integrity="sha384-3xciOSDAlaXneEmyOo0ME/2grfpqzhhTcM4cE32Ce9+8DW/04AGoTACzQpphYGYe" crossorigin="anonymous"></script>
+         <script src="/public/js/add_category.js"></script>
         <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
         
 
+        <script>
+                // Example starter JavaScript for disabling form submissions if there are invalid fields
+                (function() {
+                "use strict";
+                window.addEventListener("load", function() {
+                var form = document.getElementById("needs-validation");
+                form.addEventListener("submit", function(event) {
+                if (form.checkValidity() == false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                }
+                form.classList.add("was-validated");
+                }, false);
+                }, false);
+                }());
+        </script>
        
     </body>
 

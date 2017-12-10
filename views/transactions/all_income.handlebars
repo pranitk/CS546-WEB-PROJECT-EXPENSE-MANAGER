@@ -32,13 +32,18 @@
                         <div class="card-body">
                             <div>
                                 {{#each income}}
-                                    <a data-toggle="modal" data-target="#myModal" class="list-group-item"> 
-                                        <i class="material-icons">{{category.icon_name}}</i>
+                                
+                                    <a href="/income/viewIncome/{{ _id }}"  class="list-group-item"> 
+                                    <form  action="/income/delete/{{ _id }}">
+                                    <button name="income_id"class="delete_income_button"> <i class="material-icons">delete </i></button> 
+                                    </form>
                                         <div class="bmd-list-group-col">
+                                            
                                             <p id="expense-desc" class="list-group-item-heading">{{desc}}</p>
-                                            <p class="list-group-item-text">{{ category.category_name}}  |  {{ account.account_name }}</p>
+                                            <p class="list-group-item-text"> {{ bank_account.ac_name }} | {{date}}</p>
                                         </div>
                                         <span id="amount" class="label label-default label-pill pull-xs-right"><b>${{amount}}</b></span>
+                                        
                                     </a>
                                 {{/each}}
 
