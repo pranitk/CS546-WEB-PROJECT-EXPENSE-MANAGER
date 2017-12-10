@@ -7,6 +7,12 @@
     height: 120px;
 }
 
+#category{
+    overflow-y: auto;
+    width: 100%;
+    height: 250px;
+}
+
 .add-expense-form{
     padding: 36px;
     width: 80%;
@@ -31,6 +37,7 @@
     font-style: bold;
     padding: 6px;
     color: white;
+    vertical-align: center;
 }
 
 #primary-button{
