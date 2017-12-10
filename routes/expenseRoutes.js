@@ -67,7 +67,7 @@ router.post("/saveNewExpense",async(req,res)=>{
 
      
 
-        var username = req.session.user;
+        var username = req.session.passport.user;
         const newTransaction = await transactionData.addTransaction(username,1,amount,desc,categoryDetails,bankAccountNumber,date)
 
         if(!newTransaction)
@@ -91,7 +91,7 @@ router.get("/addExpense",async(req,res)=>{
     //let bank_accounts = await bankData.getAllAccounts(req.session.user._id)
     //res.render('transactions/add_expense')
     //res.render('transactions/add_expense',{ bank_accounts: bank_accounts })  // handlebar
-    const username = req.session.user
+    const username = req.session.passport.user
     let bank_accounts = await bankData.getAllAccounts(username)
     const categories = await categoryData.getAllCategories(username)
 

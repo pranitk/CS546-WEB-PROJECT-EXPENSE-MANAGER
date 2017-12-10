@@ -53,7 +53,7 @@ router.get("/signup",async(req,res)=>{
 
 
 //
-router.post("/",passport.authenticate("local",{successRedirect : "/expenses/showAllExpenses",failureRedirect : "/",failureFlash : true}),
+router.post("/",passport.authenticate("local",{successRedirect : "/dashboard",failureRedirect : "/",failureFlash : true}),
 async (req,res) => {
     let userSession = req.session;
     userSession.user = req.body.username;
