@@ -1,0 +1,41 @@
+#field-container{
+    margin-top: 10pt;
+    margin-bottom: 10pt;
+}
+
+th{
+    text-align: center;
+}
+
+table{
+    margin: auto;
+}
+
+td{
+    padding: 4pt;
+}
+
+#my-title-container{
+        background: #009688;
+}
+.my-title{
+        color: white;
+        font-size: 18pt;
+        height: 120px;
+}
+
+.my-card-header-title{
+    font-style: bold;
+    padding: 6px;
+    color: white;
+}
+
+#primary-button{
+    float: right;
+}
+
+.add-transfer-form{
+    padding: 36px;
+    width: 80%;
+    margin: auto;
+}
