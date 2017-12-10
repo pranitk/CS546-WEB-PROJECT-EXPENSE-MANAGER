@@ -61,7 +61,7 @@ async (req,res) => {
 
     if(req.isAuthenticated())
     {
-        res.redirect("/expenses/showAllExpenses");
+        res.redirect("/dashboard");
     }
     else
     {
