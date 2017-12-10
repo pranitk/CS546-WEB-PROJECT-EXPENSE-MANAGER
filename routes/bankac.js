@@ -49,14 +49,16 @@ router.post("/saveNewAccount",async(req,res)=>{
     router.post("/deleteAccount", async(req,res) => {
         let response1 = req.body.nob
         let response2 = req.body.yesb
+        let acno = req.body.acn
+        console.log("acno-",acno[0])
         //modal handling
         if(response1) {
             res.redirect("/bankac/showAllAccounts")
         }
-        else if(response2) {
-            let accno = response2.substr(4,)
-            console.log("Deleting account with account number-",accno)
-            const delAccount = bankData.deleteAccountByNumber(accno)
+        else if(response2 && acno != undefined) {
+            //let accno = response2.substr(4,)
+            console.log("Deleting account with account number-",acno[0])
+            const delAccount = bankData.deleteAccountByNumber(acno[0])
             res.redirect("/bankac/showAllAccounts")
         }
     })

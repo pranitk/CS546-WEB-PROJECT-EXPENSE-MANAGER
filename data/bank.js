@@ -115,10 +115,11 @@ module.exports = {
     async deleteAccountByNumber(ac_no) {
         if(!ac_no)
             throw "Account number not provided"
+        console.log(ac_no)
         const bankCollection = await bankac()
-        const accounts = await this.getAllAccounts(user_id)
+        const accounts = await this.getAllAccounts(req.session.passport.user)
         if(accounts.length > 1) {
-            const delacc = await bankCollection.removeOne({ac_number : ac_no})
+            const delacc = await bankCollection.removeOne({ac_ending : ac_no})
             if(delacc.deletedCount === 0) {
                 throw "Could not remove account with acc_number:${ac_no}";
             } else {
