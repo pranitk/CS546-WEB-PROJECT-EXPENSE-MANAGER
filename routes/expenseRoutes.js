@@ -65,6 +65,8 @@ router.post("/saveNewExpense",async(req,res)=>{
         if(!date)
             throw 'Date not selected'
 
+     
+
         var username = req.session.user;
         const newTransaction = await transactionData.addTransaction(username,1,amount,desc,categoryDetails,bankAccountNumber,date)
 
@@ -77,6 +79,7 @@ router.post("/saveNewExpense",async(req,res)=>{
 
     }catch(e){
         res.sendStatus(500).json({ error: e})
+        
     }
 })
 
