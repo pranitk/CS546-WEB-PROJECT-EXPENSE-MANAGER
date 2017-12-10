@@ -33,12 +33,13 @@
 #account-icon{
     margin-right: 100px;
 }
-.signout{
-    padding-right: 36px;
+.sign-out{
+    margin-right: 12px;
     color:white;
-   
+    text-align: center;
     
 }
+
 /* .material-icons{
     padding-top: 2px;
     color: white

@@ -86,7 +86,7 @@ module.exports = {
                 console.log("inserted expense: "+insertedInfo)
         
                 return transaction
-            },
+    },
 
 
     async saveTransfer(user_id,amount,sender_account_number,receiver_account_number,desc,date){
@@ -111,10 +111,10 @@ module.exports = {
         if(insertedInfo.insertedCount == 0)
             throw 'Insertion failed'
         
-        console.log("inserted expense: "+insertedInfo)
+        console.log("inserted transfer result: "+insertedInfo)
+        console.log("Inserted transfer obj: "+transaction)
 
         return transaction
-
 
     },
 
