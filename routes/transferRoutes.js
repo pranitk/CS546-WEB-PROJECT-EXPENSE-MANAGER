@@ -45,7 +45,9 @@ router.post("/saveNewTransfer",async(req,res)=>{
     if(!transferInfo)
         throw 'Saving transfer failed'
 
-    res.redirect("/showAllTransfers")
+    console.log("Transfer transaction added")
+
+    res.redirect("./expenses/showAllExpenses")
 
 })
 
