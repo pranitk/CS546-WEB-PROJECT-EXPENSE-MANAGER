@@ -83,13 +83,13 @@ module.exports = {
         return acc
     },
 
-    async getAccountByNumber(ac_no) {
+    async getAccountByNumber(ac_no,user_id) {
         console.log("Finding account by "+ac_no)
         if(!ac_no)
             throw "Account number not provided"
         
         const bankCollection = await bankac()
-        const acc = await bankCollection.findOne({ac_number : ac_no})
+        const acc = await bankCollection.findOne({ac_number : ac_no, user_id: user_id})
         return acc
     },
 
@@ -156,16 +156,22 @@ module.exports = {
         if(!amount) { throw "Amount not provided" }
         const bankCollection = await bankac()
         const accounts = await this.getAllAccounts(user_id)
-        for(let i=0; i<accounts.length ; i++) {
-            if(accounts[i].ac_number == ac_no1) {
-                let acc1 = accounts[i]
-            }
-            if(accounts[i].ac_number == ac_no2) {
-                let acc2 = accounts[i]
-            }
-        }
+        // for(let i=0; i<accounts.length ; i++) {
+        //     if(accounts[i].ac_number == ac_no1) {
+        //         let acc1 = accounts[i]
+        //     }
+        //     if(accounts[i].ac_number == ac_no2) {
+        //         let acc2 = accounts[i]
+        //     }
+        // }
+        const acc1 = await this.getAccountByNumber(ac_no1,user_id)
+        const acc2 = await this.getAccountByNumber(ac_no2,user_id)
         acc1.ac_bal = acc1.ac_bal - amount
         acc2.ac_bal = acc2.ac_bal + amount
+
+        console.log("New account 1 balance is $"+acc1.ac_bal)
+
+        console.log("New account 2 balance is $"+acc2.ac_bal)
         // if(type == 1) {
         //     acc1.ac_bal = acc1.ac_bal - amount
         //     acc2.ac_bal = acc2.ac_bal + amount

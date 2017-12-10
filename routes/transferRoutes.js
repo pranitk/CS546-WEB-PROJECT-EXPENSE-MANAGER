@@ -6,7 +6,7 @@ const categoryData = require("../data/categories");
 
 router.get("/showAllTransfers",async(req,res)=>{
 
-    const username = req.session.user;
+    const username = req.session.passport.user;
     const allTransfers = await transactionData.getAllTransactions(username,3)
 
     res.render("transactions/all_transfers", { transfers: allTransfers })
@@ -14,14 +14,14 @@ router.get("/showAllTransfers",async(req,res)=>{
 
 router.post("/saveNewTransfer",async(req,res)=>{
 
-    const username = req.session.user
+    const username = req.session.passport.user
     const info = req.body
 
     const amount = info.amount
     const desc = info.desc
-    const sender_bank_account_number = info.sender_bank_account1
-    const receiver_bank_account_number = info.sender_bank_account2
-    const date = info.date
+    const sender_bank_account_number = info.selected_bank_account1
+    const receiver_bank_account_number = info.selected_bank_account2
+    const date = info.dt
 
     if(!amount)
         throw 'Amount not provided'
@@ -45,7 +45,7 @@ router.post("/saveNewTransfer",async(req,res)=>{
     if(!transferInfo)
         throw 'Saving transfer failed'
 
-    console.log("Transfer transaction added")
+    console.log("Transfer transaction added -> "+transferInfo)
 
     res.redirect("./expenses/showAllExpenses")
 
@@ -53,7 +53,7 @@ router.post("/saveNewTransfer",async(req,res)=>{
 
 router.get("/addNewTransfer",async(req,res) => {
 
-    const username = req.session.user
+    const username = req.session.passport.user
     let bank_accounts = await bankData.getAllAccounts(username)
 
     res.render("transactions/add_transfer",{ bank_accounts: bank_accounts})
