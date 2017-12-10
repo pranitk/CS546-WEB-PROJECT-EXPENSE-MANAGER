@@ -35,7 +35,7 @@ router.post("/saveNewAccount",async(req,res)=>{
             let response2 = req.body.yesb
             //modal handling
             if(response1) {
-                res.redirect("/bankac/showAllAccounts")
+                res.redirect("/dashboard")
             }
             else {
                 res.redirect("/bankac/addBankAC")

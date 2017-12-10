@@ -100,6 +100,18 @@ module.exports = {
         return await bankCollection.find({user_id : user_id}).toArray()
     },
 
+    async hasAccounts(user_id) {
+        if(!user_id)
+            throw "User ID not provided"
+        const bankCollection = await bankac()
+        let doc = await bankCollection.findOne({user_id : user_id})
+        console.log(doc)
+        if(doc == null)
+            return false
+        else
+            return true
+    },
+
     async deleteAccountByNumber(ac_no) {
         if(!ac_no)
             throw "Account number not provided"
@@ -118,7 +130,7 @@ module.exports = {
         
     },
 
-    async updateAccount(user_id,ac_no,type,amount) { //type 1 - expense, type 0 - income
+    async updateAccount(user_id,ac_no,type,amount) { //type 1 - expense, type 2 - income
         if(!user_id) { throw "User ID not provided" }
         if(!ac_no) { throw "Account number not provided" }
         if(!type) { throw "Expense type not provided" }
@@ -132,16 +144,15 @@ module.exports = {
         }
         if(type == 1) {
             acc.ac_bal = acc.ac_bal - amount
-        } else {
+        } else if(type == 2) {
             acc.ac_bal = acc.ac_bal + amount
         }
     },
 
-    async transferAmount(user_id,ac_no1,ac_no2,type,amount) { // type 1 - transfer from 1 to 2 , 2 - transfer from 2 to 1
+    async transferAmount(user_id,ac_no1,ac_no2,amount) { //from-ac_no1 to-ac_no2
         if(!user_id) { throw "User ID not provided" }
         if(!ac_no1) { throw "Account number 1 not provided" }
         if(!ac_no2) { throw "Account number 2 not provided" }
-        if(!type) { throw "Type not provided" }
         if(!amount) { throw "Amount not provided" }
         const bankCollection = await bankac()
         const accounts = await this.getAllAccounts(user_id)
@@ -153,13 +164,15 @@ module.exports = {
                 let acc2 = accounts[i]
             }
         }
-        if(type == 1) {
-            acc1.ac_bal = acc1.ac_bal - amount
-            acc2.ac_bal = acc2.ac_bal + amount
-        }
-        else if(type == 2) {
-            acc2.ac_bal = acc2.ac_bal - amount
-            acc1.ac_bal = acc1.ac_bal + amount
-        }
+        acc1.ac_bal = acc1.ac_bal - amount
+        acc2.ac_bal = acc2.ac_bal + amount
+        // if(type == 1) {
+        //     acc1.ac_bal = acc1.ac_bal - amount
+        //     acc2.ac_bal = acc2.ac_bal + amount
+        // }
+        // else if(type == 2) {
+        //     acc2.ac_bal = acc2.ac_bal - amount
+        //     acc1.ac_bal = acc1.ac_bal + amount
+        // }
     }
 }

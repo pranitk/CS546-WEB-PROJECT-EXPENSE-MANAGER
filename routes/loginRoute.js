@@ -7,6 +7,7 @@ var router = express.Router();
 router.use(expressValidator());
 var User = require("../data/register");
 var UserCategory = require("../data/categories");
+let UserBank = require("../data/bank")
 
 //Passport
 passport.use(new Strategy({
@@ -61,7 +62,13 @@ async (req,res) => {
 
     if(req.isAuthenticated())
     {
-        res.redirect("/dashboard");
+        let hasAccounts = await UserBank.hasAccounts(userSession.user)
+        console.log(hasAccounts)
+        if(hasAccounts == false) {
+            res.redirect("/bankac/addBankAC")
+        } else {
+            res.redirect("/dashboard");
+        }
     }
     else
     {
