@@ -88,6 +88,36 @@ module.exports = {
                 return transaction
             },
 
+
+    async saveTransfer(user_id,amount,sender_account_number,receiver_account_number,desc,date){
+
+        const sender_bank_account = await bankData.getAccountByNumber(sender_account_number)
+        const receiver_bank_account = await bankData.getAccountByNumber(receiver_account_number)
+
+        const transaction = {
+            user_id: user_id,
+            transaction_type: 3,    // transfer
+            _id: uuid.v4(),
+            amount: amount,
+            desc: desc,
+            sender_bank_account: sender_bank_account,
+            receiver_bank_account: receiver_bank_account,
+            date: date
+        }
+
+        const transactionCollection = await transactions()
+        const insertedInfo = await transactionCollection.insertOne(transaction)
+
+        if(insertedInfo.insertedCount == 0)
+            throw 'Insertion failed'
+        
+        console.log("inserted expense: "+insertedInfo)
+
+        return transaction
+
+
+    },
+
     async getTransactionById(id){
 
         if(!id)
