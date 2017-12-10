@@ -45,6 +45,10 @@ module.exports = {
             
         console.log("inserted expense: "+insertedInfo)
 
+       // const result = await bankData.updateAccount(user_id,account_number,1,amount)
+
+        console.log("Updated bank balance")
+
         return transaction
     },
 
