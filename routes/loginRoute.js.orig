@@ -60,8 +60,9 @@ async (req,res) => {
     userSession.user = req.body.username;
     console.log(req.body.username);
 
-    if(req.isAuthenticated())
+    /*if(req.isAuthenticated())
     {
+<<<<<<< HEAD
         let hasAccounts = await UserBank.hasAccounts(userSession.user)
         console.log(hasAccounts)
         if(hasAccounts == false) {
@@ -69,14 +70,16 @@ async (req,res) => {
         } else {
             res.redirect("/dashboard");
         }
+=======
         res.render("transactions/all_expenses");
+>>>>>>> 401fe20672944372b8e16777261568e2631fd6cc
     }
-    else
+    /*else
     {
         res.redirect("/login");
     }
     res.render("login",{message : req.flash('error')})
-    req.flash("success_msg","Welcome");
+    req.flash("success_msg","Welcome");*/
     res.redirect("/");
 })
 

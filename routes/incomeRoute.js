@@ -8,7 +8,7 @@ const bankData = require("../data/bank")
 var expressValidator = require("express-validator");
 
 router.get("/showAllIncome",async(req,res)=>{
-    const userName = req.session.user;
+    const userName = req.session.passport.user;
    // console.log("Username logged is "+userData)
     const allIncome = await transactionData.getAllIncome(userName)
     res.render("transactions/all_income",{ income: allIncome })
@@ -71,7 +71,7 @@ router.post("/saveNewIncome",async(req,res)=>{
             else{
 
                     
-                var loggedUser = req.session.user;
+                var loggedUser = req.session.passport.user;
                 const newTransaction = transactionData.addTransactionForIncome(loggedUser,2,amount,desc,bankAccountNumber,date)
 
                 if(!newTransaction)
@@ -102,7 +102,7 @@ router.post("/saveNewIncome",async(req,res)=>{
         console.log("Add Income get page route called")
         // res.render('transactions/add_income')  // handlebar
 
-        let bank_accounts = await bankData.getAllAccounts(req.session.user)
+        let bank_accounts = await bankData.getAllAccounts(req.session.passport.user)
         
             console.log("Bank accounts size "+bank_accounts.length)
         

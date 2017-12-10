@@ -39,45 +39,51 @@
                         </div>
 
                         <div class="card-body">
-                            {{!-- <span>
-                                <button id="edit" type="button" class="btn btn-danger bmd-btn-icon">
-                                    <i class="material-icons">delete</i>
+                            
+
+                            <table>
+                                <tr> <td> <p class="row-title">Description</p> </td> </tr>
+                                <tr>
+                                <td><i class="material-icons">description</i></td>
+                                <td>{{ expense.desc }}</td>
+                                    {{!-- <td>Comcast bill for the month of december</td> --}}
+                                </tr>                         
+
+                                <tr><td>Category</td></tr>
+                                    <tr>
+                                        <td><i class="material-icons">{{ expense.category.icon_name }}</i></td>
+                                        <td>{{ expense.category.category_name }}</td>
+                                    </tr>
+
+                                <tr><td>Bank Account</td></tr>
+                                    <tr>
+                                        <td><i class="material-icons">account_balance_wallet</i></td>
+                                        <td>{{ expense.bank_account.ac_name }}</td>
+                                    </tr>
+
+                                <tr><td>Date</td></tr>
+                                    <tr>
+                                        <td><i class="material-icons">today</i></td>
+                                        <td>{{ expense.date }}</td>
+                                    </tr>
+
+                            </table>                                                 
+
+                            <div class="edit-buttons">
+                                
+                                <a href="/expenses/editExpense/{{ _id }}">
+                                    <button id="delete" type="button" class="btn btn-raised">
+                                        EDIT
+                                    </button>
+                                </a>
+                                
+                                
+                                <button id="edit" type="button" class="btn btn-danger btn-raised">
+                                    DELETE
                                 </button>
 
-                                <button id="edit" type="button" class="btn bmd-btn-icon">
-                                    <i class="material-icons">mode_edit</i>
-                                </button>
-                            </span>                     --}}
-
-                        <table>
-                            <tr> <td> <p class="row-title">Description</p> </td> </tr>
-                            <tr>
-                               <td><i class="material-icons">description</i></td>
-                               <td>{{ expense.desc }}</td>
-                                {{!-- <td>Comcast bill for the month of december</td> --}}
-                            </tr>                         
-
-                            <tr><td>Category</td></tr>
-                                <tr>
-                                    <td><i class="material-icons">{{ expense.category.icon_name }}</i></td>
-                                    <td>{{ expense.category.category_name }}</td>
-                                </tr>
-
-                            <tr><td>Bank Account</td></tr>
-                                <tr>
-                                    <td><i class="material-icons">account_balance_wallet</i></td>
-                                    <td>{{ expense.bank_account.ac_name }}</td>
-                                </tr>
-
-                            <tr><td>Date</td></tr>
-                                <tr>
-                                    <td><i class="material-icons">today</i></td>
-                                    <td>{{ expense.date }}</td>
-                                </tr>
-
-                        </table>                                                 
-
-                                                
+                                
+                            </div>                
                         </div>
                 </div>
 

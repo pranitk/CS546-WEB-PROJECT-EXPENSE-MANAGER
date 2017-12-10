@@ -33,6 +33,14 @@
                             <h5 class="my-card-header-title">LOGIN</h5>
                     </div>
 
+                {{#if errors}}
+                        {{#each errors}}
+                                <div class = "alert alert-danger">
+                                <strong>{{msg}}</strong>
+                                </div>
+                        {{/each}}
+                    {{/if}}
+
                     <div class="card-body">
                         <form method="post" action = "/">
                                 <div id="field-container" class="input-group">
@@ -49,14 +57,7 @@
                                         
                                 </div>
                                 <div class="dropdown-divider"></div>
-                                <div>
-                                    <a   class = "right-margin"title="Forgot User Name">
-                                            Forgot Username</a> | 
-                                    <a  class="right-margin" title="Forgot Password">
-                                                Forgot Password</a>
-                
-                                        
-                                </div>
+
                                 {{#if error}}
                                         <div class="alert alert-danger">
                                                 <b>{{error}}</b> 

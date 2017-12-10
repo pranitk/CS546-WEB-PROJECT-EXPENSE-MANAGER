@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+         {{!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> --}}
+        <link rel="stylesheet" href="/public/css/add_expense.css">
+
+        
+        
+        <title>Edit Expense</title>
+    </head>
+
+    <body>
+        <div class="add-expense-form">
+                <div class="card">
+
+                        <div id="my-title-container" class="card-header">
+                                <h5 class="my-card-header-title">EDIT YOUR EXPENSE DETAILS</h5>
+                        </div>
+
+                        <div class="card-body">
+                            <!--
+                          <h4 class="card-title">Special title treatment</h4>
+                          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            -->
+
+                          <form action="/expenses/updateExpense" id="needs-validation" method="PUT" novalidate> 
+                                <!-- <div class="form-group">
+                                        <span class="input-group-addon">$</span>
+                                        <input type="text" class="form-control" id="expense-amount" placeholder="Enter Amount">
+                                </div> -->
+                                <div id="field-container" class="input-group">
+                                        <span class="input-group-addon"><i id = "field-icon" class="material-icons">monetization_on</i></span>
+                                        <input type="number" step="0.01" name="amount" class="form-control" placeholder="Enter amount" value={{expense.amount}} required/>
+                                         <div class="invalid-feedback">
+                                                Please provide a valid amount
+                                        </div>
+                                       
+                                </div>
+                               
+
+                                <div id="field-container" class="input-group">
+                                        <span class="input-group-addon"><i class="material-icons">description</i></span>
+                                       <input type="text" name="description" class="form-control" placeholder="Description" value={{desc}} required/>
+                                       <div class="invalid-feedback">
+                                                Please provide a valid description
+                                        </div>
+                                </div>
+
+                                <table>
+                                        <tr>
+                                                <td>
+                                                        <div id="field-container" class="input-group">
+                                                                <span class="input-group-addon"><i id="icon-category" class="material-icons">{{category.icon_name}}</i></span>
+                                                        
+                                                                <input id="selected_category" name = "selected_category" type="text" class="form-control" hidden="true">
+
+                                                                <div class="btn-group">
+                                                                        <button id="btn-category"  type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        {{category.category_name}}
+                                                                        </button>
+                                                                        <div class="dropdown-menu" id = "category">
+                                                                                {{#each categories}}
+                                                                                        <a class="dropdown-item"> <span><i id="dropdown-category-icon" class="material-icons">{{icon_name}}</i></span>   {{category_name}} </a>
+                                                                                {{/each}}
+                                                                        <div class="dropdown-divider" id="divider"></div>
+                                                                        
+                                                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Add Category</button>
+                                                                        
+                                                                        </div>
+                                                                </div>
+                                                
+                                                        </div>
+                                                </td>
+
+                                                <td>
+                                                        <div id="field-container" class="input-group">
+                                                                <span class="input-group-addon"><i class="material-icons">account_balance</i></span>
+                                                        
+                                                                <input id="selected_bank_account" name = "selected_bank_account" type="text" class="form-control" hidden="true">
+
+
+                                                                <div class="btn-group">
+                                                                        <button id="btn-bank-account" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        {{bank_account.ac_name}}  Ending in {{bank_account.ac_ending}}
+                                                                        </button>
+                                                                        <div id="bank-dropdown" class="dropdown-menu">
+                                                                                {{#each bank_accounts }}
+                                                                                        <button type="button" value={{ac_number}} class="dropdown-item">{{ac_name}} <br>Ending in {{ac_ending}}</br> </button>
+                                                                                {{/each }}
+                                                                        </div>
+                                                                </div>
+                                    
+                                                        </div>
+                                                </td>
+
+                                        </tr>
+                                </table>
+
+                               <div class="date">
+                                        <label id = "label"for="dt" <i class="material-icons">date_range</i></label>
+	                                <input name="dt" type="date" value={{date}}/>
+                                </div>
+
+                                   
+                        
+                                <button id="primary-button"  type="submit" class="btn btn-primary btn-raised">Update</button>
+                                
+                            </form>
+
+
+
+
+
+                          
+
+                        </div> <!-- End of card body-->
+                        
+
+                       
+                </div><!--End of card-->
+        </div><!--End of Add Expense Form-->
+
+
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                        <div class="modal-content">
+                                <div class="card">
+                                        <div id="my-title-container" class="card-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h5 class="my-card-header-title">ADD NEW CATEGORY</h5>
+                                        </div>
+                                                
+                                        
+                                        <div class="card-body">
+
+                                                <div class="alert alert-danger" id="error-msg"></div>
+                                                <div class="alert alert-success" id="success-msg"></div>
+                                                <form action id = "add-category">
+                                                        <div id="field-container" class="input-group">
+                                                                <span class="input-group-addon"><i class="material-icons">loyalty</i></span>
+                                                                <input type="text" name="new-category" id = "new-category" class="form-control" placeholder="Enter Your Category"/>
+                                                        </div>
+                                                        <button id="primary-button" class="btn btn-primary btn-raised">Save</button>
+                                                        <button id="close-button" data-dismiss = "modal" class="btn btn-danger btn-raised">Close</button>            
+                                                </form>
+                                                
+                                                
+                                                
+                                                
+                                        </div>
+                                </div>
+                        </div>
+                        
+
+                </div>
+        </div> <!--End of Modal-->
+        
+        {{!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> --}}
+        <script src = "https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/bootstrap-material-design@4.0.0-beta.4/dist/js/bootstrap-material-design.js" integrity="sha384-3xciOSDAlaXneEmyOo0ME/2grfpqzhhTcM4cE32Ce9+8DW/04AGoTACzQpphYGYe" crossorigin="anonymous"></script>
+        
+        {{!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> --}}
+        <script src = "https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+        
+
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+        
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.0.0-beta.4/dist/css/bootstrap-material-design.min.css" integrity="sha384-R80DC0KVBO4GSTw+wZ5x2zn2pu4POSErBkf8/fSFhPXHxvHJydT0CSgAP2Yo2r4I" crossorigin="anonymous">
+                
+        
+        <script>$(document).ready(function() { $('body').bootstrapMaterialDesign()});</script>
+        <script src="/public/js/add_category.js"></script>
+
+
+        <script>
+                // Example starter JavaScript for disabling form submissions if there are invalid fields
+                (function() {
+                "use strict";
+                window.addEventListener("load", function() {
+                var form = document.getElementById("needs-validation");
+                form.addEventListener("submit", function(event) {
+                if (form.checkValidity() == false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                }
+                form.classList.add("was-validated");
+                }, false);
+                }, false);
+                }());
+        </script>
+       
+    </body>
+
+</html>

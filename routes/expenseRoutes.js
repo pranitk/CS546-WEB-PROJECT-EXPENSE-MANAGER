@@ -1,3 +1,4 @@
+
 const express = require("express")
 const router = express.Router()
 //const data = require("../data")
@@ -9,9 +10,9 @@ var expressValidator = require("express-validator");
 //const xss = require('xss');
 
 router.get("/showAllExpenses",async(req,res)=>{
-    const userName = req.session.user;
-    //console.log("Username logged is "+userData)
-    const allExpenses = await transactionData.getAllExpenses(userName);
+    const username = req.session.passport.user;
+    console.log("Username logged is "+username)
+    const allExpenses = await transactionData.getAllExpenses(username);
     
     //res.send(`username ${userData}`);
     res.render("transactions/all_expenses",{ expenses: allExpenses })
@@ -67,7 +68,7 @@ router.post("/saveNewExpense",async(req,res)=>{
 
      
 
-        var username = req.session.user;
+        var username = req.session.passport.user;
         const newTransaction = await transactionData.addTransaction(username,1,amount,desc,categoryDetails,bankAccountNumber,date)
 
         if(!newTransaction)
@@ -91,7 +92,7 @@ router.get("/addExpense",async(req,res)=>{
     //let bank_accounts = await bankData.getAllAccounts(req.session.user._id)
     //res.render('transactions/add_expense')
     //res.render('transactions/add_expense',{ bank_accounts: bank_accounts })  // handlebar
-    const username = req.session.user
+    const username = req.session.passport.user
     let bank_accounts = await bankData.getAllAccounts(username)
     const categories = await categoryData.getAllCategories(username)
 
@@ -101,9 +102,21 @@ router.get("/addExpense",async(req,res)=>{
     res.render('transactions/add_expense',{ bank_accounts: bank_accounts , categories: categories })  // handlebar
 })
 
+
+router.get("/editExpense/:id",async(req,res)=>{
+    const username = req.session.passport.user
+    let bank_accounts = await bankData.getAllAccounts(username)
+    const categories = await categoryData.getAllCategories(username)
+
+    const expense = await transactionData.getTransactionById(req.params.id)
+    console.log("Expense to be updated "+expense)
+
+    res.render('transactions/edit_expense',{ expense: expense,  bank_accounts: bank_accounts , categories: categories })
+})
+
 router.post("/addNewCategory",async(req,res) => {
 
-    let userData = req.session.user;
+    let userData = req.session.passport.user;
     let category = req.body.category;
 
     
