@@ -32,7 +32,7 @@
         rel="stylesheet">
         -->
 
-        <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> -->
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> 
         
         <title>Add New Income</title>
     </head>
@@ -53,33 +53,39 @@
                           <h4 class="card-title">Special title treatment</h4>
                           <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
                             -->
-                        {{#if errors}}
+                        {{!-- {{#if errors}}
                                 {{#each errors}}
                                         <div class = "alert alert-danger">
                                         <strong>{{msg}}</strong>
                                         </div>
                                 {{/each}}
-                          {{/if}}
+                          {{/if}} --}}
 
-                          <form action="/income/saveNewIncome" method="POST"> 
+                          <form action="/income/saveNewIncome"  id="needs-validation" method="POST" novalidate> 
                                 <!-- <div class="form-group">
                                         <span class="input-group-addon">$</span>
                                         <input type="text" class="form-control" id="expense-amount" placeholder="Enter Amount">
                                 </div> -->
 
-                                   {{#if error}}
+                                   {{!-- {{#if error}}
                                         <div class="alert alert-danger">
                                                 <b>{{error}}</b> 
                                         </div>
-                                {{/if}}
+                                {{/if}} --}}
                                 <div id="field-container" class="input-group">
                                         <span class="input-group-addon"><i id = "field-icon" class="material-icons">monetization_on</i></span>
-                                        <input type="text" name="amount" class="form-control" placeholder="Enter amount"/>
+                                        <input type="text" name="amount" class="form-control" placeholder="Enter amount" required/>
+                                        <div class="invalid-feedback">
+                                                Please provide a valid amount
+                                        </div>
                                 </div>
 
                                 <div id="field-container" class="input-group">
                                         <span class="input-group-addon"><i class="material-icons">description</i></span>
-                                       <input type="text" name="description" class="form-control" placeholder="Description"/>
+                                       <input type="text" name="description" class="form-control" placeholder="Description" required/>
+                                       <div class="invalid-feedback">
+                                                Please provide a valid Description
+                                        </div>
                                 </div>
 
                                  {{!-- <div id="field-container" class="input-group">
@@ -188,6 +194,22 @@
         <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
         
 
+        <script>
+                // Example starter JavaScript for disabling form submissions if there are invalid fields
+                (function() {
+                "use strict";
+                window.addEventListener("load", function() {
+                var form = document.getElementById("needs-validation");
+                form.addEventListener("submit", function(event) {
+                if (form.checkValidity() == false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                }
+                form.classList.add("was-validated");
+                }, false);
+                }, false);
+                }());
+        </script>
        
     </body>
 
