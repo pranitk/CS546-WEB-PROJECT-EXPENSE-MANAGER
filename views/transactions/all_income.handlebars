@@ -34,7 +34,7 @@
                                 {{#each income}}
                                 
                                     <a href="/income/viewIncome/{{ _id }}"  class="list-group-item"> 
-                                    <form  action="/income/delete">
+                                    <form  action="/income/delete/{{ _id }}">
                                     <button name="income_id"class="delete_income_button"> <i class="material-icons">delete </i></button> 
                                     </form>
                                         <div class="bmd-list-group-col">

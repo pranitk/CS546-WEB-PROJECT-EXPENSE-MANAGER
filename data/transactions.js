@@ -123,6 +123,23 @@ module.exports = {
             user_id: user_id,
 
         }).toArray();
+    },
+
+    async deleteIncomeById(transactionId){
+        if(!transactionId)
+            throw "Transaction not found"
+
+        const transactionCollection = await transactions()
+
+        const thatTransaction = await this.getAllIncome()
+        console.log("I got all Incomes")
+
+        const delTransaction = await transactionCollection.removeOne({_id: transactionId})
+
+        return delTransaction
+
+        
+
     }
 
 

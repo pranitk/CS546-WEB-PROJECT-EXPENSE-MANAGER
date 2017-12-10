@@ -28,7 +28,6 @@ router.get("/viewIncome/:id",async(req,res)=>{
 
     res.render("transactions/view_income",{ income: income})
 
-    //return expense
 })
 
 router.post("/saveNewIncome",async(req,res)=>{
@@ -64,7 +63,9 @@ router.post("/saveNewIncome",async(req,res)=>{
             var errors = req.validationErrors();
             if(errors)
             {
+               
                 res.render("transactions/add_income",{errors : errors});
+                
                 return;
             }
             else{
@@ -108,12 +109,15 @@ router.post("/saveNewIncome",async(req,res)=>{
             res.render('transactions/add_income',{ bank_accounts: bank_accounts })
     })
 
-    router.get("/delete", async(req, res) =>{
-        console.log("Delete Income get page route called")
-        const incomeInfo = req.body
-
-        console.log(incomeInfo)
-        res.redirect("showAllIncome")
+    router.get("/delete/:id", async(req, res) =>{
+        //console.log("Delete Income get page route called")
+        const incomeID = req.params.id
+        //console.log(incomeID)
+        let deletedTransaction = await transactionData.deleteIncomeById(incomeID)
+       // console.log("Success in deleting")
+        
+        res.redirect("/income/showAllIncome")
+        
 
 
 
