@@ -18,6 +18,11 @@ router.get("/showAllExpenses",async(req,res)=>{
     res.render("transactions/all_expenses",{ expenses: allExpenses })
 })
 
+router.get("/showExpensesByBank/:account_number",async(req,res)=>{
+    const username = req.session.passport.user;
+    const expenses = await transactionData.getAllTransactionsByBank(username,1,account_number)
+})
+
 router.get("/viewExpense/:id",async(req,res)=>{
     const userData = req.session.user;
     //console.log("Username logged is "+userData)
