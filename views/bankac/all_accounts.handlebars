@@ -22,9 +22,9 @@
             <div id="bank-card" class="cardM">
                 <div id="my-title-container" class="card-header">
                     <h5 class="my-card-header-title">BANK ACCOUNTS</h5>
-                    <div class="btnAdd"><i class="material-icons md-36">
-                        <a class="btn-floating icon-white" href="/bankac/addBankAC">add</a>
-                    </i></div>
+                    {{!-- <div id="add-account" class="btnAdd"><i class="material-icons md-36">
+                        <a  class="btn-floating icon-white" href="/bankac/addBankAC">add</a>
+                    </i></div> --}}
                 </div>
 
                 <form action="/bankac/deleteAccount" method="POST"> 
@@ -46,8 +46,13 @@
                         {{/each}}
                     </ul>
 
-                    <button class="btn btnDel btn-danger btn-raised" type="button" data-toggle="modal" data-target=".bs-example-pop">Delete Account</button>
-                                    
+                    <div>
+    
+                        <button class="btn btnDel btn-danger btn-raised" type="button" data-toggle="modal" data-target=".bs-example-pop">Delete Account</button>
+                        <a class="add-account" href= "/bankac/addBankAC"> <button id="add-account" class="btn  btn-raised"  type="button" data-toggle="modal" data-target=".bs-example-pop">ADD ACCOUNT</button></a>
+                    </div>  
+
+
                     <div class="modal fade bs-example-pop">
                         <div class="modal-dialog">
                             <div class="modal-content">
