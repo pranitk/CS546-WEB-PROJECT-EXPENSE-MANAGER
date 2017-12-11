@@ -30,6 +30,7 @@ module.exports = {
         }
 
         categoryCollection = await categories();
+        categoryCollection.createIndex({"category_name": 1},{ unique: true })   // To have category name unique
         const insertedInfo = await categoryCollection.insertOne(newCategory);
 
         if(insertedInfo.insertedCount == 0)

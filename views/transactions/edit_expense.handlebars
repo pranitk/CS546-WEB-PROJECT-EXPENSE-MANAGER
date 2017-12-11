@@ -41,7 +41,7 @@
 
                                 <div id="field-container" class="input-group">
                                         <span class="input-group-addon"><i class="material-icons">description</i></span>
-                                       <input type="text" name="description" class="form-control" placeholder="Description" value={{desc}} required/>
+                                       <input type="text" name="description" class="form-control" placeholder="Description" value={{expense.desc}} required/>
                                        <div class="invalid-feedback">
                                                 Please provide a valid description
                                         </div>
@@ -51,13 +51,13 @@
                                         <tr>
                                                 <td>
                                                         <div id="field-container" class="input-group">
-                                                                <span class="input-group-addon"><i id="icon-category" class="material-icons">{{category.icon_name}}</i></span>
+                                                                <span class="input-group-addon"><i id="icon-category" class="material-icons">{{expense.category.icon_name}}</i></span>
                                                         
                                                                 <input id="selected_category" name = "selected_category" type="text" class="form-control" hidden="true">
 
                                                                 <div class="btn-group">
                                                                         <button id="btn-category"  type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                        {{category.category_name}}
+                                                                        {{expense.category.category_name}}
                                                                         </button>
                                                                         <div class="dropdown-menu" id = "category">
                                                                                 {{#each categories}}
@@ -82,7 +82,7 @@
 
                                                                 <div class="btn-group">
                                                                         <button id="btn-bank-account" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                        {{bank_account.ac_name}}  Ending in {{bank_account.ac_ending}}
+                                                                        {{expense.bank_account.ac_name}}  Ending in {{expense.bank_account.ac_ending}}
                                                                         </button>
                                                                         <div id="bank-dropdown" class="dropdown-menu">
                                                                                 {{#each bank_accounts }}
@@ -99,7 +99,7 @@
 
                                <div class="date">
                                         <label id = "label"for="dt" <i class="material-icons">date_range</i></label>
-	                                <input name="dt" type="date" value={{date}}/>
+	                                <input name="dt" type="date" value={{expense.date}}/>
                                 </div>
 
                                    
