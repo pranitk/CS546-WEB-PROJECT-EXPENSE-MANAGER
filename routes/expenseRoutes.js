@@ -18,6 +18,11 @@ router.get("/showAllExpenses",async(req,res)=>{
     res.render("transactions/all_expenses",{ expenses: allExpenses })
 })
 
+router.get("/showExpensesByBank/:account_number",async(req,res)=>{
+    const username = req.session.passport.user;
+    const expenses = await transactionData.getAllTransactionsByBank(username,1,account_number)
+})
+
 router.get("/viewExpense/:id",async(req,res)=>{
     const userData = req.session.user;
     //console.log("Username logged is "+userData)
@@ -125,9 +130,16 @@ router.post("/addNewCategory",async(req,res) => {
     let userData = req.session.passport.user;
     let category = req.body.category;
 
-    
-        let newCategory = await categoryData.addNewCategory(userData,category,"");
-        res.json({success : true, message : req.body.category});
+        try
+        {
+            let newCategory = await categoryData.addNewCategory(userData,category,"");
+            res.json({success : true, message : req.body.category});
+        }
+        catch(e)
+        {
+            res.json({success : false,message : "Category Already Exists"});
+        }
+        
     
     
     //console.log("New Category = "+newCategory.insertedId);

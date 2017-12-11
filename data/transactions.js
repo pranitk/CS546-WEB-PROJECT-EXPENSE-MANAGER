@@ -152,6 +152,13 @@ module.exports = {
         return await transactionCollection.find({ transaction_type: 1 ,user_id : user_id}).toArray()
     },
 
+    async getAllTransactionsByBank(user_id,transaction_type,bank_account_number){
+
+        const transactionCollection = await transactions()
+        return await transactionCollection.find({ transaction_type: transaction_type ,user_id : user_id, bank_account:{ac_no: bank_account_number}})
+
+    },
+
     async getAllTransactions(user_id,transaction_type){
         const transactionCollection = await transactions()
         return await transactionCollection.find({ transaction_type: transaction_type ,user_id : user_id}).toArray()
