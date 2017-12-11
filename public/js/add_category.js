@@ -31,31 +31,7 @@ $(function(){
     
             var newCategory = $("#new-category")
     
-                /*if(newCategory.val())
-                {
-                    document.getElementById("error-msg").style.visibility = "visible";
-                    document.getElementById("success-msg").style.visibility = "hidden";
-                    document.getElementById("error-msg").textContent = "Please enter the category name"
-                    
-                    $(container).append('<p>Please Enter Category Name</p>');
-
-                }
-                else
-                {
-                    $.ajax({
-                        url:"/expenses/addNewCategory",
-                        method : "POST",
-                        contentType:"application/json",
-                        data : JSON.stringify({category:newCategory.val()}),
-                        success:function(response){
-                            
-                        }
-                    })
-                    document.getElementById("success-msg").style.visibility = "visible";
-                    document.getElementById("error-msg").style.visibility = "hidden";
-                    document.getElementById("success-msg").textContent = "New category inserted"
-                    //$(container).append('<p>Please Enter Category Name</p>');
-                }*/
+                
 
                 if(newCategory.val())
                 {
@@ -79,7 +55,7 @@ $(function(){
                 
                 $.ajax(requestConfig).then(function(responseMessage){
 
-                        if(requestConfig != undefined)
+                        if(requestConfig != undefined && responseMessage.success == true)
                         {
                             document.getElementById("success-msg").style.visibility = "visible";
                             document.getElementById("error-msg").style.visibility = "hidden";
@@ -90,6 +66,12 @@ $(function(){
                             //$(error_msgs).insertBefore($("#add-category"));
                             $(createdCategory).insertBefore($("#divider"))
                         }
+                        else
+                        {
+                            document.getElementById("error-msg").style.visibility = "visible";
+                            document.getElementById("success-msg").style.visibility = "hidden";
+                            document.getElementById("error-msg").textContent = responseMessage.message
+                        }
                         
                     
                     
@@ -98,6 +80,8 @@ $(function(){
                     
                     
                 })
+
+                
                 
     
                 
