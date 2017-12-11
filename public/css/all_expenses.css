@@ -19,6 +19,7 @@
 #expenses-card{
     width: 80%;
     margin: auto;
+    margin-top: 12px;
 }
 
 tr{

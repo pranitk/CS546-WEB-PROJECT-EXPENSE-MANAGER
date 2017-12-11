@@ -41,7 +41,7 @@ router.post("/saveNewExpense",async(req,res)=>{
 
         console.log("Add expense route method called")
         const expenseInfo = req.body
-        const amount = expenseInfo.amount
+        var amount = expenseInfo.amount
         const desc = expenseInfo.description
         const categoryDetails = expenseInfo.selected_category
         const bankAccountNumber = expenseInfo.selected_bank_account
@@ -66,7 +66,7 @@ router.post("/saveNewExpense",async(req,res)=>{
         if(!date)
             throw 'Date not selected'
 
-     
+        amount = parseFloat(expenseInfo.amount)
 
         var username = req.session.passport.user;
         const newTransaction = await transactionData.addTransaction(username,1,amount,desc,categoryDetails,bankAccountNumber,date)
@@ -75,7 +75,6 @@ router.post("/saveNewExpense",async(req,res)=>{
             throw 'New Transaction not added' 
 
         console.log("Expense save to db..redirect to all expenses")
-        //let updateResult = await bankData.updateAccount(loggedUser,account_number,1,amount)
         res.redirect('showAllExpenses')
 
     }catch(e){
@@ -104,7 +103,7 @@ router.get("/addExpense",async(req,res)=>{
 
 router.put("/updateExpense",async(req,res)=>{
 
-    
+
 
 
 })

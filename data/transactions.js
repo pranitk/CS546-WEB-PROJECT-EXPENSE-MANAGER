@@ -88,8 +88,10 @@ module.exports = {
                 if(insertedInfo.insertedCount == 0)
                     throw 'Insertion failed'
                     
-                console.log("inserted expense: "+insertedInfo)
+                console.log("inserted income: "+insertedInfo)
         
+                const result = await bankData.updateAccount(user_id,account_number,2,amount)
+
                 return transaction
     },
 

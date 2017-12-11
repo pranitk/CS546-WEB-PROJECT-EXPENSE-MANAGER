@@ -17,6 +17,10 @@
 
 .material-icons.md-36 { font-size: 36px; }
 
+body{
+    background-image: url('/public/imgs/background.jpg')
+}
+
 .account{
    float: right;
    padding: 40px;
