@@ -27,15 +27,6 @@
     padding: 1rem;
 }
   
-/* .card {
-    background-color: white;
-    border-radius: 1rem;
-    box-shadow: 0 20px 40px -14px rgba(0,0,0,0.25);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-} */
-  
 .card__content {
     display: flex;
     flex: 1 1 auto;
@@ -83,7 +74,11 @@
 .btnAdd {
     position: fixed;
     right: 180px;
-    bottom: 495px;
+    bottom: 504px;
+}
+
+.btnDel {
+    position: relative;
     float: right;
 }
 
@@ -95,12 +90,4 @@
 
 .material-icons.md-18 { font-size: 18px; }
 
-.icon-gray {
-    color: grey;
-}
 
-/* .btnDel {
-    position: relative;
-    left: 120px;
-    bottom: 2px;
-} */

@@ -112,13 +112,14 @@ module.exports = {
             return true
     },
 
-    async deleteAccountByNumber(ac_no) {
+    async deleteAccountByNumber(user_id,ac_no) {
         if(!ac_no)
             throw "Account number not provided"
+        console.log(user_id,ac_no)
         const bankCollection = await bankac()
         const accounts = await this.getAllAccounts(user_id)
-        if(accounts.length > 1) {
-            const delacc = await bankCollection.removeOne({ac_number : ac_no})
+        if(accounts.length != 0) {
+            const delacc = await bankCollection.removeOne({ac_ending : ac_no})
             if(delacc.deletedCount === 0) {
                 throw "Could not remove account with acc_number:${ac_no}";
             } else {
@@ -135,6 +136,7 @@ module.exports = {
         if(!ac_no) { throw "Account number not provided" }
         if(!type) { throw "Expense type not provided" }
         if(!amount) { throw "Amount not provided" }
+        let updatedbal = 0
         const bankCollection = await bankac()
         const accounts = await this.getAllAccounts(user_id)
         for(let i=0; i<accounts.length ; i++) {
@@ -144,8 +146,14 @@ module.exports = {
         }
         if(type == 1) {
             acc.ac_bal = acc.ac_bal - amount
+            updatedbal = acc.ac_bal
         } else if(type == 2) {
             acc.ac_bal = acc.ac_bal + amount
+            updatedbal = acc.ac_bal
+        }
+        let updateAcc = await bankCollection.updateOne({user_id:user_id,ac_number:ac_no},{$set: {ac_bal:updatedbal}});
+        if (updateAcc.modifiedCount == 0) {
+            throw "Could not update account balance successfully!";
         }
     },
 
@@ -154,31 +162,29 @@ module.exports = {
         if(!ac_no1) { throw "Account number 1 not provided" }
         if(!ac_no2) { throw "Account number 2 not provided" }
         if(!amount) { throw "Amount not provided" }
+        let updatedbal1 = 0
+        let updatedbal2 = 0
         const bankCollection = await bankac()
         const accounts = await this.getAllAccounts(user_id)
-        // for(let i=0; i<accounts.length ; i++) {
-        //     if(accounts[i].ac_number == ac_no1) {
-        //         let acc1 = accounts[i]
-        //     }
-        //     if(accounts[i].ac_number == ac_no2) {
-        //         let acc2 = accounts[i]
-        //     }
-        // }
         const acc1 = await this.getAccountByNumber(ac_no1,user_id)
         const acc2 = await this.getAccountByNumber(ac_no2,user_id)
         acc1.ac_bal = acc1.ac_bal - amount
+        updatedbal1 = acc1.ac_bal
         acc2.ac_bal = acc2.ac_bal + amount
+        updatedbal2 = acc2.ac_bal
 
         console.log("New account 1 balance is $"+acc1.ac_bal)
 
         console.log("New account 2 balance is $"+acc2.ac_bal)
-        // if(type == 1) {
-        //     acc1.ac_bal = acc1.ac_bal - amount
-        //     acc2.ac_bal = acc2.ac_bal + amount
-        // }
-        // else if(type == 2) {
-        //     acc2.ac_bal = acc2.ac_bal - amount
-        //     acc1.ac_bal = acc1.ac_bal + amount
-        // }
+        // For ac_no1
+        let updateAcc1 = await bankCollection.updateOne({user_id:user_id,ac_number:ac_no1},{$set: {ac_bal:updatedbal1}});
+        if (updateAcc1.modifiedCount == 0) {
+            throw "Could not update account balance successfully!";
+        }
+        //for ac_no2
+        let updateAcc2 = await bankCollection.updateOne({user_id:user_id,ac_number:ac_no2},{$set: {ac_bal:updatedbal2}});
+        if (updateAcc2.modifiedCount == 0) {
+            throw "Could not update account balance successfully!";
+        }
     }
 }
