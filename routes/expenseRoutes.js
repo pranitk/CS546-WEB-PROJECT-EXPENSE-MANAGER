@@ -102,6 +102,12 @@ router.get("/addExpense",async(req,res)=>{
     res.render('transactions/add_expense',{ bank_accounts: bank_accounts , categories: categories })  // handlebar
 })
 
+router.put("/updateExpense",async(req,res)=>{
+
+    
+
+})
+
 
 router.get("/editExpense/:id",async(req,res)=>{
     const username = req.session.passport.user
