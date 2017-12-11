@@ -71,12 +71,12 @@
     color: plum;
 }
 
-.btnAdd {
+/* .btnAdd {
     position: fixed;
     right: 180px;
     bottom: 504px;
     float: right;
-}
+}  */
 
 .btnDel {
     position: relative;
@@ -90,4 +90,16 @@
 .material-icons.md-36 { font-size: 36px; }
 
 .material-icons.md-18 { font-size: 18px; }
+
+#add-account{
+    float: right;
+    
+    background: purple;
+    color: white;
+    
+    margin-right: 5px;
+
+}
+
+
 

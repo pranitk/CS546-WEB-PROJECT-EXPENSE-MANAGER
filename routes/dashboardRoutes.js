@@ -27,4 +27,19 @@ router.get("/", async(req, res) => {
     res.render("dashboard",{ expenses: all_Expenses })
 })
 
+
+// router.post('/signout',async(req,res)=>{ 
+//     console.log("ready to signout")   
+//     await req.session.destroy(function(err){  
+//         if(err){  
+//             console.log(err);  
+//         }  
+//         else  
+//         {  
+//             res.redirect("login");  
+//         }  
+//     });  
+
+// }); 
+
 module.exports = router
