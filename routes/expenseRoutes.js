@@ -125,9 +125,16 @@ router.post("/addNewCategory",async(req,res) => {
     let userData = req.session.passport.user;
     let category = req.body.category;
 
-    
-        let newCategory = await categoryData.addNewCategory(userData,category,"");
-        res.json({success : true, message : req.body.category});
+        try
+        {
+            let newCategory = await categoryData.addNewCategory(userData,category,"");
+            res.json({success : true, message : req.body.category});
+        }
+        catch(e)
+        {
+            res.json({success : false,message : "Category Already Exists"});
+        }
+        
     
     
     //console.log("New Category = "+newCategory.insertedId);

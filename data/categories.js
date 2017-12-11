@@ -29,6 +29,7 @@ module.exports = {
             icon_name : icon_name
         }
 
+        console.log("inserting new category"+newCategory);
         categoryCollection = await categories();
         categoryCollection.createIndex({"category_name": 1},{ unique: true })   // To have category name unique
         const insertedInfo = await categoryCollection.insertOne(newCategory);
@@ -47,7 +48,7 @@ module.exports = {
     async getAllCategories(username){
 
         const categoriesCollection = await categories()
-        return await categoriesCollection.find({ user: username }).toArray();
+        return await categoriesCollection.find({user: username}).toArray();
 
     }
 }
