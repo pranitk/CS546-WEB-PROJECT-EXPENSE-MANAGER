@@ -81,7 +81,7 @@ module.exports = {
         let insertedInfo = await userCollection.insertOne(newUser)
         console.log("Insertion done");
 
-        const categoriesResult = await categories.addCategoryForNewUser(username)
+        
 
      },//End of addNewUser
 

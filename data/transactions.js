@@ -37,6 +37,11 @@ module.exports = {
             date: date
         }
 
+        if(transaction_type == 1){  // Expense
+            if(bank_account.ac_bal < amount)
+                throw 'Expense amount is greater than the existing bank balance' 
+        }
+
         const transactionCollection = await transactions()
         const insertedInfo = await transactionCollection.insertOne(transaction)
 
@@ -45,7 +50,7 @@ module.exports = {
             
         console.log("inserted expense: "+insertedInfo)
 
-       // const result = await bankData.updateAccount(user_id,account_number,1,amount)
+        const result = await bankData.updateAccount(user_id,account_number,1,amount)
 
         console.log("Updated bank balance")
 
@@ -83,8 +88,10 @@ module.exports = {
                 if(insertedInfo.insertedCount == 0)
                     throw 'Insertion failed'
                     
-                console.log("inserted expense: "+insertedInfo)
+                console.log("inserted income: "+insertedInfo)
         
+                const result = await bankData.updateAccount(user_id,account_number,2,amount)
+
                 return transaction
     },
 

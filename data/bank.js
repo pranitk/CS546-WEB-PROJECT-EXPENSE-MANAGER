@@ -138,12 +138,14 @@ module.exports = {
         if(!amount) { throw "Amount not provided" }
         let updatedbal = 0
         const bankCollection = await bankac()
-        const accounts = await this.getAllAccounts(user_id)
-        for(let i=0; i<accounts.length ; i++) {
-            if(accounts[i].ac_number == ac_no) {
-                let acc = accounts[i]
-            }
-        }
+        //const accounts = await this.getAllAccounts(user_id)
+        // for(let i=0; i<accounts.length ; i++) {
+        //     if(accounts[i].ac_number == ac_no) {
+        //         let acc = accounts[i]
+        //     }
+        // }
+        let acc = await this.getAccountByNumber(ac_no,user_id)
+
         if(type == 1) {
             acc.ac_bal = acc.ac_bal - amount
             updatedbal = acc.ac_bal

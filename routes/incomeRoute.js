@@ -35,7 +35,7 @@ router.post("/saveNewIncome",async(req,res)=>{
         console.log("Add income route method called")
         const incomeInfo = req.body
 
-        const amount = incomeInfo.amount
+        var amount = incomeInfo.amount
         const desc = incomeInfo.description
        // const categoryDetails = expenseInfo.selected_category
         const bankAccountNumber = incomeInfo.selected_bank_account
@@ -59,6 +59,8 @@ router.post("/saveNewIncome",async(req,res)=>{
             req.checkBody("amount","Username Is Required!").notEmpty();
             req.checkBody("description","Description Is Required!").notEmpty();
             req.checkBody("dt","Date Is Required!").notEmpty();
+
+            amount = parseFloat(amount)
 
             var errors = req.validationErrors();
             if(errors)
