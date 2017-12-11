@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
         <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.0.0-beta.4/dist/css/bootstrap-material-design.min.css" integrity="sha384-R80DC0KVBO4GSTw+wZ5x2zn2pu4POSErBkf8/fSFhPXHxvHJydT0CSgAP2Yo2r4I" crossorigin="anonymous">
-
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
         <title>Add New Bank A/C</title>
     </head>
 
@@ -27,17 +27,20 @@
                 <div class="card-body">
                     <form action="/bankac/saveNewAccount" method="POST"> 
                         <div class="input-group">
-                            <label for="name" id="lab">Bank Name:&nbsp;&nbsp;</label>
+                            <i class="material-icons">account_balance</i>
+                            {{!-- <label for="name" id="lab">Bank Name:&nbsp;&nbsp;</label> --}}
                             <input type="text" id="name" class="form-control" name="name" placeholder="Bank Name"/>
                         </div>
                         <br>
                         <div class="input-group">
-                            <label for="number" id="lab">Account Number:&nbsp;&nbsp;</label>
+                            <i class="material-icons">info</i>
+                            {{!-- <label for="number" id="lab">Account Number:&nbsp;&nbsp;</label> --}}
                             <input type="text" name="number" class="form-control" placeholder="Account Number"/>
                         </div>
                         <br>
                         <div class="input-group">
-                            <label for="balance" id="lab">Current Balance:&nbsp;&nbsp;</label>
+                            <i class="material-icons">attach_money</i>
+                            {{!-- <label for="balance" id="lab">Current Balance:&nbsp;&nbsp;</label> --}}
                             <input type="text" name="balance" class="form-control" placeholder="Account Balance"/>
                         </div>
                                 

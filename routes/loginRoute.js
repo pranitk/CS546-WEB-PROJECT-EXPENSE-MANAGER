@@ -39,14 +39,7 @@ passport.deserializeUser( async function(username, done) {
 router.get("/",async(req,res)=>{
     if(req.isAuthenticated()) {
         console.log("Hello");
-        let hasAccounts = await UserBank.hasAccounts(userSession.user)
-        console.log(hasAccounts)
-        if(hasAccounts == false) {
-            res.redirect("/bankac/addBankAC")
-        } else {
-            res.redirect("/dashboard");
-        }
-        // res.redirect('/dashboard');
+        res.redirect('/dashboard');
     }
     else {
         res.render('login',{message:req.flash('error')});
@@ -61,7 +54,7 @@ router.get("/signup",async(req,res)=>{
 
 
 //
-router.post("/",passport.authenticate("local",{successRedirect : "/dashboard",failureRedirect : "/",failureFlash : true}),
+router.post("/",passport.authenticate("local",{failureFlash : true}),
 async (req,res) => {
     let userSession = req.session.passport;
     userSession.user = req.body.username;
@@ -76,22 +69,22 @@ async (req,res) => {
         } else {
             res.redirect("/dashboard");
         }
-        res.render("transactions/all_expenses");
     }
     else
     {
-        res.redirect("/login");
+        // res.redirect("/login");
+        res.render("login",{message : req.flash('error')})
+        // req.flash("success_msg","Welcome");
     }
-    res.render("login",{message : req.flash('error')})
-    req.flash("success_msg","Welcome");
-    res.redirect("/");
+    // res.render("login",{message : req.flash('error')})
+    // req.flash("success_msg","Welcome");
+    // res.redirect("/");
 })
 
 //Create New User
 router.post("/createNewUser", async(req, res) => {
 
     var userSession = req.session;
-    //console.log("Mi aloy ikde chutiya")
     
     var username = req.body.username;
     console.log(username);
@@ -116,7 +109,7 @@ router.post("/createNewUser", async(req, res) => {
     else
     {
         var newUser = await User.addNewUser(username,Fname,Lname,password);
-        var categoriesForNewUser = await UserCategory.addCategoryForNewUser(username);
+        // var categoriesForNewUser = await UserCategory.addCategoryForNewUser(username);
         res.render("login");
     }
 })

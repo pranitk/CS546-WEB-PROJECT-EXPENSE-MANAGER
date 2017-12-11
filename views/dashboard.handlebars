@@ -12,12 +12,39 @@
 
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-        
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
         <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.0.0-beta.4/dist/css/bootstrap-material-design.min.css" integrity="sha384-R80DC0KVBO4GSTw+wZ5x2zn2pu4POSErBkf8/fSFhPXHxvHJydT0CSgAP2Yo2r4I" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+        
 
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        rel="stylesheet">
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', {packages: ['corechart', 'bar']});
+            google.charts.setOnLoadCallback(drawBasic);
+
+            function drawBasic() {
+
+                var data = google.visualization.arrayToDataTable([
+                    ['Type', 'Amount',{ role: 'style' }],
+                    ['INCOME', 800, '#008000'],
+                    ['EXPENSE', 379, 'red'],
+                ]);
+
+                var options = {
+                    chartArea: {width: '50%'},
+                    legend: { position: "none" },
+                    {{!-- colors: ['#008000'], --}}
+                    hAxis: {
+                        title: 'Amount',
+                        minValue: 0
+                    },
+                };
+
+                var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+
+                chart.draw(data, options);
+            }
+        </script>
 
 
         <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> -->
@@ -90,48 +117,50 @@
                     <div id="my-title-container2" class="card-header">
                             <h5 class="my-card-header-title">MONTHLY SUMMARY</h5>
                     </div>
-
                     <div class="card-body">
-                       
-                        <div class="card-block">
-                            <h4 class="card-title">Card title</h4>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-
-                          <div>
-                            <button id="primary-button2"  type="submit" class="btn btn-primary ">View</button>
-                                                       
-                         </div>
-
-
+                        <div id="chart_div"/>
+                        </div>                     
+                    </div>
+                    <div>
+                        <form action="/expenses/showAllExpenses">
+                        <button id="primary-button2"  type="submit" class="btn btn-primary">View All</button>
+                        </form>                        
                     </div>
 
             </div>
 
             </div>
 
-
+        
             <div class ="row">
             <div class="card">
                     <div id="my-title-container3" class="card-header">
                             <h5 class="my-card-header-title">EXPENSE BY CATEGORY</h5>
                     </div>
 
+                    {{#if expensesByCategory}}
                     <div class="card-body">
+                        {{#each expensesByCategory}}
+                            <a href="/expenses/viewExpense/{{ _id }}" id="expense-item" class="list-group-item"> 
+                                <i class="material-icons">{{category.icon_name}}</i>
+                                <div class="bmd-list-group-col">
+                                    <p class="list-group-item-heading">{{ category.category_name}}</p>
+                                </div>
+                                <span id="amount" class="label label-default label-pill pull-xs-right"><b>${{amount}}</b></span>
+                            </a>
+                        {{/each}}
                         
-                        <div class="card-block">
-                            <h4 class="card-title">Card title</h4>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-
-                          <div>
-                            <button id="primary-button3"  type="submit" class="btn btn-primary ">View</button>
-                                                       
-                         </div>
-
-
+                    </div>
+                    {{else}}
+                    <div class="card-body">
+                        <p id="msg"> You haven't added any Expenses..Please start adding now! </p>                        
+                    </div>
+                    {{/if}}
+                        
+                    <div>
+                        <form action="/expenses/showAllExpenses">
+                        <button id="primary-button3"  type="submit" class="btn btn-primary">View All</button>
+                        </form>                        
                     </div>
 
             </div>
@@ -142,29 +171,37 @@
                     <div id="my-title-container4" class="card-header">
                             <h5 class="my-card-header-title">YOUR ACCOUNTS</h5>
                     </div>
-
+                    {{#if accounts}}
                     <div class="card-body">
+                        {{#each accounts}}
+                            <a href="/bankac/showAllAccounts" id="account-item" class="list-group-item"> 
+                                <i class="material-icons">account_balance</i>
+                                <div class="bmd-list-group-col">
+                                    <p class="list-group-item-heading">{{ this.ac_name}}</p>
+                                    <p class="list-group-item-text">ending in {{this.ac_ending}}</p>
+                                </div>
+                                <span id="amount" class="label label-default label-pill pull-xs-right"><b>${{this.ac_bal}}</b></span>
+                            </a>
+                        {{/each}}
                         
-                        <div class="card-block">
-                            <h4 class="card-title">Card title</h4>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-
-                          <div>
-                              <form action="/bankac/showAllAccounts">
-                            <button id="primary-button4"  type="submit" class="btn btn-primary ">View</button>
-                                   </form>                    
-                         </div>
-
-
+                    </div>
+                    {{else}}
+                    <div class="card-body">
+                        <p id="msg"> You haven't added any Bank Accounts..Please start adding now! </p>                        
+                    </div>
+                    {{/if}}
+                    
+                    <div>
+                        <form action="/bankac/showAllAccounts">
+                        <button id="primary-button4"  type="submit" class="btn btn-primary">View All</button>
+                        </form>                        
                     </div>
 
             </div>
 
-            </div>
 
-        </div>
+            </div>
+        
 
         
     </body>

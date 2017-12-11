@@ -70,21 +70,27 @@
 }
 #primary-button1{
     float: right;
-    color: red;
+    color: #F20C08;
     margin-right: 12px;
     margin-bottom: 20px;
 }
 #primary-button2{
     float: right;
-    color: #FFA000
+    color: #FFA000;
+    margin-right: 12px;
+    margin-bottom: 20px;
 }
 #primary-button3{
     float: right;
-    color: #00796B
+    color: #00796B;
+    margin-right: 12px;
+    margin-bottom: 20px;
 }
 #primary-button4{
     float: right;
-    color: purple
+    color: purple;
+    margin-right: 12px;
+    margin-bottom: 20px;
 }
 
 #add_income{
@@ -144,6 +150,3 @@
     font-size: 20pt;
     text-align: center
 }
-
-
-

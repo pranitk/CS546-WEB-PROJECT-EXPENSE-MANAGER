@@ -7,10 +7,10 @@ const categoryData = require("../data/categories");
 const bankData = require("../data/bank")
 var expressValidator = require("express-validator");
 
-
 router.get("/", async(req, res) => {
     const userName = req.session.passport.user;
     const allExpenses = await transactionData.getAllExpenses(userName);
+    const allAcc = await bankData.getAllAccounts(userName);
     console.log(allExpenses)
     let all_Expenses = []
     if(allExpenses.length >= 3) {
@@ -24,7 +24,23 @@ router.get("/", async(req, res) => {
     else {
         all_Expenses = undefined
     }
-    res.render("dashboard",{ expenses: all_Expenses })
+    //EXPENSE BY CATEGORY CARD --- for trial...change this by actual function and values
+    let expByCat = [
+        {
+        amount : 50,
+        category : {
+            category_name : "Food and Dining",
+            icon_name : "local_dining"
+            }
+        },
+        {
+            amount : 120,
+            category : {
+                category_name : "Entertainment",
+                icon_name : "loyalty"
+            }
+        }]
+    res.render("dashboard",{ expenses: all_Expenses, expensesByCategory : expByCat ,accounts : allAcc})
 })
 
 
