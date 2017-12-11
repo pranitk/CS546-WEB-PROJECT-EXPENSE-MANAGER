@@ -75,6 +75,7 @@
     position: fixed;
     right: 180px;
     bottom: 504px;
+    float: right;
 }
 
 .btnDel {
