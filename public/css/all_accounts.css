@@ -74,7 +74,11 @@
 .btnAdd {
     position: fixed;
     right: 180px;
-    bottom: 495px;
+    bottom: 504px;
+}
+
+.btnDel {
+    position: relative;
     float: right;
 }
 
@@ -86,7 +90,4 @@
 
 .material-icons.md-18 { font-size: 18px; }
 
-.icon-gray {
-    color: grey;
-}
 

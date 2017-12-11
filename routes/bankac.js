@@ -22,8 +22,9 @@ router.post("/saveNewAccount",async(req,res)=>{
 
             if(!accountInfo.balance)
                 throw 'Bank Balance not specified'
-                
-            const newAccount = bankData.addBankAC(req.session.passport.user,accountInfo.name,accountInfo.number,accountInfo.balance)
+            
+            let bal_floattype = parseFloat(accountInfo.balance)
+            const newAccount = bankData.addBankAC(req.session.passport.user,accountInfo.name,accountInfo.number,bal_floattype)
     
             if(!newAccount)
                 throw 'New Bank Account not added' 
@@ -50,15 +51,15 @@ router.post("/saveNewAccount",async(req,res)=>{
         let response1 = req.body.nob
         let response2 = req.body.yesb
         let acno = req.body.acn
-        console.log("acno-",acno[0])
+        console.log("acno-",acno)
         //modal handling
         if(response1) {
             res.redirect("/bankac/showAllAccounts")
         }
         else if(response2 && acno != undefined) {
             //let accno = response2.substr(4,)
-            console.log("Deleting account with account number-",acno[0])
-            const delAccount = bankData.deleteAccountByNumber(acno[0])
+            console.log("Deleting account with account number-",acno)
+            const delAccount = bankData.deleteAccountByNumber(req.session.passport.user,acno)
             res.redirect("/bankac/showAllAccounts")
         }
     })
