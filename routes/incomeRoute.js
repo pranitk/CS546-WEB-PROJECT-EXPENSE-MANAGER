@@ -11,17 +11,30 @@ router.get("/showAllIncome",async(req,res)=>{
     const userName = req.session.passport.user;
    // console.log("Username logged is "+userData)
     const allIncome = await transactionData.getAllIncome(userName)
+    const incomeToAdd = await transactionData.getSumOfAllIncome(userName);
+    console.log(incomeToAdd)
+
+    // for(i = 0; i < incomeToAdd.length; i++){
+    //     // total += incomeToAdd[i].amount;
+    //     // console.log(total)
+    //     console.log("total")
+    // }
+    
+
     res.render("transactions/all_income",{ income: allIncome })
 })
 
 
 router.get("/viewIncome/:id",async(req,res)=>{
     const userName = req.session.user;
-    console.log("Username logged is(/viewIncome/:id)"+userName)
+   // console.log("Username logged is(/viewIncome/:id)"+userName)
     let id = req.params.id
-    console.log("Fetching income details for "+id)
+    //console.log("Fetching income details for "+id)
 
     const income = await transactionData.getTransactionById(id)
+    //const incomeToAdd = await transactionData.getSumOfAllIncome(id);
+    
+
 
     if(!income)
         throw 'income not found'
@@ -40,7 +53,7 @@ router.post("/saveNewIncome",async(req,res)=>{
        // const categoryDetails = expenseInfo.selected_category
         const bankAccountNumber = incomeInfo.selected_bank_account
         const date = incomeInfo.dt
-        console.log(incomeInfo)
+        //console.log(incomeInfo)
         //console.log("Selected bank account is "+incomeInfo.selected_account)
     
         
@@ -112,7 +125,7 @@ router.post("/saveNewIncome",async(req,res)=>{
     })
 
     router.get("/delete/:id", async(req, res) =>{
-        //console.log("Delete Income get page route called")
+        console.log("Delete Income get page route called")
         const incomeID = req.params.id
         //console.log(incomeID)
         let deletedTransaction = await transactionData.deleteIncomeById(incomeID)

@@ -114,4 +114,21 @@ router.post("/createNewUser", async(req, res) => {
     }
 })
 
+router.get("/signout", async(req, res) => {
+
+    var userSession = req.session;
+    req.session.destroy(function(err) {
+        res.render("login");
+      })
+
+      
+    // console.log("Allo ikde")
+    // //req.session.destroy();
+    // req.logout()
+
+    // res.render("login");
+    // res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+
+})
+
 module.exports = router;
