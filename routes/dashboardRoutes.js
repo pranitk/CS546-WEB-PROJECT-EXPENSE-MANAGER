@@ -9,9 +9,24 @@ var expressValidator = require("express-validator");
 
 
 router.get("/", async(req, res) => {
-    const userName = req.session.user;
+    const userName = req.session.passport.user;
 
     res.render("dashboard")
 })
+
+
+// router.post('/signout',async(req,res)=>{ 
+//     console.log("ready to signout")   
+//     await req.session.destroy(function(err){  
+//         if(err){  
+//             console.log(err);  
+//         }  
+//         else  
+//         {  
+//             res.redirect("login");  
+//         }  
+//     });  
+
+// }); 
 
 module.exports = router
