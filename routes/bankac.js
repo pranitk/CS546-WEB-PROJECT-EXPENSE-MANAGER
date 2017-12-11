@@ -22,6 +22,9 @@ router.post("/saveNewAccount",async(req,res)=>{
 
             if(!accountInfo.balance)
                 throw 'Bank Balance not specified'
+
+            if(accountInfo.number.length < 6)
+                throw "Account Number must be at least 6 charcters long"
             
             let bal_floattype = parseFloat(accountInfo.balance)
             const newAccount = bankData.addBankAC(req.session.passport.user,accountInfo.name,accountInfo.number,bal_floattype)
