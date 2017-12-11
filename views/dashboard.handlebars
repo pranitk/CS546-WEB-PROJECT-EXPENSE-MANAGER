@@ -51,22 +51,35 @@
                     <div id="my-title-container1" class="card-header">
                             <h5 class="my-card-header-title">RECENT EXPENSES</h5>
                     </div>
-
+                    {{#if expenses}}
                     <div class="card-body">
+                        {{#each expenses}}
+                            <a href="/expenses/viewExpense/{{ _id }}" id="expense-item" class="list-group-item"> 
+                                <i class="material-icons">{{category.icon_name}}</i>
+                                <div class="bmd-list-group-col">
+                                    <p id="expense-desc" class="list-group-item-heading">{{desc}}</p>
+                                    <p class="list-group-item-text">{{ category.category_name}}  |  {{ bank_account.ac_name }}</p>
+                                </div>
+                                <span id="amount" class="label label-default label-pill pull-xs-right"><b>${{amount}}</b></span>
+                            </a>
+                        {{/each}}
                         
-                        <div class="card-block">
+                        {{!-- <div class="card-block">
                             <h4 class="card-title">Card title</h4>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                             <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
+                        </div> --}}
 
-                        <div>
-                            <form action="/expenses/showAllExpenses">
-                            <button id="primary-button1"  type="submit" class="btn btn-primary ">View</button>
-                            </form>                        
-                         </div>
-
-
+                    </div>
+                    {{else}}
+                    <div class="card-body">
+                        <p id="msg"> You haven't added any Expenses..Please start adding now! </p>                        
+                    </div>
+                    {{/if}}
+                    <div>
+                        <form action="/expenses/showAllExpenses">
+                        <button id="primary-button1"  type="submit" class="btn btn-primary">View All</button>
+                        </form>                        
                     </div>
 
             </div>

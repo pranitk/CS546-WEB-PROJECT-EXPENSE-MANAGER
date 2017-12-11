@@ -39,7 +39,14 @@ passport.deserializeUser( async function(username, done) {
 router.get("/",async(req,res)=>{
     if(req.isAuthenticated()) {
         console.log("Hello");
-        res.redirect('/expenses/showAllExpenses');
+        let hasAccounts = await UserBank.hasAccounts(userSession.user)
+        console.log(hasAccounts)
+        if(hasAccounts == false) {
+            res.redirect("/bankac/addBankAC")
+        } else {
+            res.redirect("/dashboard");
+        }
+        // res.redirect('/dashboard');
     }
     else {
         res.render('login',{message:req.flash('error')});
@@ -56,7 +63,7 @@ router.get("/signup",async(req,res)=>{
 //
 router.post("/",passport.authenticate("local",{successRedirect : "/dashboard",failureRedirect : "/",failureFlash : true}),
 async (req,res) => {
-    let userSession = req.session;
+    let userSession = req.session.passport;
     userSession.user = req.body.username;
     console.log(req.body.username);
 

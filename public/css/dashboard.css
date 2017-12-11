@@ -70,7 +70,9 @@
 }
 #primary-button1{
     float: right;
-    color: red
+    color: red;
+    margin-right: 12px;
+    margin-bottom: 20px;
 }
 #primary-button2{
     float: right;
@@ -136,6 +138,11 @@
     color:#4E9CAF;
     font-weight: bold;
     float: right
+}
+
+#msg {
+    font-size: 20pt;
+    text-align: center
 }
 
 
