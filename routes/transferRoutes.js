@@ -17,7 +17,7 @@ router.post("/saveNewTransfer",async(req,res)=>{
     const username = req.session.passport.user
     const info = req.body
 
-    const amount = info.amount
+    const amount = parseFloat(info.amount)
     const desc = info.desc
     const sender_bank_account_number = info.selected_bank_account1
     const receiver_bank_account_number = info.selected_bank_account2
@@ -47,7 +47,7 @@ router.post("/saveNewTransfer",async(req,res)=>{
 
     console.log("Transfer transaction added -> "+transferInfo)
 
-    res.redirect("./expenses/showAllExpenses")
+    res.redirect("/bankac/showAllAccounts")
 
 })
 
