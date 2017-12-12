@@ -153,9 +153,9 @@ module.exports = {
     },
 
     async getAllTransactionsByBank(user_id,transaction_type,bank_account_number){
-
+        
         const transactionCollection = await transactions()
-        return await transactionCollection.find({ transaction_type: transaction_type ,user_id : user_id, bank_account:{ac_no: bank_account_number}})
+        return await transactionCollection.find({ transaction_type: transaction_type ,user_id : user_id, bank_account:{ac_number: bank_account_number}})
 
     },
 
@@ -183,14 +183,34 @@ module.exports = {
 
     },
 
-    async deleteIncomeById(transactionId){
+    async getSumOfTransactions(user_id,transaction_type){
+
+        if(!user_id)
+            throw 'User name not provided' 
+
+        if(!transaction_type)
+            throw 'Transaction type not specified'
+
+        const transactionCollection = await transactions()
+        const result = await transactionCollection.aggregate([{
+            $group: {
+                transaction_type: transaction_type,
+                amount: { $sum: 1}
+            }
+        }])
+s
+        //console.log("Sum result is "+JSON.stringify(result))
+
+    },
+
+    async deleteTransactionById(transactionId){
         if(!transactionId)
             throw "Transaction not found"
 
         const transactionCollection = await transactions()
 
-        const thatTransaction = await this.getAllIncome()
-        console.log("I got all Incomes")
+        //const thatTransaction = await this.getAllIncome()
+        //console.log("I got all Incomes")
 
         const delTransaction = await transactionCollection.removeOne({_id: transactionId})
 

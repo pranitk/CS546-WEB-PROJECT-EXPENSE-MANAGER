@@ -16,11 +16,15 @@ router.get("/showAllExpenses",async(req,res)=>{
     
     //res.send(`username ${userData}`);
     res.render("transactions/all_expenses",{ expenses: allExpenses })
+
+    await transactionData.getSumOfTransactions(username,1)
 })
 
 router.get("/showExpensesByBank/:account_number",async(req,res)=>{
     const username = req.session.passport.user;
-    const expenses = await transactionData.getAllTransactionsByBank(username,1,account_number)
+    const expenses = await transactionData.getAllTransactionsByBank(username,1,req.params.account_number)
+    console.log("Expenses for a bank - "+expenses.length)
+    res.render("transactions/all_expenses",{ expenses: expenses })
 })
 
 router.get("/viewExpense/:id",async(req,res)=>{
@@ -143,6 +147,25 @@ router.post("/addNewCategory",async(req,res) => {
     
     
     //console.log("New Category = "+newCategory.insertedId);
+})
+
+
+router.delete("/delete/:id",async(req,res)=>{
+
+    try{
+
+        const deleteResult = await transactionData.deleteTransactionById(req.params.id)
+
+        if(!deleteResult){
+
+            res.redirect("/showAllExpenses")
+
+        }
+
+    }
+    catch(e){
+        console.log(e)
+    }
 })
 
 module.exports = router
