@@ -77,11 +77,16 @@
                                     </button>
                                 </a>
                                 
-                                
-                                <button id="edit" type="button" class="btn btn-danger btn-raised">
-                                    DELETE
-                                </button>
-
+                                <form action="/expenses/delete/{{expense._id}}" method="DELETE">
+                                    <button id="edit" type="submit" class="btn btn-danger btn-raised">
+                                        DELETE
+                                    </button>
+                                </form>
+                                {{!-- <a href="/expenses/delete/{{expense._id}}">
+                                    <button id="edit" type="button" class="btn btn-danger btn-raised">
+                                        DELETE
+                                    </button>
+                                </a> --}}
                                 
                             </div>                
                         </div>
