@@ -25,23 +25,26 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="/bankac/saveNewAccount" method="POST"> 
+                    <form action="/bankac/saveNewAccount" method="POST" novalidate> 
                         <div class="input-group">
                             <i class="material-icons">account_balance</i>
                             {{!-- <label for="name" id="lab">Bank Name:&nbsp;&nbsp;</label> --}}
-                            <input type="text" id="name" class="form-control" name="name" placeholder="Bank Name"/>
+                            <input type="text" id="name" class="form-control" name="name" placeholder="Bank Name" required/>
+                            <div class="invalid-feedback">
+                                Please provide a valid Bank Name
+                            </div>
                         </div>
                         <br>
                         <div class="input-group">
                             <i class="material-icons">info</i>
                             {{!-- <label for="number" id="lab">Account Number:&nbsp;&nbsp;</label> --}}
-                            <input type="text" name="number" class="form-control" placeholder="Account Number (At-least 6 characters)"/>
+                            <input type="text" name="number" class="form-control" placeholder="Account Number (At-least 6 characters)" required/>
                         </div>
                         <br>
                         <div class="input-group">
                             <i class="material-icons">attach_money</i>
                             {{!-- <label for="balance" id="lab">Current Balance:&nbsp;&nbsp;</label> --}}
-                            <input type="text" name="balance" class="form-control" placeholder="Account Balance"/>
+                            <input type="text" name="balance" class="form-control" placeholder="Account Balance" required/>
                         </div>
                                 
                         <button id="primary-buttonA"  type="button" class="btn btn-primary btn-raised" data-toggle="modal" data-target=".bs-example-pop">ADD</button>
