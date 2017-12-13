@@ -67,7 +67,7 @@ async (req,res) => {
         if(hasAccounts == false) {
             res.redirect("/bankac/addBankAC")
         } else {
-            res.render("dashboard");
+            res.redirect("/dashboard");
         }
     }
     else
