@@ -84,7 +84,7 @@ module.exports = {
     },
 
     async getAccountByNumber(ac_no,user_id) {
-        console.log("Finding account by "+ac_no)
+       // console.log("Finding account by "+ac_no)
         if(!ac_no)
             throw "Account number not provided"
         
@@ -105,7 +105,7 @@ module.exports = {
             throw "User ID not provided"
         const bankCollection = await bankac()
         let doc = await bankCollection.findOne({user_id : user_id})
-        console.log(doc)
+        //console.log(doc)
         if(doc == null)
             return false
         else
@@ -115,7 +115,7 @@ module.exports = {
     async deleteAccountByNumber(user_id,ac_no) {
         if(!ac_no)
             throw "Account number not provided"
-        console.log(user_id,ac_no)
+       // console.log(user_id,ac_no)
         const bankCollection = await bankac()
         const accounts = await this.getAllAccounts(user_id)
         if(accounts.length != 0) {
@@ -175,9 +175,9 @@ module.exports = {
         acc2.ac_bal = acc2.ac_bal + amount
         updatedbal2 = acc2.ac_bal
 
-        console.log("New account 1 balance is $"+acc1.ac_bal)
+       // console.log("New account 1 balance is $"+acc1.ac_bal)
 
-        console.log("New account 2 balance is $"+acc2.ac_bal)
+        //console.log("New account 2 balance is $"+acc2.ac_bal)
         // For ac_no1
         let updateAcc1 = await bankCollection.updateOne({user_id:user_id,ac_number:ac_no1},{$set: {ac_bal:updatedbal1}});
         if (updateAcc1.modifiedCount == 0) {

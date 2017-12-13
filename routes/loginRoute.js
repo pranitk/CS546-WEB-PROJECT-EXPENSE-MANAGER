@@ -67,7 +67,7 @@ async (req,res) => {
         if(hasAccounts == false) {
             res.redirect("/bankac/addBankAC")
         } else {
-            res.redirect("/dashboard");
+            res.render("dashboard");
         }
     }
     else
@@ -109,7 +109,7 @@ router.post("/createNewUser", async(req, res) => {
     else
     {
         var newUser = await User.addNewUser(username,Fname,Lname,password);
-        // var categoriesForNewUser = await UserCategory.addCategoryForNewUser(username);
+        var categoriesForNewUser = await UserCategory.addCategoryForNewUser(username);
         res.render("login");
     }
 })

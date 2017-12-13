@@ -62,9 +62,27 @@ module.exports = {
                 // GET CATEGORY BY ID or NAME
                 //const categoriesCollection = await categories();
                 //const newCategory = categoriesCollection.findOne({user:user_id,category_name:category_name})
+
+                if(!account_number)
+                {
+                    throw "Bank Account Not Selected";
+                }
+
+                if(!date)
+                {
+                    throw "Date Not Selected";
+                }
+                if(!amount)
+                {
+                    throw "Amount Not Specified";
+                }
+                if(!desc)
+                {
+                    throw "Description Not Specified";
+                }
                
         
-                console.log("Getting bank account for "+account_number)
+                //console.log("Getting bank account for "+account_number)
                 const bank_account = await bankData.getAccountByNumber(account_number,user_id)
                 // GET BANK ACCOUNT BY ID
         
@@ -88,7 +106,7 @@ module.exports = {
                 if(insertedInfo.insertedCount == 0)
                     throw 'Insertion failed'
                     
-                console.log("inserted income: "+insertedInfo)
+                //console.log("inserted income: "+insertedInfo)
         
                 const result = await bankData.updateAccount(user_id,account_number,2,amount)
 
