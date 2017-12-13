@@ -122,7 +122,7 @@ module.exports = {
 
     async deleteAccountByNumber(user_id,ac_no) {
         if(!ac_no)
-            throw "Account number not provided"
+            throw "You must provide the account number to confirm deletion of the account"
         console.log(user_id,ac_no)
         const bankCollection = await bankac()
         const accounts = await this.getAllAccounts(user_id)
