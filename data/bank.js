@@ -12,6 +12,8 @@ module.exports = {
             throw "Form is EMPTY - Bank Name and Bank Number not provided!"
         if(!ac_number && !ac_bal)
             throw "Form is EMPTY - Bank Number and Bank Balance not provided!"
+        if(ac_number && ac_number.length <6)
+            throw "Bank Account number should be at least 6 characters long"
         if(!ac_name && !ac_bal)
             throw "Form is EMPTY - Bank Name and Bank Balance not provided!"
         if(!ac_name)
@@ -130,7 +132,7 @@ module.exports = {
             console.log("deleting acno-",ac_no)
             const delacc = await bankCollection.removeOne({ac_ending : ac_no})
             if(delacc.deletedCount === 0) {
-                throw "Could not remove account with acc_number:${ac_no}";
+                throw "Could not remove account - Either the account does not exist or you have entered wrong account number";
             } else {
                 return delacc
             }
