@@ -40,7 +40,30 @@ router.get("/", async(req, res) => {
                 icon_name : "loyalty"
             }
         }]
-    res.render("dashboard",{ expenses: all_Expenses, expensesByCategory : expByCat ,accounts : allAcc})
+    const aggregateExpenses = await transactionData.getSumOfTransactions(userName,1);
+    console.log(aggregateExpenses);
+    //
+
+    let sum = await transactionData.getSumOfTransactions(userName)
+    var incomeTotal = 0.0
+    var expenseTotal = 0.0
+
+    for(let i=0; i < sum.length ; i++){
+        let obj = sum[i]
+
+        if(obj._id.trans_type == 1)
+            expenseTotal = parseFloat(obj.amount)
+        else if(obj._id.trans_type == 2)
+            incomeTotal = parseFloat(obj.amount)
+        
+    }
+
+    console.log("Expense total amount = "+expenseTotal)
+    console.log("Income total amount = "+incomeTotal)
+
+    const transfers = await transactionData.getAllTransactions(userName,3)
+
+    res.render("dashboard",{ expenses: all_Expenses, expensesByCategory : expByCat ,accounts : allAcc , transfers: transfers,  total_expense: expenseTotal, total_income: incomeTotal})
 })
 
 

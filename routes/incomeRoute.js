@@ -52,23 +52,25 @@ router.post("/saveNewIncome",async(req,res)=>{
         const desc = incomeInfo.description
        // const categoryDetails = expenseInfo.selected_category
         const bankAccountNumber = incomeInfo.selected_bank_account
+
+        console.log("Acc Number" + bankAccountNumber)
         const date = incomeInfo.dt
         //console.log(incomeInfo)
         //console.log("Selected bank account is "+incomeInfo.selected_account)
         console.log("Date is" + date)
         
     try{
-            // if(!amount)
-            //     throw 'Amount not specified'
+            if(!amount)
+                throw 'Amount not specified'
     
-            // if(!desc)
-            //     throw 'Description not specified'
+            if(!desc)
+                throw 'Description not specified'
 
-            /*if(!bankAccountNumber)
+            if(!bankAccountNumber)
                 throw 'Bank account not selected'
 
             if(!date)
-                 throw 'Date not specified'*/
+                 throw 'Date not specified'
 
             //req.checkBody("amount","Amount Is Required!").notEmpty();
             //req.checkBody("description","Description Is Required!").notEmpty();
@@ -76,9 +78,10 @@ router.post("/saveNewIncome",async(req,res)=>{
             //req.checkBody("dt","Date Is Required!").notEmpty();
 
             amount = parseFloat(amount)
+           // console.log(amount)
 
-            
-                const newTransaction = await transactionData.addTransactionForIncome(loggedUser,2,amount,desc,bankAccountNumber,date)
+            var username = req.session.passport.user;
+                const newTransaction = await transactionData.addTransactionForIncome(username,2,amount,desc,bankAccountNumber,date)
 
                 // if(!newTransaction)
                 //     throw 'New Transaction not added' 
@@ -87,7 +90,6 @@ router.post("/saveNewIncome",async(req,res)=>{
             }
 
         catch(e){
-            console.log("I am here")
             let bank_accounts = await bankData.getAllAccounts(req.session.passport.user)
             res.render("transactions/add_income",{errors: e, bank_accounts : bank_accounts})
                 

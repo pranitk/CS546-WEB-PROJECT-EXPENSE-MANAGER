@@ -25,10 +25,15 @@
 
             function drawBasic() {
 
+                var totalExpense = document.getElementById("total_expense").value
+                var totalIncome = document.getElementById("total_income").value
+
+                console.log("Total expense = "+totalExpense)
+
                 var data = google.visualization.arrayToDataTable([
                     ['Type', 'Amount',{ role: 'style' }],
-                    ['INCOME', 800, '#008000'],
-                    ['EXPENSE', 379, 'red'],
+                    ['INCOME', parseFloat(totalIncome), '#008000'],
+                    ['EXPENSE', parseFloat(totalExpense), 'red'],
                 ]);
 
                 var options = {
@@ -120,7 +125,9 @@
                     </div>
                     <div class="card-body">
                         <div id="chart_div"/>
-                        </div>                     
+                        </div>    
+                        <input id="total_income" value="{{total_income}}" hidden/>
+                        <input id="total_expense" value="{{total_expense}}" hidden/>                
                     </div>
                     <div>
                         <form action="/expenses/showAllExpenses">
@@ -134,7 +141,41 @@
 
         
             <div class ="row">
-            <div class="card">
+
+                <div class="card">
+                    <div id="my-title-container3" class="card-header">
+                            <h5 class="my-card-header-title">TRANSFERS</h5>
+                    </div>
+
+                    {{#if transfers}}
+                    <div class="card-body">
+                        {{#each transfers}}
+                            <a id="transfer-item" class="list-group-item"> 
+                                <i class="material-icons">swap_horiz</i>
+                                <div class="bmd-list-group-col">
+                                    <p class="list-group-item-heading">{{ desc}}</p>
+                                    <p class="list-group-item-text">{{sender_bank_account.ac_name}} to {{receiver_bank_account.ac_name}}</p>
+                                </div>
+                                <span id="amount" class="label label-default label-pill pull-xs-right"><b>${{amount}}</b></span>
+                            </a>
+                        {{/each}}
+                        
+                    </div>
+                    {{else}}
+                    <div class="card-body">
+                        <p id="msg"> You haven't added any Expenses..Please start adding now! </p>                        
+                    </div>
+                    {{/if}}
+                        
+                    <div>
+                        <form action="/expenses/showAllExpenses">
+                        <button id="primary-button3"  type="submit" class="btn btn-primary">View All</button>
+                        </form>                        
+                    </div>
+
+                </div>
+
+            {{!-- <div class="card">
                     <div id="my-title-container3" class="card-header">
                             <h5 class="my-card-header-title">EXPENSE BY CATEGORY</h5>
                     </div>
@@ -164,7 +205,7 @@
                         </form>                        
                     </div>
 
-            </div>
+            </div> --}}
 
         
 

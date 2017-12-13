@@ -9,9 +9,8 @@ module.exports = {
     //Add New Transactions
     async addTransaction(user_id,transaction_type,amount,desc,category_details,account_number,date){
 
-        // GET CATEGORY BY ID or NAME
-        //const categoriesCollection = await categories();
-        //const newCategory = categoriesCollection.findOne({user:user_id,category_name:category_name})
+       var valid_date= new Date(date)
+       console.log("month" +valid_date.getMonth())
         const temp = category_details.split("  ")
         const category_icon = temp[0]
         const category_name = temp[1]
@@ -33,8 +32,9 @@ module.exports = {
                 category_name: category_name, // Update this..
                 icon_name: category_icon  // Update this..
             },
+            //bank_account_number: account_number,
             bank_account:bank_account,
-            date: date
+            date: valid_date
         }
 
         if(transaction_type == 1){  // Expense
@@ -59,30 +59,10 @@ module.exports = {
 
     async addTransactionForIncome(user_id,transaction_type,amount,desc,account_number,date){
         
-                // GET CATEGORY BY ID or NAME
-                //const categoriesCollection = await categories();
-                //const newCategory = categoriesCollection.findOne({user:user_id,category_name:category_name})
-
-                if(!account_number)
-                {
-                    throw "Bank Account Not Selected";
-                }
-
-                if(!date)
-                {
-                    throw "Date Not Selected";
-                }
-                if(!amount)
-                {
-                    throw "Amount Not Specified";
-                }
-                if(!desc)
-                {
-                    throw "Description Not Specified";
-                }
+              
                
         
-                //console.log("Getting bank account for "+account_number)
+                console.log("Getting bank account for "+account_number)
                 const bank_account = await bankData.getAccountByNumber(account_number,user_id)
                 // GET BANK ACCOUNT BY ID
         
@@ -172,9 +152,14 @@ module.exports = {
 
     async getAllTransactionsByBank(user_id,transaction_type,bank_account_number){
         
-        const transactionCollection = await transactions()
-        return await transactionCollection.find({ transaction_type: transaction_type ,user_id : user_id, bank_account:{ac_number: bank_account_number}})
+        console.log("User name passed -> "+user_id)
+        console.log("Transaction type -> "+transaction_type)
+        console.log("Account number -> "+bank_account_number)
 
+        const transactionCollection = await transactions()
+        //return await transactionCollection.find({ transaction_type: transaction_type ,user_id : user_id, bank_account_number: bank_account_number}).toArray()
+
+        return await transactionCollection.find({ transaction_type: transaction_type ,user_id : user_id, 'bank_account.ac_number': bank_account_number}).toArray()
     },
 
     async getAllTransactions(user_id,transaction_type){
@@ -201,22 +186,30 @@ module.exports = {
 
     },
 
-    async getSumOfTransactions(user_id,transaction_type){
+    async getSumOfTransactions(user_id){
 
         if(!user_id)
             throw 'User name not provided' 
 
-        if(!transaction_type)
-            throw 'Transaction type not specified'
 
         const transactionCollection = await transactions()
         const result = await transactionCollection.aggregate([{
             $group: {
-                transaction_type: transaction_type,
-                amount: { $sum: 1}
+                _id : {trans_type : "$transaction_type"},
+                amount: { $sum: "$amount"}
             }
-        }])
-s
+        }]).toArray();
+
+        // const result = await transactionCollection.aggregate([{
+        //     $group: {
+        //         _id : {trans_type : {transaction_type : "$transaction_type"}},
+        //         amount: { $sum: "$amount"}
+        //     }
+        // }]).toArray();
+        //result = JSON.stringify(result)
+        //console.log(result)
+        return result;
+
         //console.log("Sum result is "+JSON.stringify(result))
 
     },

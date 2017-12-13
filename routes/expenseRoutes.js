@@ -15,7 +15,7 @@ router.get("/showAllExpenses",async(req,res)=>{
     const allExpenses = await transactionData.getAllExpenses(username);
     
     //res.send(`username ${userData}`);
-    res.render("transactions/all_expenses",{ expenses: allExpenses })
+    res.render("transactions/all_expenses",{ title: "ALL EXPENSES", expenses: allExpenses })
 
     await transactionData.getSumOfTransactions(username,1)
 })
@@ -23,8 +23,10 @@ router.get("/showAllExpenses",async(req,res)=>{
 router.get("/showExpensesByBank/:account_number",async(req,res)=>{
     const username = req.session.passport.user;
     const expenses = await transactionData.getAllTransactionsByBank(username,1,req.params.account_number)
-    console.log("Expenses for a bank - "+expenses.length)
-    res.render("transactions/all_expenses",{ expenses: expenses })
+    console.log("Expenses for a bank - "+expenses)
+    const account_name = await bankData.getAccountName(req.params.account_number,username)
+    const title = "ALL EXPENSES IN "+account_name.toUpperCase()
+    res.render("transactions/all_expenses",{ title: title ,expenses: expenses })
 })
 
 router.get("/viewExpense/:id",async(req,res)=>{
@@ -87,7 +89,9 @@ router.post("/saveNewExpense",async(req,res)=>{
         res.redirect('showAllExpenses')
 
     }catch(e){
-        res.sendStatus(500).json({ error: e})
+        let bank_accounts = await bankData.getAllAccounts(req.session.passport.user)
+        let all_categories = await categoryData.getAllCategories(req.session.passport.user)
+        res.render("transactions/add_expense",{errors: e, categories: all_categories, bank_accounts : bank_accounts})
         
     }
 })
