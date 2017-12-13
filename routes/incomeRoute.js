@@ -131,7 +131,7 @@ router.post("/saveNewIncome",async(req,res)=>{
         console.log("Delete Income get page route called")
         const incomeID = req.params.id
         //console.log(incomeID)
-        let deletedTransaction = await transactionData.deleteIncomeById(incomeID)
+        let deletedTransaction = await transactionData.deleteTransactionById(incomeID)
        // console.log("Success in deleting")
         
         res.redirect("/income/showAllIncome")
