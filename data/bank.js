@@ -6,12 +6,20 @@ module.exports = {
     async addBankAC(user_id,ac_name,ac_number,ac_bal) {
         if(!user_id) 
             throw "User ID not provided"
+        if(!ac_name && !ac_number && !ac_bal)
+            throw "Form is EMPTY - Bank Name, Bank Number and Bank Balance not provided!"
+        if(!ac_name && !ac_number)
+            throw "Form is EMPTY - Bank Name and Bank Number not provided!"
+        if(!ac_number && !ac_bal)
+            throw "Form is EMPTY - Bank Number and Bank Balance not provided!"
+        if(!ac_name && !ac_bal)
+            throw "Form is EMPTY - Bank Name and Bank Balance not provided!"
         if(!ac_name)
-            throw "Account name not provided"
+            throw "Bank Account NAME not provided"
         if(!ac_number)
-            throw "Account number not provided"
+            throw "Bank Account NUMBER not provided"
         if(!ac_bal)
-            throw "Account balance not provided"
+            throw "Bank Account BALANCE not provided"
         let flag = 0
         const bankCollection = await bankac()
         const accounts = await this.getAllAccounts(user_id)
@@ -118,7 +126,8 @@ module.exports = {
         console.log(user_id,ac_no)
         const bankCollection = await bankac()
         const accounts = await this.getAllAccounts(user_id)
-        if(accounts.length != 0) {
+        if(accounts.length > 1) {
+            console.log("deleting acno-",ac_no)
             const delacc = await bankCollection.removeOne({ac_ending : ac_no})
             if(delacc.deletedCount === 0) {
                 throw "Could not remove account with acc_number:${ac_no}";

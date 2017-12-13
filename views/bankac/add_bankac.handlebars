@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="/public/css/add_bank.css">
-        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
@@ -16,6 +16,7 @@
         <title>Add New Bank A/C</title>
     </head>
 
+    
     <body>
         
         <div class="add-bankac-form">
@@ -24,12 +25,18 @@
                     <h5 class="my-card-header-title">ADD YOUR BANK ACCOUNT DETAILS</h5>
                 </div>
 
+                {{#if error}}
+                <div class = "alert alert-danger">
+                    <p> {{error}} </p>
+                </div>
+                {{/if}}
+
                 <div class="card-body">
                     <form action="/bankac/saveNewAccount" method="POST" novalidate> 
                         <div class="input-group">
                             <i class="material-icons">account_balance</i>
                             {{!-- <label for="name" id="lab">Bank Name:&nbsp;&nbsp;</label> --}}
-                            <input type="text" id="name" class="form-control" name="name" placeholder="Bank Name" required/>
+                            <input type="text" id="bankname" class="form-control" name="name" placeholder="Bank Name" required = "" />
                             <div class="invalid-feedback">
                                 Please provide a valid Bank Name
                             </div>
@@ -38,16 +45,16 @@
                         <div class="input-group">
                             <i class="material-icons">info</i>
                             {{!-- <label for="number" id="lab">Account Number:&nbsp;&nbsp;</label> --}}
-                            <input type="text" name="number" class="form-control" placeholder="Account Number (At-least 6 characters)" required/>
+                            <input type="text" id="banknumber" name="number" class="form-control" placeholder="Account Number (At-least 6 characters)" required= "" />
                         </div>
                         <br>
                         <div class="input-group">
                             <i class="material-icons">attach_money</i>
                             {{!-- <label for="balance" id="lab">Current Balance:&nbsp;&nbsp;</label> --}}
-                            <input type="text" name="balance" class="form-control" placeholder="Account Balance" required/>
+                            <input type="text" id="bankbalance" name="balance" class="form-control" placeholder="Account Balance" required = "" />
                         </div>
                                 
-                        <button id="primary-buttonA"  type="button" class="btn btn-primary btn-raised" data-toggle="modal" data-target=".bs-example-pop">ADD</button>
+                        <button id="primary-buttonA"  type="button" class="btn btn-primary btn-raised" data-toggle="modal" data-target=".bs-example-pop" >ADD</button>
 
                         <div class="modal fade bs-example-pop">
                             <div class="modal-dialog">

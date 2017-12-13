@@ -101,5 +101,13 @@
 
 }
 
+.alert {
+    padding: 20px;
+    width: 70%;
+    margin-left: 250px;
+    background-color: #f44336;
+    color: white;
+}
+
 
 
