@@ -93,6 +93,19 @@ module.exports = {
         return acc
     },
 
+    async getAccountName(ac_no,user_id){
+
+        console.log("Finding account by "+ac_no)
+        if(!ac_no)
+            throw "Account number not provided"
+
+        const bankCollection = await bankac()
+        const acc = await bankCollection.findOne({ac_number : ac_no, user_id: user_id})
+        return acc.ac_name
+
+
+    },
+
     async getAllAccounts(user_id) {
         if(!user_id)
             throw "User ID not provided"

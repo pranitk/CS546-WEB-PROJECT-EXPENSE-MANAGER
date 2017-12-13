@@ -33,6 +33,7 @@ module.exports = {
                 category_name: category_name, // Update this..
                 icon_name: category_icon  // Update this..
             },
+            //bank_account_number: account_number,
             bank_account:bank_account,
             date: date
         }
@@ -154,9 +155,14 @@ module.exports = {
 
     async getAllTransactionsByBank(user_id,transaction_type,bank_account_number){
         
-        const transactionCollection = await transactions()
-        return await transactionCollection.find({ transaction_type: transaction_type ,user_id : user_id, bank_account:{ac_number: bank_account_number}})
+        console.log("User name passed -> "+user_id)
+        console.log("Transaction type -> "+transaction_type)
+        console.log("Account number -> "+bank_account_number)
 
+        const transactionCollection = await transactions()
+        //return await transactionCollection.find({ transaction_type: transaction_type ,user_id : user_id, bank_account_number: bank_account_number}).toArray()
+
+        return await transactionCollection.find({ transaction_type: transaction_type ,user_id : user_id, 'bank_account.ac_number': bank_account_number}).toArray()
     },
 
     async getAllTransactions(user_id,transaction_type){
@@ -183,22 +189,30 @@ module.exports = {
 
     },
 
-    async getSumOfTransactions(user_id,transaction_type){
+    async getSumOfTransactions(user_id){
 
         if(!user_id)
             throw 'User name not provided' 
 
-        if(!transaction_type)
-            throw 'Transaction type not specified'
 
         const transactionCollection = await transactions()
         const result = await transactionCollection.aggregate([{
             $group: {
-                transaction_type: transaction_type,
-                amount: { $sum: 1}
+                _id : {trans_type : "$transaction_type"},
+                amount: { $sum: "$amount"}
             }
-        }])
-s
+        }]).toArray();
+
+        // const result = await transactionCollection.aggregate([{
+        //     $group: {
+        //         _id : {trans_type : {transaction_type : "$transaction_type"}},
+        //         amount: { $sum: "$amount"}
+        //     }
+        // }]).toArray();
+        //result = JSON.stringify(result)
+        //console.log(result)
+        return result;
+
         //console.log("Sum result is "+JSON.stringify(result))
 
     },
