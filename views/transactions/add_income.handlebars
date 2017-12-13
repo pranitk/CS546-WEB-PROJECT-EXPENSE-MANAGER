@@ -41,7 +41,7 @@
         
         <div class="add-income-form">
                 <div class="card">
-                              
+                       
 
                         <div id="my-title-container" class="card-header">
                           <h5 class="my-card-header-title">ADD YOUR INCOME DETAILS</h5>
@@ -137,7 +137,11 @@
                                 </div>
                                   
                         
- 
+                                {{#if errors}}
+                                <div class = "alert alert-danger">
+                                <strong>{{msg}}</strong>
+                                </div>
+                                {{/if}}
                                 
                                 <button id="primary-button"  type="submit" class="btn btn-primary btn-lg btn-raised">Save</button>
                                 

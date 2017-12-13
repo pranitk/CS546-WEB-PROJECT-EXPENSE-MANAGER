@@ -54,7 +54,7 @@ router.get("/signup",async(req,res)=>{
 
 
 //
-router.post("/",passport.authenticate("local",{failureFlash : true}),
+router.post("/",passport.authenticate("local",{failureRedirect :"/",failureFlash : true}),
 async (req,res) => {
     let userSession = req.session.passport;
     userSession.user = req.body.username;

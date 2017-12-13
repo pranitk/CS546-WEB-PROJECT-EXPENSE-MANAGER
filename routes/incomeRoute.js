@@ -71,7 +71,10 @@ router.post("/saveNewIncome",async(req,res)=>{
             //     throw 'Date not specified'
             req.checkBody("amount","Username Is Required!").notEmpty();
             req.checkBody("description","Description Is Required!").notEmpty();
-            req.checkBody("dt","Date Is Required!").notEmpty();
+            //req.checkBody("dt","Date Is Required!").notEmpty();
+            
+            if(!date)
+                throw 'Date not specified'
 
             amount = parseFloat(amount)
 
