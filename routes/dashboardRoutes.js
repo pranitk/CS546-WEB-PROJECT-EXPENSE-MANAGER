@@ -40,17 +40,19 @@ router.get("/", async(req, res) => {
                 icon_name : "loyalty"
             }
         }]
-    const aggregateExpenses = await transactionData.getSumOfTransactions(userName,1);
-    console.log(aggregateExpenses);
+    //const aggregateExpenses = await transactionData.getSumOfTransactions(userName,1);
+    //console.log(aggregateExpenses);
     //
 
     let sum = await transactionData.getSumOfTransactions(userName)
+    console.log(sum);
     var incomeTotal = 0.0
     var expenseTotal = 0.0
+    var current_month;
+    var month = "";
 
     for(let i=0; i < sum.length ; i++){
         let obj = sum[i]
-
         if(obj._id.trans_type == 1)
             expenseTotal = parseFloat(obj.amount)
         else if(obj._id.trans_type == 2)
@@ -60,10 +62,10 @@ router.get("/", async(req, res) => {
 
     console.log("Expense total amount = "+expenseTotal)
     console.log("Income total amount = "+incomeTotal)
-
+    //var month = "Monthly Summary For "+current_month;
     const transfers = await transactionData.getAllTransactions(userName,3)
 
-    res.render("dashboard",{ expenses: all_Expenses, expensesByCategory : expByCat ,accounts : allAcc , transfers: transfers,  total_expense: expenseTotal, total_income: incomeTotal})
+    res.render("dashboard",{expenses: all_Expenses, expensesByCategory : expByCat ,accounts : allAcc , transfers: transfers,  total_expense: expenseTotal, total_income: incomeTotal})
 })
 
 
