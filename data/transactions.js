@@ -1,3 +1,5 @@
+
+
 const mongoCollections = require("../config/mongoCollections")
 const transactions = mongoCollections.transactions
 const categories = mongoCollections.categories
@@ -214,7 +216,7 @@ module.exports = {
 
     },
 
-    async deleteTransactionById(transactionId){
+    async deleteTransactionById(username, transactionId){
         if(!transactionId)
             throw "Transaction not found"
 
@@ -222,8 +224,9 @@ module.exports = {
 
         //const thatTransaction = await this.getAllIncome()
         //console.log("I got all Incomes")
-
+        //let userName = req.session.passport.user;
         const delTransaction = await transactionCollection.removeOne({_id: transactionId})
+        const result = await bankData.updateAccount(username,account_number,2,-amount)
 
         return delTransaction
 

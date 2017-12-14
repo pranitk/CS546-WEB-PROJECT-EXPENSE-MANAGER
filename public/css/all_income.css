@@ -47,3 +47,7 @@ td{
     width:30px;
     border: none
  }
+
+ #signout{
+    visibility: hidden
+}

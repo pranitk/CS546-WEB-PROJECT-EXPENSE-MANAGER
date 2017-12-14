@@ -39,3 +39,7 @@ td{
     width: 80%;
     margin: auto;
 }
+
+#signout{
+    visibility: hidden
+}

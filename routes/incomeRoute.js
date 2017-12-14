@@ -78,7 +78,7 @@ router.post("/saveNewIncome",async(req,res)=>{
             //req.checkBody("dt","Date Is Required!").notEmpty();
 
             amount = parseFloat(amount)
-           // console.log(amount)
+            console.log(amount)
 
             var username = req.session.passport.user;
                 const newTransaction = await transactionData.addTransactionForIncome(username,2,amount,desc,bankAccountNumber,date)
@@ -128,7 +128,7 @@ router.post("/saveNewIncome",async(req,res)=>{
         console.log("Delete Income get page route called")
         const incomeID = req.params.id
         //console.log(incomeID)
-        let deletedTransaction = await transactionData.deleteTransactionById(incomeID)
+        let deletedTransaction = await transactionData.deleteTransactionById(req.session.passport.user,incomeID)
        // console.log("Success in deleting")
         
         res.redirect("/income/showAllIncome")
