@@ -78,7 +78,7 @@ router.post("/saveNewIncome",async(req,res)=>{
             //req.checkBody("dt","Date Is Required!").notEmpty();
 
             amount = parseFloat(amount)
-           // console.log(amount)
+            console.log(amount)
 
             var username = req.session.passport.user;
                 const newTransaction = await transactionData.addTransactionForIncome(username,2,amount,desc,bankAccountNumber,date)

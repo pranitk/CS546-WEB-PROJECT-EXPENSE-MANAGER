@@ -22,6 +22,7 @@ router.post("/saveNewTransfer",async(req,res)=>{
     const sender_bank_account_number = info.selected_bank_account1
     const receiver_bank_account_number = info.selected_bank_account2
     const date = info.dt
+    try{
 
     if(!amount)
         throw 'Amount not provided'
@@ -48,6 +49,12 @@ router.post("/saveNewTransfer",async(req,res)=>{
     console.log("Transfer transaction added -> "+transferInfo)
 
     res.redirect("/bankac/showAllAccounts")
+
+    }catch(e){
+        let bank_accounts = await bankData.getAllAccounts(req.session.passport.user)
+        res.render("transactions/add_transfer",{errors: e, bank_accounts : bank_accounts})
+
+    }
 
 })
 

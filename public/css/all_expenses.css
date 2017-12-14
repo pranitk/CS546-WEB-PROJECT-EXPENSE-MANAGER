@@ -49,3 +49,7 @@ td{
 #navbar-navbar-expand-lg-sticky-top-navbar-dark-bg-dark{
    visibility: visible;
 } */
+
+#signout{
+    visibility: hidden
+}

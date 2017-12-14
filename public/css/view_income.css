@@ -32,4 +32,7 @@ td{
     padding: 6pt;
 }
 
+#signout{
+    visibility: hidden
+}
 
