@@ -9,7 +9,8 @@ module.exports = {
     //Add New Transactions
     async addTransaction(user_id,transaction_type,amount,desc,category_details,account_number,date){
 
-       var valid_date= new Date(date)
+       var valid_date = new Date(date)
+       var month = valid_date.getMonth();
        console.log("month" +valid_date.getMonth())
         const temp = category_details.split("  ")
         const category_icon = temp[0]
@@ -34,7 +35,8 @@ module.exports = {
             },
             //bank_account_number: account_number,
             bank_account:bank_account,
-            date: valid_date
+            date: date,
+            month : month
         }
 
         if(transaction_type == 1){  // Expense
@@ -62,6 +64,7 @@ module.exports = {
               
                
                 const valid_date = new Date(date);
+                var month = valid_date.getMonth();
                 console.log("Getting bank account for "+account_number)
                 const bank_account = await bankData.getAccountByNumber(account_number,user_id)
                 // GET BANK ACCOUNT BY ID
@@ -77,7 +80,8 @@ module.exports = {
                     //category_name: category_id,
                 
                     bank_account:bank_account,
-                    date: valid_date
+                    date: date,
+                    month: month
                 }
         
                 const transactionCollection = await transactions()
@@ -97,6 +101,7 @@ module.exports = {
     async saveTransfer(user_id,amount,sender_account_number,receiver_account_number,desc,date){
 
         const valid_date = new Date(date);
+        var month = valid_date.getMonth();
         const sender_bank_account = await bankData.getAccountByNumber(sender_account_number,user_id)
         const receiver_bank_account = await bankData.getAccountByNumber(receiver_account_number,user_id)
 
@@ -108,7 +113,8 @@ module.exports = {
             desc: desc,
             sender_bank_account: sender_bank_account,
             receiver_bank_account: receiver_bank_account,
-            date: valid_date
+            date: date,
+            month : month
         }
 
         const transactionCollection = await transactions()
@@ -195,6 +201,7 @@ module.exports = {
         //let today = new Date();
         //let current_month = today.getMonth();
         var now = new Date();
+        var current_month = now.getMonth();
         console.log("Date = "+now);
         //console.log("Current Month : "+now.getMonth());
 
@@ -204,7 +211,7 @@ module.exports = {
                 const transactionCollection = await transactions()
                 let result = await transactionCollection.aggregate([
                     {
-                        $match:{date : {$gte : new Date('2017-12-01T00:00:00Z')}}
+                        $match:{month : {$gte : current_month}}
                     }
                     ,{
                     

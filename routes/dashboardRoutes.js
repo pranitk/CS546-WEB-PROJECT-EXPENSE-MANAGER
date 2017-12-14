@@ -48,8 +48,9 @@ router.get("/", async(req, res) => {
     console.log(sum);
     var incomeTotal = 0.0
     var expenseTotal = 0.0
-    var current_month;
-    var month = "";
+    //var current_month = new Date().getMonth() + 1;
+    
+    //var month = "";
 
     for(let i=0; i < sum.length ; i++){
         let obj = sum[i]
