@@ -96,7 +96,7 @@ router.post("/saveNewIncome",async(req,res)=>{
         }
             
        
-            //let updateResult = await bankData.updateAccount(loggedUser,account_number,2,amount)
+            //let updateResult = await bankData.updateAccount(req.session.passport.user,bankAccountNumber,2,amount)
             //res.send("Hello from Shreyas 2")
             
     
@@ -127,10 +127,16 @@ router.post("/saveNewIncome",async(req,res)=>{
     router.get("/delete/:id", async(req, res) =>{
         console.log("Delete Income get page route called")
         const incomeID = req.params.id
-        //console.log(incomeID)
-        let deletedTransaction = await transactionData.deleteTransactionById(req.session.passport.user,incomeID)
+        console.log(incomeID)
+        let tx_det = await transactionData.getTransactionById(incomeID)
+        console.log(tx_det)
+        let ac_det = tx_det.bank_account
+        console.log(ac_det)
+        let ac_no = ac_det.ac_number
+        console.log(ac_no)
+        let deletedTransaction = await transactionData.deleteTransactionById(incomeID)
        // console.log("Success in deleting")
-        
+       let updateResult = await bankData.updateAccount(req.session.passport.user,ac_no,2,-(tx_det.amount))
         res.redirect("/income/showAllIncome")
         
 
