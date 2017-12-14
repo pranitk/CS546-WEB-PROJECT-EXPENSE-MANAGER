@@ -61,7 +61,7 @@ module.exports = {
         
               
                
-        
+                const valid_date = new Date(date);
                 console.log("Getting bank account for "+account_number)
                 const bank_account = await bankData.getAccountByNumber(account_number,user_id)
                 // GET BANK ACCOUNT BY ID
@@ -77,7 +77,7 @@ module.exports = {
                     //category_name: category_id,
                 
                     bank_account:bank_account,
-                    date: date
+                    date: valid_date
                 }
         
                 const transactionCollection = await transactions()
@@ -96,6 +96,7 @@ module.exports = {
 
     async saveTransfer(user_id,amount,sender_account_number,receiver_account_number,desc,date){
 
+        const valid_date = new Date(date);
         const sender_bank_account = await bankData.getAccountByNumber(sender_account_number,user_id)
         const receiver_bank_account = await bankData.getAccountByNumber(receiver_account_number,user_id)
 
@@ -107,7 +108,7 @@ module.exports = {
             desc: desc,
             sender_bank_account: sender_bank_account,
             receiver_bank_account: receiver_bank_account,
-            date: date
+            date: valid_date
         }
 
         const transactionCollection = await transactions()
@@ -191,14 +192,31 @@ module.exports = {
         if(!user_id)
             throw 'User name not provided' 
 
+        //let today = new Date();
+        //let current_month = today.getMonth();
+        var now = new Date();
+        console.log("Date = "+now);
+        //console.log("Current Month : "+now.getMonth());
 
-        const transactionCollection = await transactions()
-        const result = await transactionCollection.aggregate([{
-            $group: {
-                _id : {trans_type : "$transaction_type"},
-                amount: { $sum: "$amount"}
-            }
-        }]).toArray();
+        //var monthlyExpenses = await this.getAllExpenses(user_id);
+    
+                //console.log("checking months")
+                const transactionCollection = await transactions()
+                let result = await transactionCollection.aggregate([
+                    {
+                        $match:{date : {$gte : new Date('2017-12-01T00:00:00Z')}}
+                    }
+                    ,{
+                    
+                    $group: {   
+                        _id : {trans_type : "$transaction_type"},
+                        amount: { $sum: "$amount"}
+                    }
+                },
+            ]).toArray();
+            
+        
+        
 
         // const result = await transactionCollection.aggregate([{
         //     $group: {
