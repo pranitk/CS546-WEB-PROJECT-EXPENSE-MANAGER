@@ -29,6 +29,9 @@
                                         <span class="input-group-addon">$</span>
                                         <input type="text" class="form-control" id="expense-amount" placeholder="Enter Amount">
                                 </div> -->
+
+                                <input name="id" class="form-control" value={{expense._id}} hidden>
+
                                 <div id="field-container" class="input-group">
                                         <span class="input-group-addon"><i id = "field-icon" class="material-icons">monetization_on</i></span>
                                         <input type="number" step="0.01" name="amount" class="form-control" placeholder="Enter amount" value={{expense.amount}} required/>
@@ -37,6 +40,8 @@
                                         </div>
                                        
                                 </div>
+
+                                <input name="old_amount" class="form-control" value={{expense.amount}} hidden>
                                
 
                                 <div id="field-container" class="input-group">
@@ -97,10 +102,10 @@
                                         </tr>
                                 </table>
 
-                               <div class="date">
+                               {{!-- <div class="date">
                                         <label id = "label"for="dt" <i class="material-icons">date_range</i></label>
 	                                <input name="dt" type="date" value={{expense.date}}/>
-                                </div>
+                                </div> --}}
 
                                    
                         

@@ -114,7 +114,51 @@ router.get("/addExpense",async(req,res)=>{
 
 router.put("/updateExpense",async(req,res)=>{
 
+    try{
 
+        const username = req.session.passport.user
+        
+            const expenseInfo = req.body
+        
+            const transactionId = expenseInfo._id
+            var newAmount = expenseInfo.amount
+            const desc = expenseInfo.description
+            const categoryDetails = expenseInfo.selected_category
+            const bankAccountNumber = expenseInfo.selected_bank_account
+            var oldAmount = expenseInfo.old_amount
+            //const date = expenseInfo.dt
+            console.log("Selected category is "+expenseInfo.selected_category)
+            console.log("Selected bank account is "+bankAccountNumber)
+        
+            if(!newAmount)
+                throw 'Amount not specified'
+        
+            if(!desc)
+                throw 'Description not specified'
+            
+            if(!categoryDetails)
+                throw 'Category not specified'
+        
+            if(!bankAccountNumber)
+                throw 'Bank account not selected' 
+        
+        
+            newAmount = parseFloat(newAmount)
+            oldAmount = parseFloat(oldAmount)
+        
+            const result = await transactionData.updateExpense(username,transactionId,1,newAmount,desc,categoryDetails,bankAccountNumber)
+        
+            if(result.modifiedCount === 0)
+                throw 'Update transaction failed'
+
+            let difference = newAmount - oldAmount
+            if(difference != 0)  // if the amount has been changed then update the bank balance accordingly
+                updateBankResult = await bankData.updateAccount(username,bankAccountNumber,1,difference)
+
+    }catch(e){
+        console.log(e)
+    }
+    
 
 
 })
