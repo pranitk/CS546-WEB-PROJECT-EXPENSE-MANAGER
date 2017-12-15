@@ -13,10 +13,15 @@ router.get("/", async(req, res) => {
     const allAcc = await bankData.getAllAccounts(userName);
     console.log(allExpenses)
     let all_Expenses = []
-    if(allExpenses.length >= 3) { // to get recently added expenses
-        for(let i = all_Expenses.length;i>=i-3;i--) {
-            all_Expenses.push(allExpenses[i])
-        }
+    let i = allExpenses.length
+    if(allExpenses.length >= 3) {
+        all_Expenses.push(allExpenses[allExpenses.length-1])
+        all_Expenses.push(allExpenses[allExpenses.length-2])
+        all_Expenses.push(allExpenses[allExpenses.length-3])          
+        
+        // for(i = i-1;i>=i-3;i--) {
+        //     all_Expenses.push(allExpenses[i])
+        // }
     }
     else if( allExpenses.length == 1 || allExpenses.length == 2) {
         all_Expenses = allExpenses
