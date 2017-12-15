@@ -89,7 +89,9 @@ router.post("/saveNewExpense",async(req,res)=>{
         res.redirect('showAllExpenses')
 
     }catch(e){
-        res.sendStatus(500).json({ error: e})
+        let bank_accounts = await bankData.getAllAccounts(req.session.passport.user)
+        let all_categories = await categoryData.getAllCategories(req.session.passport.user)
+        res.render("transactions/add_expense",{errors: e, categories: all_categories, bank_accounts : bank_accounts})
         
     }
 })
@@ -183,7 +185,8 @@ router.post("/addNewCategory",async(req,res) => {
         try
         {
             let newCategory = await categoryData.addNewCategory(userData,category,"");
-            res.json({success : true, message : req.body.category});
+            
+            res.json({success : true, message : category});
         }
         catch(e)
         {

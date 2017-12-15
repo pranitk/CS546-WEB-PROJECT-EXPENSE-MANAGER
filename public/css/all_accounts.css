@@ -109,5 +109,9 @@
     color: white;
 }
 
+#signout{
+    visibility: hidden
+}
+
 
 

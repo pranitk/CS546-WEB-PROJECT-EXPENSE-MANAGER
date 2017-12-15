@@ -9,9 +9,9 @@ module.exports = {
     //Add New Transactions
     async addTransaction(user_id,transaction_type,amount,desc,category_details,account_number,date){
 
-        // GET CATEGORY BY ID or NAME
-        //const categoriesCollection = await categories();
-        //const newCategory = categoriesCollection.findOne({user:user_id,category_name:category_name})
+       var valid_date = new Date(date)
+       var month = valid_date.getMonth();
+       console.log("month" +valid_date.getMonth())
         const temp = category_details.split("  ")
         const category_icon = temp[0]
         const category_name = temp[1]
@@ -35,7 +35,8 @@ module.exports = {
             },
             //bank_account_number: account_number,
             bank_account:bank_account,
-            date: date
+            date: date,
+            month : month
         }
 
         if(transaction_type == 1){  // Expense
@@ -60,11 +61,10 @@ module.exports = {
 
     async addTransactionForIncome(user_id,transaction_type,amount,desc,account_number,date){
         
-                // GET CATEGORY BY ID or NAME
-                //const categoriesCollection = await categories();
-                //const newCategory = categoriesCollection.findOne({user:user_id,category_name:category_name})
+              
                
-        
+                const valid_date = new Date(date);
+                var month = valid_date.getMonth();
                 console.log("Getting bank account for "+account_number)
                 const bank_account = await bankData.getAccountByNumber(account_number,user_id)
                 // GET BANK ACCOUNT BY ID
@@ -80,7 +80,8 @@ module.exports = {
                     //category_name: category_id,
                 
                     bank_account:bank_account,
-                    date: date
+                    date: date,
+                    month: month
                 }
         
                 const transactionCollection = await transactions()
@@ -89,7 +90,7 @@ module.exports = {
                 if(insertedInfo.insertedCount == 0)
                     throw 'Insertion failed'
                     
-                console.log("inserted income: "+insertedInfo)
+                //console.log("inserted income: "+insertedInfo)
         
                 const result = await bankData.updateAccount(user_id,account_number,2,amount)
 
@@ -99,6 +100,8 @@ module.exports = {
 
     async saveTransfer(user_id,amount,sender_account_number,receiver_account_number,desc,date){
 
+        const valid_date = new Date(date);
+        var month = valid_date.getMonth();
         const sender_bank_account = await bankData.getAccountByNumber(sender_account_number,user_id)
         const receiver_bank_account = await bankData.getAccountByNumber(receiver_account_number,user_id)
 
@@ -110,7 +113,8 @@ module.exports = {
             desc: desc,
             sender_bank_account: sender_bank_account,
             receiver_bank_account: receiver_bank_account,
-            date: date
+            date: date,
+            month : month
         }
 
         const transactionCollection = await transactions()
@@ -230,14 +234,33 @@ module.exports = {
         if(!user_id)
             throw 'User name not provided' 
 
-
-        const transactionCollection = await transactions()
-        const result = await transactionCollection.aggregate([{
-            $group: {
-                _id : {trans_type : "$transaction_type"},
-                amount: { $sum: "$amount"}
-            }
-        }]).toArray();
+        //let today = new Date();
+        //let current_month = today.getMonth();
+        var now = new Date();
+        var current_month = now.getMonth();
+        console.log("Date = "+now);
+        //console.log("Current Month : "+now.getMonth());
+        let result = [];
+        //var monthlyExpenses = await this.getAllExpenses(user_id);
+    
+                //console.log("checking months")
+                console.log("Transactions "+user_id);   
+                const transactionCollection = await transactions()
+                result = await transactionCollection.aggregate([
+                    {
+                        $match:{month : {$gte : current_month},user_id : user_id}
+                    }
+                    ,{
+                    
+                    $group: {   
+                        _id : {trans_type : "$transaction_type"},
+                        amount: { $sum: "$amount"}
+                    }
+                },
+            ]).toArray();
+            
+        
+        
 
         // const result = await transactionCollection.aggregate([{
         //     $group: {
@@ -263,6 +286,7 @@ module.exports = {
         //console.log("I got all Incomes")
 
         const delTransaction = await transactionCollection.removeOne({_id: transactionId})
+        //const result = await bankData.updateAccount(req.session.passport.user,account_number,2,-amount)
 
         return delTransaction
 

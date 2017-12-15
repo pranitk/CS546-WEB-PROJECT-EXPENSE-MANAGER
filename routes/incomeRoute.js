@@ -52,51 +52,51 @@ router.post("/saveNewIncome",async(req,res)=>{
         const desc = incomeInfo.description
        // const categoryDetails = expenseInfo.selected_category
         const bankAccountNumber = incomeInfo.selected_bank_account
+
+        console.log("Acc Number" + bankAccountNumber)
         const date = incomeInfo.dt
         //console.log(incomeInfo)
         //console.log("Selected bank account is "+incomeInfo.selected_account)
-    
+        console.log("Date is" + date)
         
+    try{
+            if(!amount)
+                throw 'Amount not specified'
     
-            // if(!amount)
-            //     throw 'Amount not specified'
-    
-            // if(!desc)
-            //     throw 'Description not specified'
+            if(!desc)
+                throw 'Description not specified'
 
-            // if(!bankAccountNumber)
-            //     throw 'Bank account not selected'
+            if(!bankAccountNumber)
+                throw 'Bank account not selected'
 
-            // if(!date)
-            //     throw 'Date not specified'
-            req.checkBody("amount","Username Is Required!").notEmpty();
-            req.checkBody("description","Description Is Required!").notEmpty();
-            req.checkBody("dt","Date Is Required!").notEmpty();
+            if(!date)
+                 throw 'Date not specified'
+
+            //req.checkBody("amount","Amount Is Required!").notEmpty();
+            //req.checkBody("description","Description Is Required!").notEmpty();
+            //req.checkBody("selected_bank_amount","Bank Account Not Selected").notEmpty();
+            //req.checkBody("dt","Date Is Required!").notEmpty();
 
             amount = parseFloat(amount)
+            console.log(amount)
 
-            var errors = req.validationErrors();
-            if(errors)
-            {
-               
-                res.render("transactions/add_income",{errors : errors});
+            var username = req.session.passport.user;
+                const newTransaction = await transactionData.addTransactionForIncome(username,2,amount,desc,bankAccountNumber,date)
+
+                // if(!newTransaction)
+                //     throw 'New Transaction not added' 
                 
-                return;
+                    res.redirect("/income/showAllIncome")
             }
-            else{
 
-                    
-                var loggedUser = req.session.passport.user;
-                const newTransaction = transactionData.addTransactionForIncome(loggedUser,2,amount,desc,bankAccountNumber,date)
-
-                if(!newTransaction)
-                    throw 'New Transaction not added' 
+        catch(e){
+            let bank_accounts = await bankData.getAllAccounts(req.session.passport.user)
+            res.render("transactions/add_income",{errors: e, bank_accounts : bank_accounts})
                 
-                    res.redirect("showAllIncome")
-            }
+        }
             
        
-            //let updateResult = await bankData.updateAccount(loggedUser,account_number,2,amount)
+            //let updateResult = await bankData.updateAccount(req.session.passport.user,bankAccountNumber,2,amount)
             //res.send("Hello from Shreyas 2")
             
     
@@ -127,10 +127,16 @@ router.post("/saveNewIncome",async(req,res)=>{
     router.get("/delete/:id", async(req, res) =>{
         console.log("Delete Income get page route called")
         const incomeID = req.params.id
-        //console.log(incomeID)
+        console.log(incomeID)
+        let tx_det = await transactionData.getTransactionById(incomeID)
+        console.log(tx_det)
+        let ac_det = tx_det.bank_account
+        console.log(ac_det)
+        let ac_no = ac_det.ac_number
+        console.log(ac_no)
         let deletedTransaction = await transactionData.deleteTransactionById(incomeID)
        // console.log("Success in deleting")
-        
+       let updateResult = await bankData.updateAccount(req.session.passport.user,ac_no,2,-(tx_det.amount))
         res.redirect("/income/showAllIncome")
         
 

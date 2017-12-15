@@ -66,3 +66,6 @@
    font-style: bold;
    
 }
+#signout{
+    visibility: hidden
+}

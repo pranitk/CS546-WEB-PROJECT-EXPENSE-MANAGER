@@ -44,6 +44,8 @@
                         title: 'Amount',
                         minValue: 0
                     },
+                    width : 400,
+                    height : 250
                 };
 
                 var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
@@ -125,15 +127,25 @@
                     </div>
                     <div class="card-body">
                         <div id="chart_div"/>
-                        </div>    
+                    </div>   
+                    {{#if expenses}} 
                         <input id="total_income" value="{{total_income}}" hidden/>
-                        <input id="total_expense" value="{{total_expense}}" hidden/>                
+                        <input id="total_expense" value="{{total_expense}}" hidden/>
+                    {{else}}
+                        <input id="total_income" value="0.0" hidden/>
+                        <input id="total_expense" value="0.0" hidden/>
+                    {{/if}}
                     </div>
-                    <div>
+                    {{!-- <div>
+                        <form action="/income/showAllIncome">
+                        <button id="primary-button3"  type="submit" class="btn btn-primary">View All Incomes</button>
+                        </form>   
+                    </div>
+                    <div>                     
                         <form action="/expenses/showAllExpenses">
-                        <button id="primary-button2"  type="submit" class="btn btn-primary">View All</button>
+                        <button id="primary-button2"  type="submit" class="btn btn-primary">View All Expenses</button>
                         </form>                        
-                    </div>
+                    </div> --}}
 
             </div>
 
@@ -163,7 +175,7 @@
                     </div>
                     {{else}}
                     <div class="card-body">
-                        <p id="msg"> You haven't added any Expenses..Please start adding now! </p>                        
+                        <p id="msg"> You haven't added any Transfers..Please start adding now! </p>                        
                     </div>
                     {{/if}}
                         

@@ -54,7 +54,7 @@ router.get("/signup",async(req,res)=>{
 
 
 //
-router.post("/",passport.authenticate("local",{failureFlash : true}),
+router.post("/",passport.authenticate("local",{failureRedirect :"/",failureFlash : true}),
 async (req,res) => {
     let userSession = req.session.passport;
     userSession.user = req.body.username;
@@ -109,7 +109,7 @@ router.post("/createNewUser", async(req, res) => {
     else
     {
         var newUser = await User.addNewUser(username,Fname,Lname,password);
-        // var categoriesForNewUser = await UserCategory.addCategoryForNewUser(username);
+        var categoriesForNewUser = await UserCategory.addCategoryForNewUser(username);
         res.render("login");
     }
 })
