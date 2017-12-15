@@ -140,6 +140,7 @@ module.exports = {
         const transactionCollection = await transactions()
         const updatedInfo = await transactionCollection.updateOne({_id:transaction_id},{$set: updates})
 
+        return updatedInfo
     },
 
     // async updateExpense(user_id,transaction_id,transaction_type,amount,desc,category_details,account_number){
@@ -284,21 +285,19 @@ module.exports = {
     },
 
     async deleteTransactionById(transactionId){
+
         if(!transactionId)
             throw "Transaction not found"
 
         const transactionCollection = await transactions()
 
-        //const thatTransaction = await this.getAllIncome()
-        //console.log("I got all Incomes")
-
         const delTransaction = await transactionCollection.removeOne({_id: transactionId})
-        //const result = await bankData.updateAccount(req.session.passport.user,account_number,2,-amount)
+
+
+        if(delTransaction.deletedCount === 0)
+            throw 'Delete transaction failed'
 
         return delTransaction
-
-        
-
     }
 
 

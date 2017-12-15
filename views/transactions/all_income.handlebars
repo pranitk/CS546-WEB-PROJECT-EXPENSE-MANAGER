@@ -37,6 +37,8 @@
                                            </div>
                                         
                                 {{/if}}
+
+                            {{#if income}}
                             <div>
                                 {{#each income}}
                                 
@@ -57,6 +59,12 @@
 
                             
                             </div>
+                            {{else}}
+                                <div class="card-body">
+                                    <p id="msg"> You haven't added any Income..Please start adding now! </p>    
+                                    <a href="/income/addIncome"> <button id="add_income" class="btn btn-primary btn-raised" > ADD INCOME</button></a>
+                                </div>
+                            {{/if}}
 
 
 

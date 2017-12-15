@@ -24,21 +24,22 @@
                           <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
                             -->
 
-                          <form action="/expenses/updateExpense" id="needs-validation" method="POST" novalidate> 
-                                <!-- <div class="form-group">
-                                        <span class="input-group-addon">$</span>
-                                        <input type="text" class="form-control" id="expense-amount" placeholder="Enter Amount">
-                                </div> -->
+                          <form action="/expenses/updateExpense" id="needs-validation" method="POST"> 
+
+                                {{#if errors}}
+                                        
+                                           <div class = "alert alert-danger">
+                                               <strong>{{errors}}</strong>
+                                           </div>
+                                        
+                                {{/if}}
 
                                 <input name="id" class="form-control" value={{expense._id}} hidden>
 
                                 <div id="field-container" class="input-group">
                                         <span class="input-group-addon"><i id = "field-icon" class="material-icons">monetization_on</i></span>
-                                        <input type="number" step="0.01" name="amount" class="form-control" placeholder="Enter amount" value={{expense.amount}} required/>
-                                         <div class="invalid-feedback">
-                                                Please provide a valid amount
-                                        </div>
-                                       
+                                        <input type="number" step="0.01" name="amount" class="form-control" placeholder="Enter amount" value={{expense.amount}}/>
+
                                 </div>
 
                                 <input name="old_amount" class="form-control" value={{expense.amount}} hidden>
@@ -46,10 +47,7 @@
 
                                 <div id="field-container" class="input-group">
                                         <span class="input-group-addon"><i class="material-icons">description</i></span>
-                                       <input type="text" name="description" class="form-control" placeholder="Description" value={{expense.desc}} required/>
-                                       <div class="invalid-feedback">
-                                                Please provide a valid description
-                                        </div>
+                                       <input type="text" name="description" class="form-control" placeholder="Description" value={{expense.desc}}/>
                                 </div>
 
                                 <table>
@@ -82,7 +80,7 @@
                                                         <div id="field-container" class="input-group">
                                                                 <span class="input-group-addon"><i class="material-icons">account_balance</i></span>
                                                         
-                                                                <input id="selected_bank_account" value={{ac_number}} name = "selected_bank_account" type="text" class="form-control" hidden>
+                                                                <input id="selected_bank_account" value={{expense.bank_account.ac_number}} name = "selected_bank_account" type="text" class="form-control" hidden>
 
 
                                                                 <div class="btn-group">
@@ -101,13 +99,6 @@
 
                                         </tr>
                                 </table>
-
-                               {{!-- <div class="date">
-                                        <label id = "label"for="dt" <i class="material-icons">date_range</i></label>
-	                                <input name="dt" type="date" value={{expense.date}}/>
-                                </div> --}}
-
-                                   
                         
                                 <button id="primary-button"  type="submit" class="btn btn-primary btn-raised">Update</button>
                                 
@@ -185,7 +176,7 @@
         <script src="/public/js/add_category.js"></script>
 
 
-        <script>
+        {{!-- <script>
                 // Example starter JavaScript for disabling form submissions if there are invalid fields
                 (function() {
                 "use strict";
@@ -200,7 +191,7 @@
                 }, false);
                 }, false);
                 }());
-        </script>
+        </script> --}}
        
     </body>
 

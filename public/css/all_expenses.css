@@ -45,6 +45,11 @@ td{
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
+#add_expense{
+    background: #E53935;
+    text-align: center;
+}
+
 /* 
 #navbar-navbar-expand-lg-sticky-top-navbar-dark-bg-dark{
    visibility: visible;

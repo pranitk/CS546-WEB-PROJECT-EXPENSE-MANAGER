@@ -17,7 +17,7 @@ router.get("/showAllExpenses",async(req,res)=>{
     //res.send(`username ${userData}`);
     res.render("transactions/all_expenses",{ title: "ALL EXPENSES", expenses: allExpenses })
 
-    await transactionData.getSumOfTransactions(username,1)
+    //await transactionData.getSumOfTransactions(username,1)
 })
 
 router.get("/showExpensesByBank/:account_number",async(req,res)=>{
@@ -123,11 +123,17 @@ router.post("/updateExpense",async(req,res)=>{
             const expenseInfo = req.body
         
             const transactionId = expenseInfo.id
-            var newAmount = expenseInfo.amount
+
+            const transaction = await transactionData.getTransactionById(transactionId)
+
+            let oldAmount = transaction.amount
+            const oldBankAccount = transaction.bank_account.ac_number
+
+            let newAmount = expenseInfo.amount
             const desc = expenseInfo.description
             const categoryDetails = expenseInfo.selected_category
             const bankAccountNumber = expenseInfo.selected_bank_account
-            var oldAmount = expenseInfo.old_amount
+            //var oldAmount = expenseInfo.old_amount
             //const date = expenseInfo.dt
             console.log("Selected category is "+expenseInfo.selected_category)
             console.log("Selected bank account is "+bankAccountNumber)
@@ -171,14 +177,40 @@ router.post("/updateExpense",async(req,res)=>{
             const result = await transactionData.updateExpense(transactionId,updates)
             //const result = await transactionData.updateExpense(username,transactionId,1,newAmount,desc,categoryDetails,bankAccountNumber)
         
-           // if(result.modifiedCount === 0)
-             //   throw 'Update transaction failed'
+            if(result.modifiedCount === 0)
+                throw 'Update transaction failed'
 
-            let difference = newAmount - oldAmount
-            console.log("Difference "+difference)
-            if(difference != 0)  // if the amount has been changed then update the bank balance accordingly
-                updateBankResult = await bankData.updateAccount(username,bankAccountNumber,1,difference)
+            
 
+            
+
+                if(oldBankAccount != bankAccountNumber){ // If bank account is changed then make changes accordingly
+
+                    try{
+                        await bankData.updateAccount(username,oldBankAccount,1,-(oldAmount)) // Revert transaction amount from old account
+                
+                    }catch(e){
+                        console.log(e)
+                    } 
+
+                    await bankData.updateAccount(username,bankAccountNumber,1,newAmount)
+                }
+                else{   // bank account not changed so carry out operations on the existing account
+
+                    let difference = newAmount - oldAmount
+                    console.log("Difference "+difference)
+                    if(difference != 0)  // if the amount has been changed then update the bank balance accordingly
+                        updateBankResult = await bankData.updateAccount(username,bankAccountNumber,1,difference)
+
+                }
+
+            
+
+
+            const expense = await transactionData.getTransactionById(transactionId)
+                
+            res.render("transactions/view_expense",{ expense: expense})
+            
     }catch(e){
         console.log(e)
     }
@@ -221,15 +253,24 @@ router.post("/addNewCategory",async(req,res) => {
 })
 
 
-router.delete("/delete/:id",async(req,res)=>{
+router.get("/delete/:id",async(req,res)=>{
 
     try{
 
-        const deleteResult = await transactionData.deleteTransactionById(req.params.id)
+        const transaction_id = req.params.id
+        const transaction = await transactionData.getTransactionById(transaction_id)
+        const deleteResult = await transactionData.deleteTransactionById(transaction_id)
 
-        if(!deleteResult){
+        if(deleteResult){
 
-            res.redirect("/showAllExpenses")
+            try {
+                let updateResult = await bankData.updateAccount(req.session.passport.user,transaction.bank_account.ac_number,1,-(transaction.amount))
+                res.redirect("/expenses/showAllExpenses")
+            } catch(e) {
+                let alExpenses = await transactionData.getAllExpenses(req.session.passport.user)
+                res.render("transactions/all_expenses",{errors: "Bank Account already deleted-- cannot update balance", income: allExpenses })
+            }
+    
 
         }
 
