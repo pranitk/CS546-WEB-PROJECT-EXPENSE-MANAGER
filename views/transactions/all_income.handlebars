@@ -30,6 +30,13 @@
                         </div>
 
                         <div class="card-body">
+                             {{#if errors}}
+                                        
+                                           <div class = "alert alert-danger">
+                                               <strong>{{errors}}</strong>
+                                           </div>
+                                        
+                                {{/if}}
                             <div>
                                 {{#each income}}
                                 
