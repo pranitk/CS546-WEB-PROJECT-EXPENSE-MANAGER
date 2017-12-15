@@ -59,7 +59,7 @@ $(function(){
                         {
                             document.getElementById("success-msg").style.visibility = "visible";
                             document.getElementById("error-msg").style.visibility = "hidden";
-                            document.getElementById("success-msg").textContent = "New category inserted"
+                            document.getElementById("success-msg").textContent = "New Category Inserted";
                             var createdCategory = "<a class = 'dropdown-item'> <span><i id='dropdown-category-icon' class='material-icons'>loyalty</i></span> "+responseMessage.message+"</a>"
                             // error_msgs = "<p>New Category Inserted</p>";
                             // $(error_msgs).css("color","green");

@@ -204,14 +204,15 @@ module.exports = {
         var current_month = now.getMonth();
         console.log("Date = "+now);
         //console.log("Current Month : "+now.getMonth());
-
+        let result = [];
         //var monthlyExpenses = await this.getAllExpenses(user_id);
     
                 //console.log("checking months")
+                console.log("Transactions "+user_id);   
                 const transactionCollection = await transactions()
-                let result = await transactionCollection.aggregate([
+                result = await transactionCollection.aggregate([
                     {
-                        $match:{month : {$gte : current_month}}
+                        $match:{month : {$gte : current_month},user_id : user_id}
                     }
                     ,{
                     

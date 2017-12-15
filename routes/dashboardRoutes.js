@@ -44,7 +44,9 @@ router.get("/", async(req, res) => {
     //console.log(aggregateExpenses);
     //
 
-    let sum = await transactionData.getSumOfTransactions(userName)
+    console.log("Dashboard Route "+userName);
+    let sum = [];
+    sum = await transactionData.getSumOfTransactions(userName)
     console.log(sum);
     var incomeTotal = 0.0
     var expenseTotal = 0.0

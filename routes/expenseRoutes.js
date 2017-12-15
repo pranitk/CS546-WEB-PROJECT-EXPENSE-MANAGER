@@ -141,7 +141,8 @@ router.post("/addNewCategory",async(req,res) => {
         try
         {
             let newCategory = await categoryData.addNewCategory(userData,category,"");
-            res.json({success : true, message : req.body.category});
+            
+            res.json({success : true, message : category});
         }
         catch(e)
         {
