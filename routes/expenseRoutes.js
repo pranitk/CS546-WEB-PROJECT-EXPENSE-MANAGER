@@ -114,7 +114,7 @@ router.get("/addExpense",async(req,res)=>{
     res.render('transactions/add_expense',{ bank_accounts: bank_accounts , categories: categories })  // handlebar
 })
 
-router.put("/updateExpense",async(req,res)=>{
+router.post("/updateExpense",async(req,res)=>{
 
     try{
 
@@ -122,7 +122,7 @@ router.put("/updateExpense",async(req,res)=>{
         
             const expenseInfo = req.body
         
-            const transactionId = expenseInfo._id
+            const transactionId = expenseInfo.id
             var newAmount = expenseInfo.amount
             const desc = expenseInfo.description
             const categoryDetails = expenseInfo.selected_category
@@ -131,29 +131,51 @@ router.put("/updateExpense",async(req,res)=>{
             //const date = expenseInfo.dt
             console.log("Selected category is "+expenseInfo.selected_category)
             console.log("Selected bank account is "+bankAccountNumber)
-        
-            if(!newAmount)
-                throw 'Amount not specified'
-        
-            if(!desc)
-                throw 'Description not specified'
-            
-            if(!categoryDetails)
-                throw 'Category not specified'
-        
-            if(!bankAccountNumber)
-                throw 'Bank account not selected' 
-        
-        
+
             newAmount = parseFloat(newAmount)
             oldAmount = parseFloat(oldAmount)
+
+            var updates = {}
+
+            // var updates = {
+            //     user_id: username,
+            //     transaction_id: transactionId
+            // }
         
-            const result = await transactionData.updateExpense(username,transactionId,1,newAmount,desc,categoryDetails,bankAccountNumber)
+            if(newAmount)
+               updates.amount = newAmount
         
-            if(result.modifiedCount === 0)
-                throw 'Update transaction failed'
+            if(desc)
+               updates.desc = desc
+            
+            if(categoryDetails){
+
+                const temp = category_details.split("  ")
+                const icon = temp[0]
+                const name = temp[1]
+
+                updates.category = {
+                    category_name: name,
+                    icon_name: icon
+                }
+            }
+        
+            if(bankAccountNumber){
+                const bank_account = await bankData.getAccountByNumber(bankAccountNumber,username)
+
+                updates.bank_account = bank_account
+            }
+
+            console.log("Updates -> "+JSON.stringify(updates))
+               
+            const result = await transactionData.updateExpense(transactionId,updates)
+            //const result = await transactionData.updateExpense(username,transactionId,1,newAmount,desc,categoryDetails,bankAccountNumber)
+        
+           // if(result.modifiedCount === 0)
+             //   throw 'Update transaction failed'
 
             let difference = newAmount - oldAmount
+            console.log("Difference "+difference)
             if(difference != 0)  // if the amount has been changed then update the bank balance accordingly
                 updateBankResult = await bankData.updateAccount(username,bankAccountNumber,1,difference)
 

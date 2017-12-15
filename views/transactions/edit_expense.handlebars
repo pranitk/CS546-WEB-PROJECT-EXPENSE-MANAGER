@@ -24,7 +24,7 @@
                           <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
                             -->
 
-                          <form action="/expenses/updateExpense" id="needs-validation" method="PUT" novalidate> 
+                          <form action="/expenses/updateExpense" id="needs-validation" method="POST" novalidate> 
                                 <!-- <div class="form-group">
                                         <span class="input-group-addon">$</span>
                                         <input type="text" class="form-control" id="expense-amount" placeholder="Enter Amount">
@@ -58,7 +58,7 @@
                                                         <div id="field-container" class="input-group">
                                                                 <span class="input-group-addon"><i id="icon-category" class="material-icons">{{expense.category.icon_name}}</i></span>
                                                         
-                                                                <input id="selected_category" name = "selected_category" type="text" class="form-control" hidden="true">
+                                                                <input id="selected_category" name = "selected_category" type="text" class="form-control" hidden>
 
                                                                 <div class="btn-group">
                                                                         <button id="btn-category"  type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -82,7 +82,7 @@
                                                         <div id="field-container" class="input-group">
                                                                 <span class="input-group-addon"><i class="material-icons">account_balance</i></span>
                                                         
-                                                                <input id="selected_bank_account" name = "selected_bank_account" type="text" class="form-control" hidden="true">
+                                                                <input id="selected_bank_account" value={{ac_number}} name = "selected_bank_account" type="text" class="form-control" hidden>
 
 
                                                                 <div class="btn-group">
@@ -181,7 +181,7 @@
         <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.0.0-beta.4/dist/css/bootstrap-material-design.min.css" integrity="sha384-R80DC0KVBO4GSTw+wZ5x2zn2pu4POSErBkf8/fSFhPXHxvHJydT0CSgAP2Yo2r4I" crossorigin="anonymous">
                 
         
-        <script>$(document).ready(function() { $('body').bootstrapMaterialDesign()});</script>
+        {{!-- <script>$(document).ready(function() { $('body').bootstrapMaterialDesign()});</script> --}}
         <script src="/public/js/add_category.js"></script>
 
 
