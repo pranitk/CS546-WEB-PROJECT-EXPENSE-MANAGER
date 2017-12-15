@@ -213,6 +213,9 @@ router.post("/updateExpense",async(req,res)=>{
             
     }catch(e){
         console.log(e)
+        let bank_accounts = await bankData.getAllAccounts(req.session.passport.user)
+        let all_categories = await categoryData.getAllCategories(req.session.passport.user)
+        res.render("transactions/edit_expense",{errors: e, categories: all_categories, bank_accounts : bank_accounts})
     }
     
 

@@ -65,6 +65,14 @@ $(function(){
                             // $(error_msgs).css("color","green");
                             //$(error_msgs).insertBefore($("#add-category"));
                             $(createdCategory).insertBefore($("#divider"))
+
+                            const temp = "loyalty  "+responseMessage.message
+                            let strings = temp.split("  ")
+                            console.log("0 -> "+strings[0])
+                            console.log("1 -> "+strings[1])
+                            document.getElementById("btn-category").textContent = strings[1]
+                            document.getElementById("icon-category").textContent = strings[0]
+                            document.getElementById("selected_category").value = temp
                         }
                         else
                         {
