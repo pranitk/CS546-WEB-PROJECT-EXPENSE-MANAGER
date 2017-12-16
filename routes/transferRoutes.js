@@ -25,6 +25,9 @@ router.post("/saveNewTransfer",async(req,res)=>{
 
     try{
 
+        if(sender_bank_account_number === receiver_bank_account_number)
+            throw "Cannot add transfers to same account"
+
         if(amount<0) 
             throw "You cannot add negative transfer amount"
 

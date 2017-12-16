@@ -128,13 +128,8 @@
                     <div class="card-body">
                         <div id="chart_div"/>
                     </div>   
-                    {{#if expenses}} 
                         <input id="total_income" value="{{total_income}}" hidden/>
                         <input id="total_expense" value="{{total_expense}}" hidden/>
-                    {{else}}
-                        <input id="total_income" value="0.0" hidden/>
-                        <input id="total_expense" value="0.0" hidden/>
-                    {{/if}}
                     </div>
                     {{!-- <div>
                         <form action="/income/showAllIncome">
