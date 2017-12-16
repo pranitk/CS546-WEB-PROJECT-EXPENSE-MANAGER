@@ -159,7 +159,7 @@ router.post("/updateExpense",async(req,res)=>{
             
             if(categoryDetails){
 
-                const temp = category_details.split("  ")
+                const temp = categoryDetails.split("  ")
                 const icon = temp[0]
                 const name = temp[1]
 
