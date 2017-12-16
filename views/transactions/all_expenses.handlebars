@@ -29,7 +29,7 @@
                                                 <p id="expense-desc" class="list-group-item-heading">{{desc}}</p>
                                                 <p class="list-group-item-text">{{ category.category_name}}  |  {{ bank_account.ac_name }}</p>
                                             </div>
-                                            <span id="amount" class="label label-default label-pill pull-xs-right"><b>${{amount}}</b></span>
+                                            <span id="amount" class="label label-default label-pill pull-xs-right"><b>$ {{amount}}</b></span>
                                         </a>
                                     {{/each}}
 
@@ -47,63 +47,7 @@
 
         </div>
 
-        <!-- Modal -->
-        <div id="myModal" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                        <div class="modal-content">
-                                <div class="card">
-                                        <div id="my-title-container" class="card-header">
-                                                
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="my-card-header-title">$ 45</h4>
-                                        </div>
-                                                
-                                        
-                                        <div class="card-body">
-
-                                                <span>
-                                                    <button id="edit" type="button" class="btn btn-danger bmd-btn-icon">
-                                                        <i class="material-icons">delete</i>
-                                                    </button>
-
-                                                    <button id="edit" type="button" class="btn bmd-btn-icon">
-                                                        <i class="material-icons">mode_edit</i>
-                                                    </button>
-                                                </span>
-                                                
-
-                                                <table>
-                                                     <tr>
-                                                        <td><i class="material-icons">description</i></td>
-                                                        <td>Comcast bill for the month of december</td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td><i class="material-icons">loyalty</i></td>
-                                                        <td>Wifi bill</td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td><i class="material-icons">account_balance_wallet</i></td>
-                                                        <td>Chase</td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td><i class="material-icons">today</i></td>
-                                                        <td>24 NOV, 2017</td>
-                                                    </tr>
-
-                                                </table>
-                                                
-                                                {{!-- <span><i class="material-icons">{{category.icon_name}}</i></span> --}}
-                                        </div>
-                                </div>
-                        </div>
-                        
-
-                </div>
-        </div> 
-        
+                
     </body>
     
 </html>
