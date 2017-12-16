@@ -19,10 +19,7 @@
                         </div>
 
                         <div class="card-body">
-                            <!--
-                          <h4 class="card-title">Special title treatment</h4>
-                          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            -->
+                            
 
                           <form action="/expenses/updateExpense" id="needs-validation" method="POST"> 
 
@@ -38,7 +35,7 @@
 
                                 <div id="field-container" class="input-group">
                                         <span class="input-group-addon"><i id = "field-icon" class="material-icons">monetization_on</i></span>
-                                        <input type="number" step="0.01" name="amount" class="form-control" placeholder="Enter amount" value={{expense.amount}}/>
+                                        <input type="number" step="0.01" name="amount" class="form-control" placeholder="Enter amount" value={{expense.amount}} />
 
                                 </div>
 
@@ -47,7 +44,7 @@
 
                                 <div id="field-container" class="input-group">
                                         <span class="input-group-addon"><i class="material-icons">description</i></span>
-                                       <input type="text" name="description" class="form-control" placeholder="Description" value={{expense.desc}}/>
+                                       <input type="text" name="description" class="form-control" placeholder="Description" value="{{expense.desc}}" />
                                 </div>
 
                                 <table>
@@ -103,12 +100,6 @@
                                 <button id="primary-button"  type="submit" class="btn btn-primary btn-raised">Update</button>
                                 
                             </form>
-
-
-
-
-
-                          
 
                         </div> <!-- End of card body-->
                         
@@ -171,27 +162,9 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
         <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.0.0-beta.4/dist/css/bootstrap-material-design.min.css" integrity="sha384-R80DC0KVBO4GSTw+wZ5x2zn2pu4POSErBkf8/fSFhPXHxvHJydT0CSgAP2Yo2r4I" crossorigin="anonymous">
                 
-        
-        {{!-- <script>$(document).ready(function() { $('body').bootstrapMaterialDesign()});</script> --}}
+
         <script src="/public/js/add_category.js"></script>
 
-
-        {{!-- <script>
-                // Example starter JavaScript for disabling form submissions if there are invalid fields
-                (function() {
-                "use strict";
-                window.addEventListener("load", function() {
-                var form = document.getElementById("needs-validation");
-                form.addEventListener("submit", function(event) {
-                if (form.checkValidity() == false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                }
-                form.classList.add("was-validated");
-                }, false);
-                }, false);
-                }());
-        </script> --}}
        
     </body>
 

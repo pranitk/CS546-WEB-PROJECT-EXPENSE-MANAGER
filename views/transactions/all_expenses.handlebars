@@ -11,18 +11,6 @@
     
     <body>
         
-      
-        {{!-- <div>
-            <a href="/expenses/addExpense">Click Here To Add Expense</a>
-            <a>or</a>
-            <a href="/income/addIncome">Click Here To Add Income</a>
-            <a>or</a>
-            <a href="/income/showAllIncome">Click Here To View Income</a>
-            <a>or</a>
-            <a href="/bankac/addBankAC">Click Here To Add Accounts</a>
-            <a>or</a>
-            <a href="/dashboard">Click Here To Add Accounts</a>
-        </div> --}}
         
         <div id="expenses-card" class="card">
 
@@ -33,29 +21,26 @@
                         <div class="card-body">
 
                             {{#if expenses}}
-                            <div>
-                                {{#each expenses}}
-                                    <a href="/expenses/viewExpense/{{ _id }}" id="expense-item" class="list-group-item noSelect"> 
-                                        <i class="material-icons">{{category.icon_name}}</i>
-                                        <div class="bmd-list-group-col">
-                                            <p id="expense-desc" class="list-group-item-heading">{{desc}}</p>
-                                            <p class="list-group-item-text">{{ category.category_name}}  |  {{ bank_account.ac_name }}</p>
-                                        </div>
-                                        <span id="amount" class="label label-default label-pill pull-xs-right"><b>${{amount}}</b></span>
-                                    </a>
-                                {{/each}}
+                                <div>
+                                    {{#each expenses}}
+                                        <a href="/expenses/viewExpense/{{ _id }}" id="expense-item" class="list-group-item noSelect"> 
+                                            <i class="material-icons">{{category.icon_name}}</i>
+                                            <div class="bmd-list-group-col">
+                                                <p id="expense-desc" class="list-group-item-heading">{{desc}}</p>
+                                                <p class="list-group-item-text">{{ category.category_name}}  |  {{ bank_account.ac_name }}</p>
+                                            </div>
+                                            <span id="amount" class="label label-default label-pill pull-xs-right"><b>${{amount}}</b></span>
+                                        </a>
+                                    {{/each}}
 
-                            
-                            </div>
+                                
+                                </div>
                             {{else}}
                                 <div class="card-body">
                                     <p id="msg"> You haven't added any Expenses..Please start adding now! </p>    
                                     <a href="/expenses/addExpense">  <button id="add_expense" class="btn btn-primary btn-raised" >ADD EXPENSE</button></a>                     
                                 </div>
                             {{/if}}
-
-
-
 
                         </div>
 
@@ -118,40 +103,6 @@
 
                 </div>
         </div> 
-
-        {{!-- <script src="/public/js/view_expense_ajax.js"></script> --}}
-        
-        <!--End of Modal-->
-        {{!-- <div>
-        <div>
-            <a href="/expenses/addExpense">Click Here To Add Expense</a>
-            <a>or</a>
-            <a href="/expenses/addIncome">Click Here To Add Income</a>
-        </div>
-        <div>
-            
-            <ul>
-                <a class="list-group-item">
-                    <i class="material-icons">directions_bus</i>
-                    <div class="bmd-list-group-col">
-                    <p class="list-group-item-heading">87 Bus ticket</p>
-                    <p class="list-group-item-text">Travel</p>
-                    </div>
-                    <span class="label label-default label-pill pull-xs-right">$1.6</span>
-                </a>
-
-                <a class="list-group-item">
-                    <i class="material-icons">restaurant</i>
-                    <div class="bmd-list-group-col">
-                    <p class="list-group-item-heading">Chicken Tikka Roll</p>
-                    <p class="list-group-item-text">Food</p>
-                    </div>
-                    <span class="label label-default label-pill pull-xs-right">$7</span>
-                </a>
-
-            </ul>
-
-        </div> --}}
         
     </body>
     

@@ -30,12 +30,10 @@ module.exports = {
             _id: uuid.v4(),
             amount: amount,
             desc: desc,
-            //category_name: category_id,
             category:{
                 category_name: category_name, // Update this..
                 icon_name: category_icon  // Update this..
             },
-            //bank_account_number: account_number,
             bank_account:bank_account,
             date: date,
             month : month
@@ -199,6 +197,9 @@ module.exports = {
 
     async getAllExpenses(user_id){
 
+        if(!user_id)
+            throw 'User id not provided'
+
         const transactionCollection = await transactions()
         return await transactionCollection.find({ transaction_type: 1 ,user_id : user_id}).toArray()
     },
@@ -208,6 +209,15 @@ module.exports = {
         console.log("User name passed -> "+user_id)
         console.log("Transaction type -> "+transaction_type)
         console.log("Account number -> "+bank_account_number)
+
+        if(!user_id)
+            throw 'User id not provided'
+
+        if(!transaction_type)
+            throw 'Transaction type not provided'
+
+        if(!bank_account_number)
+            throw 'Bank account number not provided'
 
         const transactionCollection = await transactions()
         //return await transactionCollection.find({ transaction_type: transaction_type ,user_id : user_id, bank_account_number: bank_account_number}).toArray()
@@ -221,6 +231,10 @@ module.exports = {
     },
 
     async getAllIncome(user_id){
+
+        if(!user_id)
+            throw 'User id not provided'
+
         const transactionCollection = await transactions()
         return await transactionCollection.find({
             transaction_type: 2,
@@ -230,6 +244,10 @@ module.exports = {
     },
 
     async getSumOfAllIncome(user_id){
+
+        if(!user_id)
+            throw 'User id not provided'
+
         const transactionCollection = await transactions()
         return await transactionCollection.find({
             transaction_type: 2,
@@ -271,16 +289,6 @@ module.exports = {
             ]).toArray();
             
         
-        
-
-        // const result = await transactionCollection.aggregate([{
-        //     $group: {
-        //         _id : {trans_type : {transaction_type : "$transaction_type"}},
-        //         amount: { $sum: "$amount"}
-        //     }
-        // }]).toArray();
-        //result = JSON.stringify(result)
-        //console.log(result)
         return result;
 
         //console.log("Sum result is "+JSON.stringify(result))

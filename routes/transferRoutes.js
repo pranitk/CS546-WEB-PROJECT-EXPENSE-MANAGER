@@ -22,35 +22,37 @@ router.post("/saveNewTransfer",async(req,res)=>{
     const sender_bank_account_number = info.selected_bank_account1
     const receiver_bank_account_number = info.selected_bank_account2
     const date = info.dt
+
     try{
-    if(amount<0) 
-        throw "You cannot add negative transfer amount"
 
-    if(!amount)
-        throw 'Amount not provided'
+        if(amount<0) 
+            throw "You cannot add negative transfer amount"
 
-    if(!desc)
-        throw 'Description not provided'
+        if(!amount)
+            throw 'Amount not provided'
 
-    if(!sender_bank_account_number)
-        throw 'Sender bank account details not provided'
+        if(!desc)
+            throw 'Description not provided'
+
+        if(!sender_bank_account_number)
+            throw 'Sender bank account details not provided'
 
 
-    if(!receiver_bank_account_number)
-        throw 'Receiver bank account details not provided'
+        if(!receiver_bank_account_number)
+            throw 'Receiver bank account details not provided'
 
-    if(!date)
-        throw 'Date not provided'
+        if(!date)
+            throw 'Date not provided'
 
-    
-    const transferInfo = await transactionData.saveTransfer(username,amount,sender_bank_account_number,receiver_bank_account_number,desc,date)
+        
+        const transferInfo = await transactionData.saveTransfer(username,amount,sender_bank_account_number,receiver_bank_account_number,desc,date)
 
-    if(!transferInfo)
-        throw 'Saving transfer failed'
+        if(!transferInfo)
+            throw 'Saving transfer failed'
 
-    console.log("Transfer transaction added -> "+transferInfo)
+        console.log("Transfer transaction added -> "+transferInfo)
 
-    res.redirect("/bankac/showAllAccounts")
+        res.redirect("/bankac/showAllAccounts")
 
     }catch(e){
         let bank_accounts = await bankData.getAllAccounts(req.session.passport.user)
@@ -63,9 +65,18 @@ router.post("/saveNewTransfer",async(req,res)=>{
 router.get("/addNewTransfer",async(req,res) => {
 
     const username = req.session.passport.user
-    let bank_accounts = await bankData.getAllAccounts(username)
 
-    res.render("transactions/add_transfer",{ bank_accounts: bank_accounts})
+    try{
+
+        let bank_accounts = await bankData.getAllAccounts(username)
+
+        res.render("transactions/add_transfer",{ bank_accounts: bank_accounts})
+
+    }catch(e){
+        console.log(e)
+        
+    }
+    
 })
 
 module.exports = router
