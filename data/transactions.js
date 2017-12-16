@@ -11,7 +11,9 @@ module.exports = {
 
        var valid_date = new Date(date)
        var month = valid_date.getMonth();
-       console.log("month" +valid_date.getMonth())
+       month = month;
+       console.log(month);
+       //console.log("month" +valid_date.getMonth())
         const temp = category_details.split("  ")
         const category_icon = temp[0]
         const category_name = temp[1]
@@ -201,7 +203,8 @@ module.exports = {
         //let today = new Date();
         //let current_month = today.getMonth();
         var now = new Date();
-        var current_month = now.getMonth();
+        var current_month = now.getMonth()+1;
+        console.log(current_month)
         console.log("Date = "+now);
         //console.log("Current Month : "+now.getMonth());
         let result = [];
