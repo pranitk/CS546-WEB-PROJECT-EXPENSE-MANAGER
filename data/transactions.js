@@ -247,7 +247,7 @@ module.exports = {
         //let today = new Date();
         //let current_month = today.getMonth();
         var now = new Date();
-        var current_month = now.getMonth()+1;
+        var current_month = now.getMonth();
         console.log(current_month)
         console.log("Date = "+now);
         //console.log("Current Month : "+now.getMonth());

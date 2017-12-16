@@ -4,6 +4,8 @@ const uuid = require("uuid")
 module.exports = {
     //Add new Bank Account
     async addBankAC(user_id,ac_name,ac_number,ac_bal) {
+        if(ac_bal<0) 
+            throw "You cannot have negative amount in your bank" 
         if(!user_id) 
             throw "User ID not provided"
         if(!ac_name && !ac_number && !ac_bal)
@@ -25,7 +27,7 @@ module.exports = {
         let flag = 0
         const bankCollection = await bankac()
         const accounts = await this.getAllAccounts(user_id)
-        if(accounts.length > 1) {
+        if(accounts.length >= 1) {
             for(let i=0;i<accounts.length;i++) {
                 if(accounts[i].ac_number == ac_number) {
                     flag = 0
@@ -179,16 +181,19 @@ module.exports = {
     },
 
     async transferAmount(user_id,ac_no1,ac_no2,amount) { //from-ac_no1 to-ac_no2
+        if(amount<0) { throw "You cannot tranfer negative amount" }
         if(!user_id) { throw "User ID not provided" }
         if(!ac_no1) { throw "Account number 1 not provided" }
         if(!ac_no2) { throw "Account number 2 not provided" }
         if(!amount) { throw "Amount not provided" }
+        if(ac_no1 === ac_no2) { throw "Cannot transfer to same bank account"}
         let updatedbal1 = 0
         let updatedbal2 = 0
         const bankCollection = await bankac()
         const accounts = await this.getAllAccounts(user_id)
         const acc1 = await this.getAccountByNumber(ac_no1,user_id)
         const acc2 = await this.getAccountByNumber(ac_no2,user_id)
+        if(amount>acc1.ac_bal) { throw "Cannot transfer amount greater than account balance"}
         acc1.ac_bal = acc1.ac_bal - amount
         updatedbal1 = acc1.ac_bal
         acc2.ac_bal = acc2.ac_bal + amount

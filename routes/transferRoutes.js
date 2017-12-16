@@ -23,6 +23,8 @@ router.post("/saveNewTransfer",async(req,res)=>{
     const receiver_bank_account_number = info.selected_bank_account2
     const date = info.dt
     try{
+    if(amount<0) 
+        throw "You cannot add negative transfer amount"
 
     if(!amount)
         throw 'Amount not provided'

@@ -61,6 +61,9 @@ router.post("/saveNewExpense",async(req,res)=>{
         console.log("Selected category is "+expenseInfo.selected_category)
         console.log("Selected bank account is "+bankAccountNumber)
 
+        if(amount<0) 
+            throw "You cannot add negative expense amount"
+
         if(!amount)
             throw 'Amount not specified'
 

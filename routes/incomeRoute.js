@@ -60,6 +60,9 @@ router.post("/saveNewIncome",async(req,res)=>{
         console.log("Date is" + date)
         
     try{
+            if(amount<0) 
+                throw "You cannot add negative income amount"
+
             if(!amount)
                 throw 'Amount not specified'
     
