@@ -134,13 +134,18 @@ router.post("/saveNewIncome",async(req,res)=>{
         console.log(ac_det)
         let ac_no = ac_det.ac_number
         console.log(ac_no)
+
         let deletedTransaction = await transactionData.deleteTransactionById(incomeID)
-       // console.log("Success in deleting")
-       let updateResult = await bankData.updateAccount(req.session.passport.user,ac_no,2,-(tx_det.amount))
-        res.redirect("/income/showAllIncome")
-        
+        // console.log("Success in deleting")
+        try {
+            let updateResult = await bankData.updateAccount(req.session.passport.user,ac_no,2,-(tx_det.amount))
+            res.redirect("/income/showAllIncome")
+        } catch(e) {
+            let getAllIncomes = await transactionData.getAllIncome(req.session.passport.user)
+            res.render("transactions/all_income",{errors: "Bank Account already deleted-- cannot update balance", income: getAllIncomes })
+        }
 
-
+                
 
     })
     module.exports = router

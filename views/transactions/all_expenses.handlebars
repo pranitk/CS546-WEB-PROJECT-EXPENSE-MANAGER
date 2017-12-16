@@ -31,6 +31,8 @@
                         </div>
 
                         <div class="card-body">
+
+                            {{#if expenses}}
                             <div>
                                 {{#each expenses}}
                                     <a href="/expenses/viewExpense/{{ _id }}" id="expense-item" class="list-group-item noSelect"> 
@@ -45,6 +47,12 @@
 
                             
                             </div>
+                            {{else}}
+                                <div class="card-body">
+                                    <p id="msg"> You haven't added any Expenses..Please start adding now! </p>    
+                                    <a href="/expenses/addExpense">  <button id="add_expense" class="btn btn-primary btn-raised" >ADD EXPENSE</button></a>                     
+                                </div>
+                            {{/if}}
 
 
 

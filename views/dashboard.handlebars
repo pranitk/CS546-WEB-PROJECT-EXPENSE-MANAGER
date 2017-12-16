@@ -179,45 +179,13 @@
                     </div>
                     {{/if}}
                         
-                    <div>
+                    {{!-- <div>
                         <form action="/expenses/showAllExpenses">
                         <button id="primary-button3"  type="submit" class="btn btn-primary">View All</button>
                         </form>                        
-                    </div>
+                    </div> --}}
 
                 </div>
-
-            {{!-- <div class="card">
-                    <div id="my-title-container3" class="card-header">
-                            <h5 class="my-card-header-title">EXPENSE BY CATEGORY</h5>
-                    </div>
-
-                    {{#if expensesByCategory}}
-                    <div class="card-body">
-                        {{#each expensesByCategory}}
-                            <a href="/expenses/viewExpense/{{ _id }}" id="expense-item" class="list-group-item"> 
-                                <i class="material-icons">{{category.icon_name}}</i>
-                                <div class="bmd-list-group-col">
-                                    <p class="list-group-item-heading">{{ category.category_name}}</p>
-                                </div>
-                                <span id="amount" class="label label-default label-pill pull-xs-right"><b>${{amount}}</b></span>
-                            </a>
-                        {{/each}}
-                        
-                    </div>
-                    {{else}}
-                    <div class="card-body">
-                        <p id="msg"> You haven't added any Expenses..Please start adding now! </p>                        
-                    </div>
-                    {{/if}}
-                        
-                    <div>
-                        <form action="/expenses/showAllExpenses">
-                        <button id="primary-button3"  type="submit" class="btn btn-primary">View All</button>
-                        </form>                        
-                    </div>
-
-            </div> --}}
 
         
 

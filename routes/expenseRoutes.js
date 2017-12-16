@@ -17,7 +17,7 @@ router.get("/showAllExpenses",async(req,res)=>{
     //res.send(`username ${userData}`);
     res.render("transactions/all_expenses",{ title: "ALL EXPENSES", expenses: allExpenses })
 
-    await transactionData.getSumOfTransactions(username,1)
+    //await transactionData.getSumOfTransactions(username,1)
 })
 
 router.get("/showExpensesByBank/:account_number",async(req,res)=>{
@@ -114,9 +114,110 @@ router.get("/addExpense",async(req,res)=>{
     res.render('transactions/add_expense',{ bank_accounts: bank_accounts , categories: categories })  // handlebar
 })
 
-router.put("/updateExpense",async(req,res)=>{
+router.post("/updateExpense",async(req,res)=>{
+
+    try{
+
+        const username = req.session.passport.user
+        
+            const expenseInfo = req.body
+        
+            const transactionId = expenseInfo.id
+
+            const transaction = await transactionData.getTransactionById(transactionId)
+
+            let oldAmount = transaction.amount
+            const oldBankAccount = transaction.bank_account.ac_number
+
+            let newAmount = expenseInfo.amount
+            const desc = expenseInfo.description
+            const categoryDetails = expenseInfo.selected_category
+            const bankAccountNumber = expenseInfo.selected_bank_account
+            //var oldAmount = expenseInfo.old_amount
+            //const date = expenseInfo.dt
+            console.log("Selected category is "+expenseInfo.selected_category)
+            console.log("Selected bank account is "+bankAccountNumber)
+
+            newAmount = parseFloat(newAmount)
+            oldAmount = parseFloat(oldAmount)
+
+            var updates = {}
+
+            // var updates = {
+            //     user_id: username,
+            //     transaction_id: transactionId
+            // }
+        
+            if(newAmount)
+               updates.amount = newAmount
+        
+            if(desc)
+               updates.desc = desc
+            
+            if(categoryDetails){
+
+                const temp = category_details.split("  ")
+                const icon = temp[0]
+                const name = temp[1]
+
+                updates.category = {
+                    category_name: name,
+                    icon_name: icon
+                }
+            }
+        
+            if(bankAccountNumber){
+                const bank_account = await bankData.getAccountByNumber(bankAccountNumber,username)
+
+                updates.bank_account = bank_account
+            }
+
+            console.log("Updates -> "+JSON.stringify(updates))
+               
+            const result = await transactionData.updateExpense(transactionId,updates)
+            //const result = await transactionData.updateExpense(username,transactionId,1,newAmount,desc,categoryDetails,bankAccountNumber)
+        
+            if(result.modifiedCount === 0)
+                throw 'Update transaction failed'
+
+            
+
+            
+
+                if(oldBankAccount != bankAccountNumber){ // If bank account is changed then make changes accordingly
+
+                    try{
+                        await bankData.updateAccount(username,oldBankAccount,1,-(oldAmount)) // Revert transaction amount from old account
+                
+                    }catch(e){
+                        console.log(e)
+                    } 
+
+                    await bankData.updateAccount(username,bankAccountNumber,1,newAmount)
+                }
+                else{   // bank account not changed so carry out operations on the existing account
+
+                    let difference = newAmount - oldAmount
+                    console.log("Difference "+difference)
+                    if(difference != 0)  // if the amount has been changed then update the bank balance accordingly
+                        updateBankResult = await bankData.updateAccount(username,bankAccountNumber,1,difference)
+
+                }
+
+            
 
 
+            const expense = await transactionData.getTransactionById(transactionId)
+                
+            res.render("transactions/view_expense",{ expense: expense})
+            
+    }catch(e){
+        console.log(e)
+        let bank_accounts = await bankData.getAllAccounts(req.session.passport.user)
+        let all_categories = await categoryData.getAllCategories(req.session.passport.user)
+        res.render("transactions/edit_expense",{errors: e, categories: all_categories, bank_accounts : bank_accounts})
+    }
+    
 
 
 })
@@ -155,15 +256,24 @@ router.post("/addNewCategory",async(req,res) => {
 })
 
 
-router.delete("/delete/:id",async(req,res)=>{
+router.get("/delete/:id",async(req,res)=>{
 
     try{
 
-        const deleteResult = await transactionData.deleteTransactionById(req.params.id)
+        const transaction_id = req.params.id
+        const transaction = await transactionData.getTransactionById(transaction_id)
+        const deleteResult = await transactionData.deleteTransactionById(transaction_id)
 
-        if(!deleteResult){
+        if(deleteResult){
 
-            res.redirect("/showAllExpenses")
+            try {
+                let updateResult = await bankData.updateAccount(req.session.passport.user,transaction.bank_account.ac_number,1,-(transaction.amount))
+                res.redirect("/expenses/showAllExpenses")
+            } catch(e) {
+                let alExpenses = await transactionData.getAllExpenses(req.session.passport.user)
+                res.render("transactions/all_expenses",{errors: "Bank Account already deleted-- cannot update balance", income: allExpenses })
+            }
+    
 
         }
 

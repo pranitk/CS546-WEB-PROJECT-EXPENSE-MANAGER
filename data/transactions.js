@@ -136,6 +136,50 @@ module.exports = {
 
     },
 
+    async updateExpense(transaction_id, updates){
+
+        console.log("Transaction ID "+transaction_id+" -> "+JSON.stringify(updates))
+        const transactionCollection = await transactions()
+        const updatedInfo = await transactionCollection.updateOne({_id:transaction_id},{$set: updates})
+
+        return updatedInfo
+    },
+
+    // async updateExpense(user_id,transaction_id,transaction_type,amount,desc,category_details,account_number){
+
+    //     const temp = category_details.split("  ")
+    //     const category_icon = temp[0]
+    //     const category_name = temp[1]
+
+    //     console.log("Getting bank account for "+account_number)
+    //     const bank_account = await bankData.getAccountByNumber(account_number,user_id)
+
+    //     console.log("Updating transaction in database")
+    //     let transaction = {
+    //         user_id : user_id, 
+    //         transaction_type: transaction_type, // 1 - Expense, 2 - Income
+    //         amount: amount,
+    //         desc: desc,
+    //         //category_name: category_id,
+    //         category:{
+    //             category_name: category_name, // Update this..
+    //             icon_name: category_icon  // Update this..
+    //         },
+    //         //bank_account_number: account_number,
+    //         bank_account:bank_account,
+    //         //date: date
+    //     }
+
+    //     if(transaction_type == 1){  // Expense
+    //         if(bank_account.ac_bal < amount)
+    //             throw 'Expense amount is greater than the existing bank balance' 
+    //     }
+
+    //     const transactionCollection = await transactions()
+    //     const updatedInfo = await transactionCollection.updateOne({_id:transaction_id},{$set: transaction})
+
+    // },
+
     async getTransactionById(id){
 
         if(!id)
@@ -244,21 +288,19 @@ module.exports = {
     },
 
     async deleteTransactionById(transactionId){
+
         if(!transactionId)
             throw "Transaction not found"
 
         const transactionCollection = await transactions()
 
-        //const thatTransaction = await this.getAllIncome()
-        //console.log("I got all Incomes")
-
         const delTransaction = await transactionCollection.removeOne({_id: transactionId})
-        //const result = await bankData.updateAccount(req.session.passport.user,account_number,2,-amount)
+
+
+        if(delTransaction.deletedCount === 0)
+            throw 'Delete transaction failed'
 
         return delTransaction
-
-        
-
     }
 
 
